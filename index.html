@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy IPTV Player - Search Enabled</title>
+    <title>Livefy IPTV Player - Final Fixed</title>
 
     <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
 
@@ -11,7 +11,6 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            /* ছোট প্লেয়ারের জন্য নতুন প্যাডিং (Header + Video + Marquee এর উচ্চতা) */
             padding-top: 350px; 
             background-color: #f4f4f4;
         }
@@ -23,10 +22,10 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 450px; /* <--- ছোট ফ্রেমের প্রস্থ */
+            max-width: 450px; 
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-            border-radius: 0; /* চারকোনা */
+            border-radius: 0; 
             overflow: hidden; 
         }
 
@@ -38,12 +37,12 @@
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
-            border-radius: 0; /* চারকোনা */
+            border-radius: 0; 
         }
         
         #video-container {
             background-color: #000;
-            height: 250px; /* <--- ছোট ফ্রেমের উচ্চতা */
+            height: 250px; 
             position: relative;
         }
 
@@ -51,7 +50,7 @@
         .video-js {
             width: 100%;
             height: 100%;
-            border-radius: 0; /* চারকোনা */
+            border-radius: 0; 
         }
         
         /* --- কাস্টম লোডিং ওয়াটারমার্ক (উপরের ডান কোণে) --- */
@@ -102,7 +101,7 @@
         }
 
 
-        /* --- স্ক্রলিং হেডার স্টাইল --- */
+        /* --- স্ক্রলিং হেডার স্টাইল (যেমন ছিল তেমনই থাকবে) --- */
         .scrolling-header {
             background-color: #333;
             color: white;
@@ -122,13 +121,15 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* --- চ্যানেল লিস্ট স্টাইল --- */
+        /* --- চ্যানেল লিস্ট কন্টেইনার স্টাইল --- */
         .channel-list-container {
-            max-width: 450px; /* প্লেয়ারের প্রস্থের সাথে মিলিয়ে দেওয়া হলো */
+            max-width: 450px; 
             margin: 20px auto; 
             padding: 20px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+            /* নতুন: এই কন্টেইনারটি ফিক্সড সেকশনের নিচে স্ক্রল করবে */
         }
         
         /* সার্চ বার স্টাইল */
@@ -138,8 +139,16 @@
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* Padding যেন উইডথ না বাড়ায় */
+            box-sizing: border-box; 
             font-size: 16px;
+        }
+
+        /* সার্চ লেবেলের জন্য স্টাইল */
+        .search-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
         }
 
         #channel-list {
@@ -148,8 +157,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 10px;
-            max-height: 500px; /* স্ক্রলেবল তালিকা */
-            overflow-y: auto;
+            max-height: 500px; 
+            overflow-y: auto; /* <--- শুধুমাত্র চ্যানেল তালিকা স্ক্রল করবে */
             padding-right: 15px;
         }
 
@@ -162,8 +171,8 @@
             border-radius: 5px;
             transition: background-color 0.3s;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            text-overflow: ellipsis; /* চ্যানেল নাম স্থির রাখতে এটি গুরুত্বপূর্ণ */
+            white-space: nowrap; /* চ্যানেল নাম স্থির রাখতে এটি গুরুত্বপূর্ণ */
         }
 
         .channel-item:hover {
@@ -206,9 +215,10 @@
     </div>
     
     <div class="channel-list-container">
-        <h3>চ্যানেল তালিকা (স্ক্রলেবল)</h3>
+        <h3>চ্যানেল তালিকা</h3>
         
-        <input type="text" id="search-box" placeholder="চ্যানেল খুঁজুন..." onkeyup="filterChannels()">
+        <label for="search-box" class="search-label">🔍 চ্যানেল খুঁজুন</label>
+        <input type="text" id="search-box" placeholder="চ্যানেলের নাম লিখুন..." onkeyup="filterChannels()">
         
         <ul id="channel-list">
             <li>M3U প্লেলিস্ট লোড হচ্ছে...</li>
@@ -228,9 +238,9 @@
         const channelList = document.getElementById('channel-list');
         const overlay = document.getElementById('custom-overlay');
         
-        let allChannels = []; // সমস্ত চ্যানেল ডেটা সংরক্ষণের জন্য অ্যারে
+        let allChannels = []; 
 
-        // প্লেয়ার ইভেন্ট হ্যান্ডলার 
+        // প্লেয়ার ইভেন্ট হ্যান্ডলার (আগের মতোই)
         player.on('waiting', () => {
             overlay.classList.remove('hidden-overlay');
             overlay.innerHTML = '<div class="spinner"></div><div class="loading-text">লোডিং...</div>';
@@ -254,7 +264,7 @@
             }
         }
 
-        // M3U পার্সিং ফাংশন
+        // M3U পার্সিং ফাংশন (আগের মতোই)
         function parseM3U(data) {
             const lines = data.split('\n');
             const channels = [];
@@ -279,7 +289,7 @@
             return channels;
         }
 
-        // প্লেয়ার ফাংশন
+        // প্লেয়ার ফাংশন (আগের মতোই)
         function playChannel(url, name, type) {
             cleanUpPlayer(); 
 
@@ -299,7 +309,7 @@
             document.title = `${name} - Livefy IPTV`;
         }
         
-        // চ্যানেল রেন্ডার ফাংশন
+        // চ্যানেল রেন্ডার ফাংশন (আগের মতোই)
         function renderChannelList(channels) {
             channelList.innerHTML = ''; 
             if (channels.length === 0) {
@@ -320,7 +330,7 @@
             });
         }
         
-        // ******* নতুন সার্চ ফাংশন *******
+        // সার্চ ফাংশন (আগের মতোই)
         window.filterChannels = function() {
             const searchTerm = document.getElementById('search-box').value.toLowerCase();
             
@@ -331,7 +341,7 @@
             renderChannelList(filteredChannels);
         }
 
-        // M3U লোড করা
+        // M3U লোড করা (আগের মতোই)
         fetch(M3U_URL)
             .then(response => {
                 if (!response.ok) {
@@ -340,10 +350,9 @@
                 return response.text();
             })
             .then(data => {
-                allChannels = parseM3U(data); // চ্যানেল ডেটা সংরক্ষণ করা হলো
-                renderChannelList(allChannels); // প্রথমবার সমস্ত চ্যানেল দেখাও
+                allChannels = parseM3U(data); 
+                renderChannelList(allChannels); 
                 
-                // প্রথম চ্যানেলটি স্বয়ংক্রিয়ভাবে প্লে করা
                 if (allChannels.length > 0) {
                     playChannel(allChannels[0].url, allChannels[0].name, allChannels[0].type);
                 }
