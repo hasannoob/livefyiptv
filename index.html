@@ -3,48 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M3U প্লেলিস্ট প্লেয়ার</title>
+    <title>Livefy IPTV Player</title>
+
+    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding-top: 500px; /* ভিডিও কন্টেইনারের উচ্চতার চেয়ে বেশি প্যাডিং, যাতে কন্টেন্ট দেখা যায় */
+            padding-top: 570px; /* ফিক্সড প্লেয়ার এবং হেডার এর জন্য পর্যাপ্ত প্যাডিং */
             background-color: #f4f4f4;
         }
 
-        /* ফিক্সড ভিডিও প্লেয়ারের জন্য স্টাইল */
-        #video-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #000;
-            position: fixed; /* প্লেয়ার ফিক্সড করা হলো */
-            top: 0; /* স্ক্রিনের উপরে সেট করা হলো */
-            left: 50%; /* মাঝখানে আনার জন্য */
-            transform: translateX(-50%); /* মাঝখানে আনার জন্য */
-            z-index: 1000; /* অন্য কন্টেন্টের উপরে রাখার জন্য */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* প্লেয়ারের উচ্চতা নির্ধারণ করা হলো */
-            height: 480px; 
-        }
-
-        #video-player {
-            width: 100%;
-            height: 100%; /* কন্টেইনারের পুরো উচ্চতা নেবে */
-            display: block;
-        }
-
-        /* স্ক্রলিং হেডার স্টাইল (ভিডিও প্লেয়ারের ঠিক নিচে) */
-        .scrolling-header-wrapper {
-            position: fixed; /* স্ক্রলিং হেডারকেও ফিক্সড করা হলো */
-            top: 480px; /* ভিডিও প্লেয়ারের উচ্চতার নিচে সেট করা হলো */
+        /* --- ফিক্সড ভিডিও প্লেয়ার এবং হেডার এর স্টাইল --- */
+        #fixed-top-section {
+            position: fixed;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 900px;
-            z-index: 999;
+            max-width: 900px; /* প্লেয়ারের সর্বাধিক প্রস্থ */
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* ভিডিও প্লেয়ারের উপর "Livefy IPTV" হেডার */
+        .player-header {
+            background-color: #ff4500; /* আকর্ষণীয় রং */
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* Video.js প্লেয়ার কন্টেইনার */
+        #video-container {
+            background-color: #000;
+            /* উচ্চতা নির্ধারণ করা হলো */
+            height: 480px; 
+        }
+
+        /* Video.js কাস্টম ক্লাস */
+        .video-js {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- স্ক্রলিং হেডার স্টাইল --- */
         .scrolling-header {
             background-color: #333;
             color: white;
@@ -64,25 +70,24 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* চ্যানেল লিস্ট কন্টেইনার স্টাইল */
+        /* --- চ্যানেল লিস্ট স্টাইল --- */
         .channel-list-container {
             max-width: 900px;
-            margin: 40px auto 20px auto; /* প্লেয়ার ও স্ক্রলিং হেডারের নিচে স্পেস তৈরি করা হলো */
+            margin: 20px auto; 
             padding: 20px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
-        /* চ্যানেল লিস্টকে স্ক্রল করার ব্যবস্থা */
         #channel-list {
             list-style: none;
             padding: 0;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 10px;
-            max-height: 500px; /* একটি নির্দিষ্ট উচ্চতা নির্ধারণ করা হলো */
-            overflow-y: auto; /* উল্লম্ব স্ক্রলিং সক্ষম করা হলো */
-            padding-right: 15px; /* স্ক্রলবারের জন্য জায়গা */
+            max-height: 500px; /* স্ক্রলিং সক্ষম */
+            overflow-y: auto;
+            padding-right: 15px;
         }
 
         .channel-item {
@@ -105,13 +110,26 @@
 </head>
 <body>
 
-    <div id="video-container">
-        <video id="video-player" controls poster="">
-            আপনার ব্রাউজার ভিডিও ট্যাগ সমর্থন করে না।
-        </video>
-    </div>
+    <div id="fixed-top-section">
+        <div class="player-header">
+            📺 Livefy IPTV
+        </div>
+        
+        <div id="video-container">
+            <video
+                id="my-video"
+                class="video-js vjs-big-play-centered"
+                controls
+                preload="auto"
+                poster="[attachment_0](attachment)"
+                data-setup="{}"
+            >
+                <p class="vjs-no-js">
+                    ভিডিও দেখার জন্য জাভাস্ক্রিপ্ট সক্রিয় করুন।
+                </p>
+            </video>
+        </div>
 
-    <div class="scrolling-header-wrapper">
         <div class="scrolling-header">
             <div class="marquee-text">
                 **স্বাগতম!** এটি একটি স্ক্রলিং নোটিশ বার। যেকোনো গুরুত্বপূর্ণ তথ্য এখানে স্ক্রল করানো যাবে।
@@ -123,26 +141,23 @@
         <h3>চ্যানেল তালিকা (স্ক্রলেবল)</h3>
         <ul id="channel-list">
             <li>M3U প্লেলিস্ট লোড হচ্ছে...</li>
-            <li>চ্যানেল আইটেম ১</li>
-            <li>চ্যানেল আইটেম ২</li>
-            <li>চ্যানেল আইটেম ৩</li>
-            <li>চ্যানেল আইটেম ৪</li>
-            <li>চ্যানেল আইটেম ৫</li>
-            <li>চ্যানেল আইটেম ৬</li>
-            <li>চ্যানেল আইটেম ৭</li>
-            <li>চ্যানেল আইটেম ৮</li>
-            <li>চ্যানেল আইটেম ৯</li>
-            <li>চ্যানেল আইটেম ১০</li>
         </ul>
     </div>
 
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
+
     <script>
         // আপনার M3U প্লেলিস্টের লিংক
-        const M3U_URL = 'https://raw.githubusercontent.com/hasannoob/Tofee-Playlist/refs/heads/main/Toffee_Livefy_tv.m3u'; // <-- এইখানে আপনার লিংক দিন
+        const M3U_URL = 'M3U_প্লেলিস্টের_লিঙ্ক_এখানে_দিন'; // <-- অবশ্যই আপনার আসল লিংক দিন
 
-        const videoPlayer = document.getElementById('video-player');
+        // Video.js প্লেয়ার ইনিশিয়ালাইজ করুন
+        const player = videojs('my-video');
         const channelList = document.getElementById('channel-list');
 
+        /**
+         * M3U ফাইল পার্স করার ফাংশন
+         */
         function parseM3U(data) {
             const lines = data.split('\n');
             const channels = [];
@@ -156,6 +171,9 @@
                     }
                 } else if (line.startsWith('http')) {
                     currentChannel.url = line.trim();
+                    // M3U8 ফরম্যাট নিশ্চিত করা
+                    currentChannel.type = (currentChannel.url.includes('.m3u8')) ? 'application/x-mpegURL' : 'video/mp4'; 
+                    
                     if (currentChannel.name && currentChannel.url) {
                         channels.push(currentChannel);
                     }
@@ -165,6 +183,24 @@
             return channels;
         }
 
+        /**
+         * ভিডিও প্লেয়ারের সোর্স পরিবর্তন এবং প্লে করার ফাংশন
+         */
+        function playChannel(url, name, type) {
+            player.src({
+                src: url,
+                type: type // HLS (M3U8) এর জন্য 'application/x-mpegURL' টাইপ সেট করা হয়েছে
+            });
+            player.play().catch(error => {
+                console.error("ভিডিও প্লে করতে ব্যর্থ:", error);
+                // অটো-প্লে ব্লক হলে ম্যানুয়াল প্লে করার জন্য অনুরোধ
+            });
+            document.title = `${name} - Livefy IPTV`;
+        }
+        
+        /**
+         * চ্যানেল লিস্ট রেন্ডার করার ফাংশন
+         */
         function renderChannelList(channels) {
             channelList.innerHTML = ''; 
             if (channels.length === 0) {
@@ -176,28 +212,18 @@
                 const listItem = document.createElement('li');
                 listItem.className = 'channel-item';
                 listItem.textContent = channel.name;
-                listItem.dataset.url = channel.url;
 
                 listItem.addEventListener('click', () => {
-                    playChannel(channel.url, channel.name);
+                    playChannel(channel.url, channel.name, channel.type);
                 });
 
                 channelList.appendChild(listItem);
             });
             
+            // প্রথম চ্যানেলটি স্বয়ংক্রিয়ভাবে প্লে করা
             if (channels.length > 0) {
-                playChannel(channels[0].url, channels[0].name);
+                playChannel(channels[0].url, channels[0].name, channels[0].type);
             }
-        }
-
-        function playChannel(url, name) {
-            videoPlayer.src = url;
-            videoPlayer.load();
-            videoPlayer.play().catch(error => {
-                console.error("ভিডিও প্লে করতে ব্যর্থ:", error);
-                // alert(`"${name}" চ্যানেলটি প্লে করা সম্ভব হয়নি। অনুগ্রহ করে ম্যানুয়ালি প্লে করুন।`);
-            });
-            document.title = `${name} - M3U প্লেয়ার`;
         }
 
 
