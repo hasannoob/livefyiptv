@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3U প্লেলিস্ট প্লেয়ার</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 500px; /* ভিডিও কন্টেইনারের উচ্চতার চেয়ে বেশি প্যাডিং, যাতে কন্টেন্ট দেখা যায় */
+            background-color: #f4f4f4;
+        }
+
+        /* ফিক্সড ভিডিও প্লেয়ারের জন্য স্টাইল */
+        #video-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #000;
+            position: fixed; /* প্লেয়ার ফিক্সড করা হলো */
+            top: 0; /* স্ক্রিনের উপরে সেট করা হলো */
+            left: 50%; /* মাঝখানে আনার জন্য */
+            transform: translateX(-50%); /* মাঝখানে আনার জন্য */
+            z-index: 1000; /* অন্য কন্টেন্টের উপরে রাখার জন্য */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* প্লেয়ারের উচ্চতা নির্ধারণ করা হলো */
+            height: 480px; 
+        }
+
+        #video-player {
+            width: 100%;
+            height: 100%; /* কন্টেইনারের পুরো উচ্চতা নেবে */
+            display: block;
+        }
+
+        /* স্ক্রলিং হেডার স্টাইল (ভিডিও প্লেয়ারের ঠিক নিচে) */
+        .scrolling-header-wrapper {
+            position: fixed; /* স্ক্রলিং হেডারকেও ফিক্সড করা হলো */
+            top: 480px; /* ভিডিও প্লেয়ারের উচ্চতার নিচে সেট করা হলো */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 900px;
+            z-index: 999;
+        }
+
+        .scrolling-header {
+            background-color: #333;
+            color: white;
+            padding: 5px 0;
+            overflow: hidden; 
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* চ্যানেল লিস্ট কন্টেইনার স্টাইল */
+        .channel-list-container {
+            max-width: 900px;
+            margin: 40px auto 20px auto; /* প্লেয়ার ও স্ক্রলিং হেডারের নিচে স্পেস তৈরি করা হলো */
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* চ্যানেল লিস্টকে স্ক্রল করার ব্যবস্থা */
+        #channel-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            max-height: 500px; /* একটি নির্দিষ্ট উচ্চতা নির্ধারণ করা হলো */
+            overflow-y: auto; /* উল্লম্ব স্ক্রলিং সক্ষম করা হলো */
+            padding-right: 15px; /* স্ক্রলবারের জন্য জায়গা */
+        }
+
+        .channel-item {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .channel-item:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-container">
+        <video id="video-player" controls poster="">
+            আপনার ব্রাউজার ভিডিও ট্যাগ সমর্থন করে না।
+        </video>
+    </div>
+
+    <div class="scrolling-header-wrapper">
+        <div class="scrolling-header">
+            <div class="marquee-text">
+                **স্বাগতম!** এটি একটি স্ক্রলিং নোটিশ বার। যেকোনো গুরুত্বপূর্ণ তথ্য এখানে স্ক্রল করানো যাবে।
+            </div>
+        </div>
+    </div>
+    
+    <div class="channel-list-container">
+        <h3>চ্যানেল তালিকা (স্ক্রলেবল)</h3>
+        <ul id="channel-list">
+            <li>M3U প্লেলিস্ট লোড হচ্ছে...</li>
+            <li>চ্যানেল আইটেম ১</li>
+            <li>চ্যানেল আইটেম ২</li>
+            <li>চ্যানেল আইটেম ৩</li>
+            <li>চ্যানেল আইটেম ৪</li>
+            <li>চ্যানেল আইটেম ৫</li>
+            <li>চ্যানেল আইটেম ৬</li>
+            <li>চ্যানেল আইটেম ৭</li>
+            <li>চ্যানেল আইটেম ৮</li>
+            <li>চ্যানেল আইটেম ৯</li>
+            <li>চ্যানেল আইটেম ১০</li>
+        </ul>
+    </div>
+
+    <script>
+        // আপনার M3U প্লেলিস্টের লিংক
+        const M3U_URL = 'https://raw.githubusercontent.com/hasannoob/Tofee-Playlist/refs/heads/main/Toffee_Livefy_tv.m3u'; // <-- এইখানে আপনার লিংক দিন
+
+        const videoPlayer = document.getElementById('video-player');
+        const channelList = document.getElementById('channel-list');
+
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            let currentChannel = {};
+
+            for (const line of lines) {
+                if (line.startsWith('#EXTINF:')) {
+                    const nameMatch = line.match(/,(.*)/);
+                    if (nameMatch && nameMatch[1]) {
+                        currentChannel.name = nameMatch[1].trim();
+                    }
+                } else if (line.startsWith('http')) {
+                    currentChannel.url = line.trim();
+                    if (currentChannel.name && currentChannel.url) {
+                        channels.push(currentChannel);
+                    }
+                    currentChannel = {};
+                }
+            }
+            return channels;
+        }
+
+        function renderChannelList(channels) {
+            channelList.innerHTML = ''; 
+            if (channels.length === 0) {
+                channelList.innerHTML = '<li>কোনো চ্যানেল পাওয়া যায়নি।</li>';
+                return;
+            }
+
+            channels.forEach(channel => {
+                const listItem = document.createElement('li');
+                listItem.className = 'channel-item';
+                listItem.textContent = channel.name;
+                listItem.dataset.url = channel.url;
+
+                listItem.addEventListener('click', () => {
+                    playChannel(channel.url, channel.name);
+                });
+
+                channelList.appendChild(listItem);
+            });
+            
+            if (channels.length > 0) {
+                playChannel(channels[0].url, channels[0].name);
+            }
+        }
+
+        function playChannel(url, name) {
+            videoPlayer.src = url;
+            videoPlayer.load();
+            videoPlayer.play().catch(error => {
+                console.error("ভিডিও প্লে করতে ব্যর্থ:", error);
+                // alert(`"${name}" চ্যানেলটি প্লে করা সম্ভব হয়নি। অনুগ্রহ করে ম্যানুয়ালি প্লে করুন।`);
+            });
+            document.title = `${name} - M3U প্লেয়ার`;
+        }
+
+
+        // M3U প্লেলিস্ট লোড করা
+        fetch(M3U_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ত্রুটি: ${response.status}. ফাইল লোড হয়নি।`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                const channels = parseM3U(data);
+                renderChannelList(channels);
+            })
+            .catch(error => {
+                console.error("M3U লোড করার সময় ত্রুটি:", error);
+                channelList.innerHTML = `<li><span style="color: red;">ত্রুটি:</span> M3U প্লেলিস্ট লোড করা যায়নি। CORS বা লিঙ্ক চেক করুন।</li>`;
+            });
+
+    </script>
+</body>
+</html>
