@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy IPTV Player - Premium</title>
+    <title>Livefy IPTV Player - Fixed Corner Watermark</title>
 
     <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
 
@@ -11,7 +11,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding-top: 570px; 
+            padding-top: 570px; /* ফিক্সড সেকশনের জন্য পর্যাপ্ত প্যাডিং */
             background-color: #f4f4f4;
         }
 
@@ -24,22 +24,14 @@
             width: 100%;
             max-width: 900px;
             z-index: 1000;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); /* আরও প্রিমিয়াম শ্যাডো */
-            border-radius: 15px; /* ফিক্সড সেকশনকে রাউন্ড করা হলো */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+            border-radius: 0; /* চারকোনা করা হলো */
             overflow: hidden; 
             
-            /* অ্যানিমেশন যোগ করার জন্য প্রারম্ভিক স্টাইল */
-            border: 3px solid transparent; 
-            animation: glowing-border 5s infinite alternate; /* অ্যানিমেশন যুক্ত করা হলো */
+            /* অ্যানিমেশন সরানো হলো - যদি চান, আবার যোগ করতে পারেন */
+            border: none; 
+            animation: none;
         }
-        
-        /* বর্ডার অ্যানিমেশন */
-        @keyframes glowing-border {
-            0% { border-color: #ff4500; box-shadow: 0 8px 30px rgba(255, 69, 0, 0.4); }
-            50% { border-color: #007bff; box-shadow: 0 8px 30px rgba(0, 123, 255, 0.4); }
-            100% { border-color: #28a745; box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4); }
-        }
-
 
         .player-header {
             background-color: #dc3545;
@@ -49,13 +41,12 @@
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
-            /* Header এর নিচের কোণ প্লেয়ারের সাথে মিশে যাবে */
-            border-radius: 12px 12px 0 0;
+            border-radius: 0; /* চারকোনা করা হলো */
         }
         
         #video-container {
             background-color: #000;
-            height: 480px; 
+            height: 480px; /* ভিডিও প্লেয়ারের আকার ঠিক রাখা হলো */
             position: relative;
         }
 
@@ -63,34 +54,58 @@
         .video-js {
             width: 100%;
             height: 100%;
-            /* প্লেয়ারের নিচের কোণ রাউন্ড করা হলো */
-            border-radius: 0 0 12px 12px; 
+            border-radius: 0; /* চারকোনা করা হলো */
         }
-
-        /* --- কাস্টম লোডিং ওয়াটারমার্ক স্টাইল (আগের মতোই) --- */
+        
+        /* --- কাস্টম লোডিং ওয়াটারমার্ক স্টাইল --- */
         #custom-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* সামান্য গাঢ় করা হলো */
+            top: 5px; /* উপরের দিকে সরালো হলো */
+            right: 5px; /* ডান দিকে সরালো হলো */
+            width: auto; /* কন্টেন্টের আকার অনুযায়ী সাইজ হবে */
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.7); /* ব্যাকগ্রাউন্ড কিছুটা স্বচ্ছ করা হলো */
             color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            font-size: 30px;
+            flex-direction: row; /* পাশাপাশি দেখানোর জন্য */
+            font-size: 14px;
             font-weight: bold;
             opacity: 1;
             transition: opacity 0.5s;
             z-index: 99; 
             pointer-events: none;
-            /* ওভারলে-কেও রাউন্ড করা হলো */
-            border-radius: 0 0 12px 12px; 
         }
         
-        /* --- অন্যান্য স্টাইল (স্ক্রলিং হেডার, চ্যানেল লিস্ট) অপরিবর্তিত --- */
+        .loading-text {
+            font-size: 14px;
+            margin-left: 5px; /* স্পিনারের পাশে সামান্য ফাঁকা */
+            color: #ccc;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #dc3545;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden-overlay {
+            opacity: 0 !important;
+        }
+
+
+        /* --- স্ক্রলিং হেডার এবং চ্যানেল লিস্ট স্টাইল --- */
         .scrolling-header {
             background-color: #333;
             color: white;
@@ -148,6 +163,7 @@
     </style>
 </head>
 <body>
+
     <div id="fixed-top-section">
         <div class="player-header">
             📺 Livefy IPTV
@@ -203,24 +219,34 @@
         const overlay = document.getElementById('custom-overlay');
         const overlayText = document.getElementById('overlay-text');
         
-        // প্লেয়ার ইভেন্ট হ্যান্ডলার (আগের মতোই)
+        // প্লেয়ার ইভেন্ট হ্যান্ডলার 
         player.on('waiting', () => {
+            // লোডিং শুরু হলে
             overlay.classList.remove('hidden-overlay');
-            overlayText.innerHTML = 'লোডিং... <br> (বাফারিং)';
+            // লোডিং অপশন দেখানো
+            overlay.innerHTML = '<div class="spinner"></div><div class="loading-text">লোডিং...</div>';
         });
 
         player.on('playing', () => {
-            overlay.classList.add('hidden-overlay');
-            overlayText.innerHTML = 'Livefy IPTV';
+            // প্লে শুরু হলে বাফারিং শেষ
+            overlay.classList.remove('hidden-overlay');
+            // ওয়াটারমার্ক দেখানো
+            overlay.innerHTML = '<div class="loading-text" style="margin:0; color: #fff;">LIVEFY IPTV</div>'; 
         });
 
         player.on('loadeddata', () => {
-             overlay.classList.add('hidden-overlay');
-             overlayText.innerHTML = 'Livefy IPTV';
+             // ডেটা লোড হওয়ার পরে (ঐচ্ছিকভাবে হাইড করা যেতে পারে, তবে আমরা এখানে ওয়াটারমার্ক দেখাবো)
+             overlay.classList.remove('hidden-overlay');
+             overlay.innerHTML = '<div class="loading-text" style="margin:0; color: #fff;">LIVEFY IPTV</div>';
+        });
+
+        player.on('pause', () => {
+            // পজ করলে লোডিং ওভারলে হাইড
+            overlay.classList.add('hidden-overlay');
         });
         
+        // পার্সিং ও অন্যান্য ফাংশন (আগের মতোই)
         function parseM3U(data) {
-            // এই ফাংশনটি আগের মতোই M3U পার্স করবে
             const lines = data.split('\n');
             const channels = [];
             let currentChannel = {};
@@ -245,8 +271,9 @@
         }
 
         function playChannel(url, name, type) {
-            document.getElementById('overlay-text').innerHTML = 'লোডিং...';
+            // নতুন চ্যানেল লোডিং শুরু
             overlay.classList.remove('hidden-overlay');
+            overlay.innerHTML = '<div class="spinner"></div><div class="loading-text">লোডিং...</div>';
 
             player.pause();
             player.src({
@@ -256,6 +283,8 @@
             player.load();
             player.play().catch(error => {
                 console.error("ভিডিও প্লে করতে ব্যর্থ:", error);
+                // প্লে ফেইল হলে স্ট্যাটিক ওয়াটারমার্ক দেখাবে
+                overlay.innerHTML = '<div class="loading-text" style="margin:0; color: yellow;">প্লে করতে ব্যর্থ</div>';
             });
             document.title = `${name} - Livefy IPTV`;
         }
@@ -300,7 +329,7 @@
             .catch(error => {
                 console.error("M3U লোড করার সময় ত্রুটি:", error);
                 channelList.innerHTML = `<li><span style="color: red;">ত্রুটি:</span> M3U প্লেলিস্ট লোড করা যায়নি। CORS বা লিঙ্ক চেক করুন।</li>`;
-                document.getElementById('overlay-text').innerHTML = 'লোড হয়নি।';
+                overlay.innerHTML = '<div class="loading-text" style="margin:0; color: red;">লোড হয়নি।</div>';
             });
             
         document.querySelector('.resolution-button').addEventListener('click', function() {
