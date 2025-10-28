@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy IPTV Player - Enhanced</title>
+    <title>Livefy IPTV Player - Search Enabled</title>
 
     <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
 
@@ -11,6 +11,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            /* ছোট প্লেয়ারের জন্য নতুন প্যাডিং (Header + Video + Marquee এর উচ্চতা) */
             padding-top: 350px; 
             background-color: #f4f4f4;
         }
@@ -22,10 +23,10 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 450px; 
+            max-width: 450px; /* <--- ছোট ফ্রেমের প্রস্থ */
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-            border-radius: 0; 
+            border-radius: 0; /* চারকোনা */
             overflow: hidden; 
         }
 
@@ -37,12 +38,12 @@
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
-            border-radius: 0; 
+            border-radius: 0; /* চারকোনা */
         }
         
         #video-container {
             background-color: #000;
-            height: 250px; 
+            height: 250px; /* <--- ছোট ফ্রেমের উচ্চতা */
             position: relative;
         }
 
@@ -50,8 +51,7 @@
         .video-js {
             width: 100%;
             height: 100%;
-            border-radius: 0; 
-            /* Video.js এর ডিফল্ট কন্ট্রোলসকে আরো সুন্দর দেখাতে চাইলে এখানে স্টাইল যোগ করতে পারেন */
+            border-radius: 0; /* চারকোনা */
         }
         
         /* --- কাস্টম লোডিং ওয়াটারমার্ক (উপরের ডান কোণে) --- */
@@ -92,7 +92,7 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin { /* keyframes এর আগে @ যোগ করা হয়েছে */
+        @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -117,27 +117,38 @@
             animation: marquee 15s linear infinite;
         }
 
-        @keyframes marquee { /* keyframes এর আগে @ যোগ করা হয়েছে */
+        @keyframes marquee {
             0%   { transform: translate(0, 0); }
             100% { transform: translate(-100%, 0); }
         }
 
         /* --- চ্যানেল লিস্ট স্টাইল --- */
         .channel-list-container {
-            max-width: 450px; 
+            max-width: 450px; /* প্লেয়ারের প্রস্থের সাথে মিলিয়ে দেওয়া হলো */
             margin: 20px auto; 
             padding: 20px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
+        /* সার্চ বার স্টাইল */
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Padding যেন উইডথ না বাড়ায় */
+            font-size: 16px;
+        }
+
         #channel-list {
             list-style: none;
             padding: 0;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 10px;
-            max-height: 500px; 
+            max-height: 500px; /* স্ক্রলেবল তালিকা */
             overflow-y: auto;
             padding-right: 15px;
         }
@@ -178,14 +189,14 @@
                 class="video-js vjs-big-play-centered"
                 controls
                 preload="auto"
-                poster="https://i.ibb.co/L50n92S/Live-TV-Streaming-Icon.png" data-setup="{}"
+                poster="https://i.ibb.co/L50n92S/Live-TV-Streaming-Icon.png" 
+                data-setup="{}"
             >
                 <p class="vjs-no-js">
                     ভিডিও দেখার জন্য জাভাস্ক্রিপ্ট সক্রিয় করুন।
                 </p>
             </video>
-
-            </div>
+        </div>
 
         <div class="scrolling-header">
             <div class="marquee-text">
@@ -196,6 +207,9 @@
     
     <div class="channel-list-container">
         <h3>চ্যানেল তালিকা (স্ক্রলেবল)</h3>
+        
+        <input type="text" id="search-box" placeholder="চ্যানেল খুঁজুন..." onkeyup="filterChannels()">
+        
         <ul id="channel-list">
             <li>M3U প্লেলিস্ট লোড হচ্ছে...</li>
         </ul>
@@ -214,6 +228,8 @@
         const channelList = document.getElementById('channel-list');
         const overlay = document.getElementById('custom-overlay');
         
+        let allChannels = []; // সমস্ত চ্যানেল ডেটা সংরক্ষণের জন্য অ্যারে
+
         // প্লেয়ার ইভেন্ট হ্যান্ডলার 
         player.on('waiting', () => {
             overlay.classList.remove('hidden-overlay');
@@ -229,13 +245,12 @@
             overlay.classList.add('hidden-overlay');
         });
         
-        // ******* গুরুত্বপূর্ণ: ভিডিও প্লেয়ার রিসোর্স পরিষ্কার করার ফাংশন *******
+        // ভিডিও প্লেয়ার রিসোর্স পরিষ্কার করার ফাংশন
         function cleanUpPlayer() {
             if (player) {
-                // প্লেয়ার লোড করা কোনো সোর্স থাকলে তা সরিয়ে দেয়
                 player.src({ src: '', type: 'video/mp4' }); 
-                player.poster(''); // পোস্টার ইমেজ মুছে ফেলা
-                player.load(); // নতুন করে লোড করার জন্য প্রস্তুত
+                player.poster('');
+                player.load();
             }
         }
 
@@ -246,7 +261,6 @@
             let currentChannel = {};
 
             for (const line of lines) {
-                // `startswith` জাভাস্ক্রিপ্টে একটি প্রপার্টি নয়, এটি একটি মেথড। `line.startsWith()` হবে।
                 if (line.startsWith('#EXTINF:')) {
                     const nameMatch = line.match(/,(.*)/);
                     if (nameMatch && nameMatch[1]) {
@@ -267,7 +281,6 @@
 
         // প্লেয়ার ফাংশন
         function playChannel(url, name, type) {
-            // নতুন চ্যানেল লোড করার আগে প্লেয়ার রিসোর্স পরিষ্কার করা
             cleanUpPlayer(); 
 
             overlay.classList.remove('hidden-overlay');
@@ -305,38 +318,41 @@
 
                 channelList.appendChild(listItem);
             });
-            
-            // প্রথম চ্যানেলটি স্বয়ংক্রিয়ভাবে প্লে করা
-            if (channels.length > 0) {
-                playChannel(channels[0].url, channels[0].name, channels[0].type);
-            }
         }
-
+        
+        // ******* নতুন সার্চ ফাংশন *******
+        window.filterChannels = function() {
+            const searchTerm = document.getElementById('search-box').value.toLowerCase();
+            
+            const filteredChannels = allChannels.filter(channel => 
+                channel.name.toLowerCase().includes(searchTerm)
+            );
+            
+            renderChannelList(filteredChannels);
+        }
 
         // M3U লোড করা
         fetch(M3U_URL)
             .then(response => {
-                // `error` জাভাস্ক্রিপ্টে একটি গ্লোবাল কনস্ট্রাক্টর, `new Error()` ব্যবহার করা উচিত।
                 if (!response.ok) {
                     throw new Error(`HTTP ত্রুটি: ${response.status}. ফাইল লোড হয়নি।`);
                 }
                 return response.text();
             })
             .then(data => {
-                const channels = parseM3U(data);
-                renderChannelList(channels);
+                allChannels = parseM3U(data); // চ্যানেল ডেটা সংরক্ষণ করা হলো
+                renderChannelList(allChannels); // প্রথমবার সমস্ত চ্যানেল দেখাও
+                
+                // প্রথম চ্যানেলটি স্বয়ংক্রিয়ভাবে প্লে করা
+                if (allChannels.length > 0) {
+                    playChannel(allChannels[0].url, allChannels[0].name, allChannels[0].type);
+                }
             })
             .catch(error => {
                 console.error("M3U লোড করার সময় ত্রুটি:", error);
                 channelList.innerHTML = `<li><span style="color: red;">ত্রুটি:</span> M3U প্লেলিস্ট লোড করা যায়নি। CORS বা লিঙ্ক চেক করুন।</li>`;
                 overlay.innerHTML = '<div class="loading-text" style="margin:0; color: red;">লোড হয়নি।</div>';
             });
-            
-        // কোয়ালিটি অপশন বাটন সরানো হয়েছে, তাই এই ইভেন্ট লিসেনারটির দরকার নেই।
-        // document.querySelector('.resolution-button').addEventListener('click', function() {
-        //     alert('Video.js HLS স্ট্রিমে প্লেয়ার কন্ট্রোলের মধ্যে কোয়ালিটি সেটিংস দেখাবে।');
-        // });
-
     </script>
 </body>
 </html>
