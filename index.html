@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy IPTV Player - Final Fixed Channel List</title>
+    <title>Livefy IPTV Player - Final Channel Name Fix</title>
 
     <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
     
@@ -93,24 +93,25 @@
         .channel-item {
             background-color: #007bff;
             color: white;
-            padding: 10px;
+            /* উপরে ও নিচে প্যাডিং আরও বাড়ানো হলো যাতে লেখাগুলো কাটতে না পারে */
+            padding: 10px 10px; 
             text-align: center;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
             
-            /* মাল্টি-লাইন টেক্সট ফিক্স: */
+            /* মাল্টি-লাইন ফিক্স */
             overflow: hidden;
             text-overflow: ellipsis;
-            /* সাদা স্পেস এখন স্বাভাবিকভাবে লাইন ভাঙার অনুমতি দেবে */
             white-space: normal; 
             
-            /* 2-লাইন ফিক্সের জন্য: */
+            /* মাল্টি-লাইন ট্রাঙ্কেশন */
             display: -webkit-box;
             -webkit-line-clamp: 2; /* টেক্সটকে সর্বোচ্চ 2 লাইনে সীমাবদ্ধ করবে */
             -webkit-box-orient: vertical;
-            line-height: 1.2; /* প্রতি লাইনের উচ্চতা সেট করুন */
-            max-height: 2.4em; /* (line-height * lines) = 1.2 * 2 = 2.4em */
+            line-height: 1.25; /* লাইন উচ্চতা সেট করা হলো */
+            /* max-height অ্যাডজাস্ট করা হলো: 1.25 * 2 = 2.5em, প্যাডিং যোগ করে */
+            max-height: 2.5em; 
         }
 
         .channel-item:hover {
