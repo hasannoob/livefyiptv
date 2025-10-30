@@ -10,71 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-top: 0; 
-            background-color: #f4f4f4;
-        }
-
-        /* --- ফিক্সড পুরো সেকশন (প্লেয়ার + চ্যানেল লিস্ট) --- */
-        #fixed-top-section {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 450px; 
-            height: 100vh; 
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-            border-radius: 0; 
-            overflow: hidden; 
-        }
-
-        .player-header {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            border-radius: 0; 
-        }
-        
-        #video-container {
-            background-color: #000;
-            height: 250px; 
-            position: relative;
-        }
-
-        /* স্ক্রলিং হেডার স্টাইল */
-        .scrolling-header { 
-            background-color: #333; 
-            color: white; 
-            padding: 5px 0; 
-            overflow: hidden; 
-            white-space: nowrap; 
-        }
-
-        /* --- চ্যানেল লিস্ট কন্টেইনার স্টাইল (ফিক্সড সেকশনের ভেতরে) --- */
-        .channel-list-container { 
-            width: 100%;
-            height: calc(100vh - 250px - 44px - 30px); 
-            padding: 20px;
-            background-color: white;
-            box-sizing: border-box; 
-            display: flex;
-            flex-direction: column; 
-        }
-        
-        /* সার্চ বার এবং ইনফো বার স্টাইল (ফিক্সড) */
-        .search-label, #search-box, #channel-info-bar {
-            flex-shrink: 0; 
-        }
-
-        /* --- চ্যানেল লিস্ট স্টাইল (স্ক্রলেবল) --- */
+        /* [পূর্বের স্টাইল অপরিবর্তিত] */
+        body { font-family: Arial, sans-serif; margin: 0; padding-top: 0; background-color: #f4f4f4; }
+        #fixed-top-section { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; height: 100vh; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); border-radius: 0; overflow: hidden; }
+        .player-header { background-color: #dc3545; color: white; padding: 10px 20px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 1px; border-radius: 0; }
+        #video-container { background-color: #000; height: 250px; position: relative; }
+        .scrolling-header { background-color: #333; color: white; padding: 5px 0; overflow: hidden; white-space: nowrap; }
+        .channel-list-container { width: 100%; height: calc(100vh - 250px - 44px - 30px); padding: 20px; background-color: white; box-sizing: border-box; display: flex; flex-direction: column; }
+        .search-label, #search-box, #channel-info-bar { flex-shrink: 0; }
         #channel-list {
             list-style: none;
             padding: 0;
@@ -88,39 +31,41 @@
         }
 
         /* ******************************************** */
-        /* --- গুরুত্বপূর্ণ পরিবর্তন: চ্যানেল আইটেম স্টাইল --- */
+        /* ✅ চ্যানেল নামের ফিক্সড স্টাইল: সর্বোচ্চ ২ লাইন */
         /* ******************************************** */
         .channel-item {
             background-color: #007bff;
             color: white;
-            /* উপরে ও নিচে প্যাডিং আরও বাড়ানো হলো যাতে লেখাগুলো কাটতে না পারে */
             padding: 10px 10px; 
             text-align: center;
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
             
-            /* মাল্টি-লাইন ফিক্স */
+            /* নামগুলোকে একটি নির্দিষ্ট উচ্চতার মধ্যে সীমাবদ্ধ রাখার জন্য */
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal; 
             
-            /* মাল্টি-লাইন ট্রাঙ্কেশন */
+            /* মাল্টি-লাইন ট্রাঙ্কেশন প্রপার্টি */
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* টেক্সটকে সর্বোচ্চ 2 লাইনে সীমাবদ্ধ করবে */
+            -webkit-line-clamp: 2; /* **টেক্সটকে সর্বোচ্চ 2 লাইনে সীমাবদ্ধ করবে** */
             -webkit-box-orient: vertical;
-            line-height: 1.25; /* লাইন উচ্চতা সেট করা হলো */
-            /* max-height অ্যাডজাস্ট করা হলো: 1.25 * 2 = 2.5em, প্যাডিং যোগ করে */
+            
+            /* লাইন উচ্চতা সেট করা হলো, যা মাল্টি-লাইন ট্রাঙ্কেশনকে সাহায্য করে */
+            line-height: 1.25em; 
+            
+            /* সর্বোচ্চ উচ্চতা সেট করা: (1.25em x 2 লাইন) */
             max-height: 2.5em; 
+            
+            /* অতিরিক্ত লাইন কেটে যাক */
+            text-overflow: ellipsis; 
+            white-space: normal; /* টেক্সটকে পরের লাইনে যাওয়ার অনুমতি দেয় */
         }
 
         .channel-item:hover {
             background-color: #0056b3;
         }
         /* ******************************************** */
-        /* ******************************************** */
-
-        /* অন্যান্য স্টাইল (অপরিবর্তিত) */
+        /* [অন্যান্য স্টাইল অপরিবর্তিত] */
         .video-js { width: 100%; height: 100%; border-radius: 0; }
         #custom-overlay { position: absolute; top: 5px; right: 5px; width: auto; height: auto; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 8px 12px; border-radius: 5px; display: flex; justify-content: center; align-items: center; flex-direction: row; font-size: 14px; font-weight: bold; opacity: 1; transition: opacity 0.5s; z-index: 99; pointer-events: none; }
         .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #dc3545; border-radius: 50%; width: 15px; height: 15px; animation: spin 1s linear infinite; }
@@ -128,7 +73,6 @@
         .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-
         .search-label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
         #search-box { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
         #channel-info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background-color: #e9ecef; border-radius: 5px; font-size: 15px; }
@@ -188,14 +132,11 @@
             </ul>
         </div>
     </div>
-
+    
     <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
-
+    
     <script>
-        // **********************************************
-        //               আপনার লিঙ্ক এখানে দিন
-        // **********************************************
         const M3U_URL = 'https://raw.githubusercontent.com/hasannoob/Tofee-Playlist/refs/heads/main/Toffee_Livefy_tv.m3u'; 
         const TELEGRAM_LINK = 'https://t.me/livefytv'; 
 
@@ -208,8 +149,6 @@
         let allChannels = []; 
         
         telegramBtn.href = TELEGRAM_LINK;
-
-        // (সমস্ত জাভাস্ক্রিপ্ট ফাংশন অপরিবর্তিত)
 
         player.on('waiting', () => {
             overlay.classList.remove('hidden-overlay');
@@ -290,6 +229,11 @@
                 const listItem = document.createElement('li');
                 listItem.className = 'channel-item';
                 listItem.textContent = channel.name;
+                
+                // **** এই লাইনটি যোগ করা হয়েছে ****
+                // মাউস নিয়ে গেলে সম্পূর্ণ নাম দেখানোর জন্য title অ্যাট্রিবিউট যোগ করা হলো
+                listItem.title = channel.name; 
+                // **********************************
 
                 listItem.addEventListener('click', () => {
                     playChannel(channel.url, channel.name, channel.type);
