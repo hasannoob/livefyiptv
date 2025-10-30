@@ -1,134 +1,339 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding-top: 0; 
-        background-color: #f4f4f4;
-    }
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livefy IPTV Player - Final Channel Name Fix</title>
 
-    /* --- ফিক্সড পুরো সেকশন (প্লেয়ার + চ্যানেল লিস্ট) --- */
-    #fixed-top-section {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 450px; 
-        height: 100vh; 
-        z-index: 1000;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-        border-radius: 0; 
-        overflow: hidden; 
-    }
-
-    .player-header {
-        background-color: #dc3545;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border-radius: 0; 
-    }
+    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
     
-    #video-container {
-        background-color: #000;
-        height: 250px; 
-        position: relative;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    /* স্ক্রলিং হেডার স্টাইল */
-    .scrolling-header { 
-        background-color: #333; 
-        color: white; 
-        padding: 5px 0; 
-        overflow: hidden; 
-        white-space: nowrap; 
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 0; 
+            background-color: #f4f4f4;
+        }
 
-    /* --- চ্যানেল লিস্ট কন্টেইনার স্টাইল (ফিক্সড সেকশনের ভেতরে) --- */
-    .channel-list-container { 
-        width: 100%;
-        /* হেডার, ভিডিও এবং সার্চ বারের নিচ থেকে বাকি পুরো জায়গা নেবে */
-        height: calc(100vh - 250px - 44px - 30px); 
-        padding: 20px;
-        background-color: white;
-        box-sizing: border-box; 
-        display: flex;
-        flex-direction: column; 
-    }
+        /* --- ফিক্সড পুরো সেকশন (প্লেয়ার + চ্যানেল লিস্ট) --- */
+        #fixed-top-section {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 450px; 
+            height: 100vh; 
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+            border-radius: 0; 
+            overflow: hidden; 
+        }
+
+        .player-header {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 0; 
+        }
+        
+        #video-container {
+            background-color: #000;
+            height: 250px; 
+            position: relative;
+        }
+
+        /* স্ক্রলিং হেডার স্টাইল */
+        .scrolling-header { 
+            background-color: #333; 
+            color: white; 
+            padding: 5px 0; 
+            overflow: hidden; 
+            white-space: nowrap; 
+        }
+
+        /* --- চ্যানেল লিস্ট কন্টেইনার স্টাইল (ফিক্সড সেকশনের ভেতরে) --- */
+        .channel-list-container { 
+            width: 100%;
+            height: calc(100vh - 250px - 44px - 30px); 
+            padding: 20px;
+            background-color: white;
+            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column; 
+        }
+        
+        /* সার্চ বার এবং ইনফো বার স্টাইল (ফিক্সড) */
+        .search-label, #search-box, #channel-info-bar {
+            flex-shrink: 0; 
+        }
+
+        /* --- চ্যানেল লিস্ট স্টাইল (স্ক্রলেবল) --- */
+        #channel-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            /* ✅ ফিক্স: গ্রিড কলামের সাইজ বড় করা হয়েছে (180px থেকে 200px) */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            overflow-y: auto; 
+            padding-right: 15px;
+            flex-grow: 1; 
+            margin-top: 10px;
+        }
+
+        /* ******************************************** */
+        /* ✅ ফিক্সড: চ্যানেল আইটেম স্টাইল (নাম এবং আকারের পরিবর্তন) */
+        /* ******************************************** */
+        .channel-item {
+            background-color: #007bff;
+            color: white;
+            /* ✅ ফিক্স: উপরে ও নিচে প্যাডিং আরও বাড়ানো হলো যাতে ঘর বড় দেখায় */
+            padding: 12px 10px; 
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            
+            /* নামগুলোকে একটি নির্দিষ্ট উচ্চতার মধ্যে সীমাবদ্ধ রাখার জন্য */
+            overflow: hidden;
+            
+            /* মাল্টি-লাইন ট্রাঙ্কেশন প্রপার্টি: নামগুলো ২ লাইনে কেটে দেখাবে */
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* **টেক্সটকে সর্বোচ্চ 2 লাইনে সীমাবদ্ধ করবে** */
+            -webkit-box-orient: vertical;
+            
+            /* লাইন উচ্চতা সেট করা হলো */
+            line-height: 1.3em; 
+            
+            /* সর্বোচ্চ উচ্চতা সেট করা: (1.3em x 2 লাইন) */
+            max-height: 2.6em; 
+            
+            /* অতিরিক্ত লাইন কেটে যাক */
+            text-overflow: ellipsis; 
+            white-space: normal; /* টেক্সটকে পরের লাইনে যাওয়ার অনুমতি দেয় */
+        }
+
+        .channel-item:hover {
+            background-color: #0056b3;
+        }
+        /* ******************************************** */
+        /* ******************************************** */
+
+        /* অন্যান্য স্টাইল (অপরিবর্তিত) */
+        .video-js { width: 100%; height: 100%; border-radius: 0; }
+        #custom-overlay { position: absolute; top: 5px; right: 5px; width: auto; height: auto; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 8px 12px; border-radius: 5px; display: flex; justify-content: center; align-items: center; flex-direction: row; font-size: 14px; font-weight: bold; opacity: 1; transition: opacity 0.5s; z-index: 99; pointer-events: none; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #dc3545; border-radius: 50%; width: 15px; height: 15px; animation: spin 1s linear infinite; }
+        .hidden-overlay { opacity: 0 !important; }
+        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        .search-label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        #search-box { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        #channel-info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background-color: #e9ecef; border-radius: 5px; font-size: 15px; }
+        #telegram-btn { background-color: #0088cc; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; display: flex; align-items: center; line-height: 1; }
+        #telegram-btn i { margin-right: 5px; }
+        #channel-count-display { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="fixed-top-section">
+        <div class="player-header">
+            📺 Livefy IPTV
+        </div>
+        
+        <div id="video-container">
+            <div id="custom-overlay">
+                <div class="spinner"></div>
+                <div class="loading-text" id="overlay-text">লোডিং...</div>
+            </div>
+            
+            <video
+                id="my-video"
+                class="video-js vjs-big-play-centered"
+                controls
+                preload="auto"
+                poster="https://i.ibb.co/L50n92S/Live-TV-Streaming-Icon.png" 
+                data-setup="{}"
+            >
+                <p class="vjs-no-js">
+                    ভিডিও দেখার জন্য জাভাস্ক্রিপ্ট সক্রিয় করুন।
+                </p>
+            </video>
+        </div>
+
+        <div class="scrolling-header">
+            <div class="marquee-text">
+                **স্বাগতম!** এটি একটি স্ক্রলিং নোটিশ বার। যেকোনো গুরুত্বপূর্ণ তথ্য এখানে স্ক্রল করানো যাবে।
+            </div>
+        </div>
+        
+        <div class="channel-list-container">
+            <h3>চ্যানেল তালিকা</h3>
+            
+            <label for="search-box" class="search-label">🔍 চ্যানেল খুঁজুন</label>
+            <input type="text" id="search-box" placeholder="চ্যানেলের নাম লিখুন..." onkeyup="filterChannels()">
+            
+            <div id="channel-info-bar">
+                <span id="channel-count-display">লোড হচ্ছে...</span>
+                <a href="YOUR_TELEGRAM_CHANNEL_LINK" target="_blank" id="telegram-btn">
+                    <i class="fab fa-telegram-plane"></i> JOIN NOW
+                </a>
+            </div>
+            
+            <ul id="channel-list">
+                <li>M3U প্লেলিস্ট লোড হচ্ছে...</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.js"></script>
     
-    /* সার্চ বার এবং ইনফো বার স্টাইল (ফিক্সড) */
-    .search-label, #search-box, #channel-info-bar {
-        flex-shrink: 0; 
-    }
+    <script>
+        const M3U_URL = 'https://raw.githubusercontent.com/hasannoob/Tofee-Playlist/refs/heads/main/Toffee_Livefy_tv.m3u'; 
+        const TELEGRAM_LINK = 'https://t.me/livefytv'; 
 
-    /* --- চ্যানেল লিস্ট স্টাইল (স্ক্রলেবল) --- */
-    #channel-list {
-        list-style: none;
-        padding: 0;
-        /* পরিবর্তন: গ্রিড কলামের সাইজ বড় করা হয়েছে (180px থেকে 200px) */
-        /* এর ফলে প্রতিটি ঘর আরও বড় এবং প্রশস্ত হবে */
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 10px;
-        overflow-y: auto; 
-        padding-right: 15px;
-        flex-grow: 1; 
-        margin-top: 10px;
-    }
+        const player = videojs('my-video');
+        const channelList = document.getElementById('channel-list');
+        const overlay = document.getElementById('custom-overlay');
+        const telegramBtn = document.getElementById('telegram-btn');
+        const countDisplay = document.getElementById('channel-count-display');
+        
+        let allChannels = []; 
+        
+        telegramBtn.href = TELEGRAM_LINK;
 
-    /* ******************************************** */
-    /* ✅ ফিক্সড: চ্যানেল আইটেম স্টাইল (নাম এবং আকারের পরিবর্তন) */
-    /* ******************************************** */
-    .channel-item {
-        background-color: #007bff;
-        color: white;
-        /* উপরে ও নিচে প্যাডিং আরও বাড়ানো হলো যাতে ঘর বড় দেখায় */
-        padding: 12px 10px; 
-        text-align: center;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-        
-        /* নামগুলোকে একটি নির্দিষ্ট উচ্চতার মধ্যে সীমাবদ্ধ রাখার জন্য */
-        overflow: hidden;
-        
-        /* মাল্টি-লাইন ট্রাঙ্কেশন প্রপার্টি: নামগুলো ২ লাইনে কেটে দেখাবে */
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* **টেক্সটকে সর্বোচ্চ 2 লাইনে সীমাবদ্ধ করবে** */
-        -webkit-box-orient: vertical;
-        
-        /* লাইন উচ্চতা সেট করা হলো, যা মাল্টি-লাইন ট্রাঙ্কেশনকে সাহায্য করে */
-        line-height: 1.3em; 
-        
-        /* সর্বোচ্চ উচ্চতা সেট করা: (1.3em x 2 লাইন) */
-        max-height: 2.6em; 
-        
-        /* অতিরিক্ত লাইন কেটে যাক */
-        text-overflow: ellipsis; 
-        white-space: normal; /* টেক্সটকে পরের লাইনে যাওয়ার অনুমতি দেয় */
-    }
+        player.on('waiting', () => {
+            overlay.classList.remove('hidden-overlay');
+            overlay.innerHTML = '<div class="spinner"></div><div class="loading-text">লোডিং...</div>';
+        });
 
-    .channel-item:hover {
-        background-color: #0056b3;
-    }
-    /* ******************************************** */
-    /* ******************************************** */
+        player.on('playing', () => {
+            overlay.classList.remove('hidden-overlay');
+            overlay.innerHTML = '<div class="loading-text" style="margin:0; color: #fff;">LIVEFY IPTV</div>'; 
+        });
 
-    /* অন্যান্য স্টাইল (অপরিবর্তিত) */
-    .video-js { width: 100%; height: 100%; border-radius: 0; }
-    #custom-overlay { position: absolute; top: 5px; right: 5px; width: auto; height: auto; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 8px 12px; border-radius: 5px; display: flex; justify-content: center; align-items: center; flex-direction: row; font-size: 14px; font-weight: bold; opacity: 1; transition: opacity 0.5s; z-index: 99; pointer-events: none; }
-    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #dc3545; border-radius: 50%; width: 15px; height: 15px; animation: spin 1s linear infinite; }
-    .hidden-overlay { opacity: 0 !important; }
-    .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-    .search-label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-    #search-box { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
-    #channel-info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; background-color: #e9ecef; border-radius: 5px; font-size: 15px; }
-    #telegram-btn { background-color: #0088cc; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; display: flex; align-items: center; line-height: 1; }
-    #telegram-btn i { margin-right: 5px; }
-    #channel-count-display { color: #dc3545; font-weight: bold; }
-</style>
+        player.on('pause', () => {
+            overlay.classList.add('hidden-overlay');
+        });
+        
+        function cleanUpPlayer() {
+            if (player) {
+                player.src({ src: '', type: 'video/mp4' }); 
+                player.poster('');
+                player.load();
+            }
+        }
+
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            let currentChannel = {};
+
+            for (const line of lines) {
+                if (line.startsWith('#EXTINF:')) {
+                    const nameMatch = line.match(/,(.*)/);
+                    if (nameMatch && nameMatch[1]) {
+                        currentChannel.name = nameMatch[1].trim();
+                    }
+                } else if (line.startsWith('http')) {
+                    currentChannel.url = line.trim();
+                    currentChannel.type = (currentChannel.url.includes('.m3u8')) ? 'application/x-mpegURL' : 'video/mp4'; 
+                    
+                    if (currentChannel.name && currentChannel.url) {
+                        channels.push(currentChannel);
+                    }
+                    currentChannel = {};
+                }
+            }
+            return channels;
+        }
+
+        function playChannel(url, name, type) {
+            cleanUpPlayer(); 
+
+            overlay.classList.remove('hidden-overlay');
+            overlay.innerHTML = '<div class="spinner"></div><div class="loading-text">লোডিং...</div>';
+
+            player.pause();
+            player.src({
+                src: url,
+                type: type 
+            });
+            player.load();
+            player.play().catch(error => {
+                console.error("ভিডিও প্লে করতে ব্যর্থ:", error);
+                overlay.innerHTML = '<div class="loading-text" style="margin:0; color: yellow;">প্লে করতে ব্যর্থ</div>';
+            });
+            document.title = `${name} - Livefy IPTV`;
+        }
+        
+        function renderChannelList(channels) {
+            channelList.innerHTML = ''; 
+            
+            countDisplay.textContent = `মোট চ্যানেল: ${allChannels.length} টি`; 
+
+            if (channels.length === 0) {
+                channelList.innerHTML = '<li>কোনো চ্যানেল পাওয়া যায়নি।</li>';
+                return;
+            }
+
+            channels.forEach(channel => {
+                const listItem = document.createElement('li');
+                listItem.className = 'channel-item';
+                listItem.textContent = channel.name;
+                
+                // **** এই লাইনটি যোগ করা হয়েছে ****
+                listItem.title = channel.name; 
+                // **********************************
+
+                listItem.addEventListener('click', () => {
+                    playChannel(channel.url, channel.name, channel.type);
+                });
+
+                channelList.appendChild(listItem);
+            });
+        }
+        
+        window.filterChannels = function() {
+            const searchTerm = document.getElementById('search-box').value.toLowerCase();
+            
+            const filteredChannels = allChannels.filter(channel => 
+                channel.name.toLowerCase().includes(searchTerm)
+            );
+            
+            renderChannelList(filteredChannels);
+        }
+
+        fetch(M3U_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ত্রুটি: ${response.status}. ফাইল লোড হয়নি।`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                allChannels = parseM3U(data); 
+                renderChannelList(allChannels); 
+                
+                if (allChannels.length > 0) {
+                    playChannel(allChannels[0].url, allChannels[0].name, allChannels[0].type);
+                }
+            })
+            .catch(error => {
+                console.error("M3U লোড করার সময় ত্রুটি:", error);
+                channelList.innerHTML = `<li><span style="color: red;">ত্রুটি:</span> M3U প্লেলিস্ট লোড করা যায়নি। CORS বা লিঙ্ক চেক করুন।</li>`;
+                overlay.innerHTML = '<div class="loading-text" style="margin:0; color: red;">লোড হয়নি।</div>';
+                countDisplay.textContent = 'লোড হয়নি';
+            });
+    </script>
+</body>
+</html>
