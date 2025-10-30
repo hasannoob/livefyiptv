@@ -94,7 +94,7 @@
         .channel-item {
             background-color: #007bff;
             color: white;
-            /* ✅ ফিক্স: উপরে ও নিচে প্যাডিং আরও বাড়ানো হলো যাতে ঘর বড় দেখায় */
+            /* ✅ ফিক্স: উপরে ও নিচে প্যাডিং বাড়ানো হলো যাতে ঘর বড় দেখায় */
             padding: 12px 10px; 
             text-align: center;
             cursor: pointer;
@@ -291,7 +291,7 @@
                 listItem.className = 'channel-item';
                 listItem.textContent = channel.name;
                 
-                // **** এই লাইনটি যোগ করা হয়েছে ****
+                // ✅ ফিক্স: মাউস নিয়ে গেলে সম্পূর্ণ নাম দেখানোর জন্য title অ্যাট্রিবিউট যোগ করা হলো
                 listItem.title = channel.name; 
                 // **********************************
 
