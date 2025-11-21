@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        /* BASE STYLES & ORIGINAL STYLES */
+        /* --- পূর্বের সব স্টাইল এখানে অক্ষুণ্ণ থাকবে --- */
         body {
             font-family: 'Arial', sans-serif;
             background-color: black;
@@ -60,13 +60,14 @@
             padding: 10px;
             max-width: 600px;
             margin: 0 auto; 
-            padding-top: 10px; /* Reduced padding here */
+            padding-top: 10px; 
         }
         
-        /* --- NEW: TAB NAVIGATION STYLES --- */
+        /* --- NEW: TAB NAVIGATION STYLES (Simple UI) --- */
         .filter-tabs {
             display: flex;
             justify-content: space-between;
+            margin-top: 10px; 
             margin-bottom: 15px;
             background-color: #1a1a1a;
             border-radius: 8px;
@@ -181,9 +182,9 @@
         .match-info { text-align: center; }
         
         /* --- DYNAMIC STATUS STYLES --- */
-        .time-date-container { /* New container for dynamic display */
+        .time-date-container { 
             text-align: center; 
-            min-height: 45px; /* Ensures consistent card height */
+            min-height: 45px; 
             display: flex; 
             flex-direction: column;
             justify-content: center;
@@ -200,18 +201,18 @@
         
         .live-animation { 
             color: #C80815; 
-            font-size: 18px; /* Larger LIVE text */
+            font-size: 18px; 
             font-weight: 900; 
             animation: blink 1s infinite; 
         }
         
         .countdown-timer {
-            color: #ffd700; /* Yellow for countdown */
+            color: #ffd700; 
             font-size: 16px;
         }
         
         .match-finished {
-            color: #888; /* Gray for finished */
+            color: #888; 
             font-size: 14px;
         }
         
@@ -223,12 +224,71 @@
             50% { opacity: 0.3; }
         }
         /* --- END DYNAMIC STATUS STYLES --- */
+
+        /* --- VIDEO PLAYER STYLES (Assumed to be unchanged) --- */
+        #video-player {
+            display: none; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100vw; 
+            height: 100vh; 
+            background-color: #080808; 
+            z-index: 1000; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column; 
+            padding: 10px; 
+            box-sizing: border-box;
+            overflow-y: auto; 
+        }
         
-        /* --- REMAINDER STYLES (Kept for brevity, assumed to be complete) --- */
+        #video-container-wrapper {
+            position: relative; 
+            width: 100%;
+            max-width: 900px; 
+            background-color: black;
+            border-radius: 15px; 
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.4); 
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; 
+            overflow: hidden;
+            border: 4px solid #00ff00; 
+            border-radius: 15px; 
+        }
 
-        /* --- END VIDEO PLAYER STYLES --- */
+        #video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%;
+        }
 
-        /* Bottom Navigation Bar Styles */
+        #close-btn {
+            position: absolute; 
+            top: -15px;
+            right: -15px;
+            font-size: 22px; 
+            color: white; 
+            background-color: #C80815; 
+            border: 3px solid #fff; 
+            border-radius: 50%; 
+            width: 45px;
+            height: 45px; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10; 
+            transition: all 0.3s; 
+        }
+
+        /* --- Bottom Navigation Bar Styles (Assumed to be unchanged) --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -568,7 +628,7 @@
     </div>
     
     <nav class="bottom-nav">
-        <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)">
+         <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)">
             <svg fill="currentColor" viewBox="0 0 24 24" xmlns="https://s3.brilliant.com.bd/videos/13803348a5e74a7e85574d31a04ae97b/master.m3u8"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
             <span>Home</span>
         </div>
@@ -584,7 +644,7 @@
     
     
 <script>    
-        // HLS.js Global Variables (Unchanged)
+        // HLS.js Global Variables (Kept unchanged)
         let hls = null; 
         const video = document.getElementById('video');
         const qualitySelect = document.getElementById('quality-select');
@@ -601,37 +661,32 @@
         
         // ==============================================================
         // --- MATCH DATA WITH FULL DATETIME ---
-        // ⚠️ IMPORTANT: These dates are based on Friday, November 21, 2025 11:10 PM for testing.
+        // ⚠️ IMPORTANT: এই তারিখগুলো আপনার প্রয়োজন অনুযায়ী পরিবর্তন করতে হবে।
         // ==============================================================
         const matchesData = [
-            // Example: Live (Start Time was in the past, End Time is in the future)
+            // Example: Live (Current Time: 2025-11-21 23:14:18 +06)
             { id: '10', start: '2025-11-21 23:00:00', end: '2025-11-22 03:00:00' }, // Bangladesh vs Ireland (Currently Live)
             
-            // Example: Finished (End Time is in the past)
-            { id: '1', start: '2025-11-20 19:00:00', end: '2025-11-20 23:59:59' }, // Pakistan T20I (Finished)
-            { id: '7', start: '2025-11-20 20:00:00', end: '2025-11-20 22:30:00' }, // Woman Big Bash League (Finished)
-            
-            // Example: Upcoming (Start Time is in the future)
-            { id: '4', start: '2025-11-22 10:00:00', end: '2025-11-23 18:00:00' }, // England vs Australia (Tomorrow 10 AM)
-            { id: '9', start: '2025-11-22 13:30:00', end: '2025-11-26 21:00:00' }, // India Vs South Africa (Tomorrow 1:30 PM - Multi-day match)
-            { id: '3', start: '2025-11-23 17:30:00', end: '2025-11-23 23:50:00' }, // Abu Dhabi T10 League (Sunday)
-            { id: '2', start: '2025-11-24 07:00:00', end: '2025-11-24 16:00:00' }, // New Zealand vs West Indies (Monday)
-            
-            // Example: Placeholder/Defaults (Will treat as Finished if dates are vague)
+            // Example: Finished (Recent)
+            { id: '1', start: '2025-11-20 19:00:00', end: '2025-11-20 23:59:59' }, 
+            { id: '7', start: '2025-11-20 20:00:00', end: '2025-11-20 22:30:00' }, 
             { id: '5', start: '2025-11-01 00:00:00', end: '2025-11-01 00:01:00' }, 
             { id: '11', start: '2025-11-01 00:00:00', end: '2025-11-01 00:01:00' },
             { id: '6', start: '2025-11-01 00:00:00', end: '2025-11-01 00:01:00' },
             { id: '8', start: '2025-11-01 00:00:00', end: '2025-11-01 00:01:00' },
+            
+            // Example: Upcoming 
+            { id: '4', start: '2025-11-22 10:00:00', end: '2025-11-23 18:00:00' }, // Tomorrow 10 AM
+            { id: '9', start: '2025-11-22 13:30:00', end: '2025-11-26 21:00:00' }, // Tomorrow 1:30 PM
+            { id: '3', start: '2025-11-23 17:30:00', end: '2025-11-23 23:50:00' }, // Sunday
+            { id: '2', start: '2025-11-24 07:00:00', end: '2025-11-24 16:00:00' }, // Monday
         ];
 
 
         // ==============================================================
-        // --- COUNTDOWN AND STATUS LOGIC ---
+        // --- COUNTDOWN AND STATUS LOGIC (Unchanged from previous attempt) ---
         // ==============================================================
         
-        /**
-         * Converts milliseconds into a readable HH:MM:SS format.
-         */
         function formatCountdownTime(ms) {
             if (ms < 0) return "Starting Soon...";
             
@@ -646,16 +701,14 @@
             const s = String(seconds).padStart(2, '0');
             
             if (days > 0) {
-                // If more than a day, show Day and Time
                 return `Starts in ${days}d ${h}h ${m}m`;
             }
-            // Otherwise, show HH:MM:SS
             return `Starts in ${h}:${m}:${s}`;
         }
 
 
         /**
-         * Checks the status of all matches (Live, Upcoming, Finished) and sets data-status attribute.
+         * Checks the status of all matches (Live, Upcoming, Finished) and sets data-status attribute on cards.
          */
         function checkMatchStatus() {
             const now = Date.now();
@@ -666,28 +719,21 @@
                 
                 if (!card || !statusEl) return;
                 
-                // Get start and end times in milliseconds
                 const startTime = new Date(match.start).getTime();
                 const endTime = new Date(match.end).getTime();
                 
                 let state = 'unknown';
                 
-                // 1. Check if the match is LIVE
                 if (now >= startTime && now < endTime) {
                     state = 'live';
-                } 
-                // 2. Check if the match is UPCOMING
-                else if (now < startTime) {
+                } else if (now < startTime) {
                     state = 'upcoming';
-                } 
-                // 3. Check if the match is FINISHED/RECENT
-                else if (now >= endTime) {
+                } else if (now >= endTime) {
                     state = 'finished';
                 }
                 
                 // --- Update Card's Appearance and Status Text ---
-                
-                statusEl.innerHTML = ''; // Clear previous status
+                statusEl.innerHTML = ''; 
                 
                 const statusText = document.createElement('span');
                 statusText.className = 'match-status-text';
@@ -698,9 +744,8 @@
                     statusEl.appendChild(statusText);
                     
                 } else if (state === 'upcoming') {
-                    // Update Status Display - Countdown is handled by updateCountdown
                     statusText.className = 'match-status-text countdown-timer';
-                    statusText.id = `countdown-${match.id}`; // Add ID for the countdown function
+                    statusText.id = `countdown-${match.id}`; 
                     statusText.textContent = formatCountdownTime(startTime - now);
                     statusEl.appendChild(statusText);
                     
@@ -719,10 +764,11 @@
                 card.setAttribute('data-status', state);
             });
             
-            // Re-apply filter after status update (if a tab other than 'all' is active)
+            // Re-apply filter after status update to show correct cards based on current tab
             const activeTab = document.querySelector('.tab-item.active');
             if (activeTab) {
-                filterMatches(activeTab.getAttribute('data-filter'), activeTab, false); // false to avoid re-setting focus
+                // False to prevent unnecessary focus reset during the 1-second interval
+                filterMatches(activeTab.getAttribute('data-filter'), activeTab, false); 
             }
         }
 
@@ -742,8 +788,7 @@
                     if (timeRemaining > 0) {
                         countdownEl.textContent = formatCountdownTime(timeRemaining);
                     } else {
-                        // If countdown finishes (time remaining is 0 or less), 
-                        // re-run the main status check to switch the match to 'Live'
+                        // If countdown finishes, immediately check status again to switch to 'Live'
                         checkMatchStatus(); 
                     }
                 }
@@ -752,11 +797,12 @@
         
         
         // ==============================================================
-        // --- NEW: MATCH FILTERING FUNCTION ---
+        // --- MATCH FILTERING FUNCTION (Simplified) ---
         // ==============================================================
         
         /**
          * Filters the match cards displayed based on the selected tab (live, upcoming, finished).
+         * This function is now correctly linked to the new tab HTML elements.
          */
         function filterMatches(filter, selectedTab, shouldResetFocus = true) {
             const allCards = document.querySelectorAll('#home-events-container .match-card');
@@ -765,47 +811,52 @@
             tabItems.forEach(tab => tab.classList.remove('active'));
             selectedTab.classList.add('active');
             
-            // 2. Update section header text
+            // 2. Update section header text (Optional but good practice)
             let title = "All Matches";
             if (filter === 'live') title = "🔴 Live Matches";
             else if (filter === 'upcoming') title = "Upcoming Matches";
             else if (filter === 'finished') title = "Recent Matches";
             matchSectionTitle.textContent = title;
             
-            // 3. Filter cards
-            let firstVisibleCardIndex = -1;
-            allCards.forEach((card, index) => {
+            // 3. Filter cards (Hide/Show)
+            allCards.forEach(card => {
                 const status = card.getAttribute('data-status');
                 const isBanner = card.classList.contains('banner');
                 
-                // Always show the banner if it's in the container
+                // Always show the banner
                 if (isBanner) {
                     card.classList.remove('hidden');
                     return; 
                 }
                 
-                // Filtering logic
+                // Filtering logic based on data-status
                 if (filter === 'all' || status === filter) {
                     card.classList.remove('hidden');
-                    if (firstVisibleCardIndex === -1) {
-                        firstVisibleCardIndex = index;
-                    }
                 } else {
                     card.classList.add('hidden');
                 }
             });
             
-            // 4. Reset focus to the first visible element if needed
+            // 4. Reset focus for TV remote (Crucial for remote-controlled devices)
             if (shouldResetFocus) {
-                // Delay focus update to ensure filter visual changes are complete
                 setTimeout(() => {
                     updateFocusedElements();
-                    setFocus(0); // Set focus to the first element (which should be the active tab or the first card)
+                    // Set focus to the active tab itself first
+                    const activeTabElement = document.querySelector('.tab-item.active');
+                    if(activeTabElement) {
+                        let tabIndex = Array.from(focusedElements).indexOf(activeTabElement);
+                        if(tabIndex !== -1) {
+                            setFocus(tabIndex);
+                        } else {
+                             setFocus(0); // Fallback to first element
+                        }
+                    }
                 }, 100);
             }
         }
 
-        // --- CLOCK AND DATE FUNCTIONALITY (Unchanged) ---
+        // --- CLOCK, NAVIGATION, AND REMOTE LOGIC (Assumed correct, only parts related to focusing tabs are updated) ---
+        
         function updateClock() {
             const now = new Date();
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
@@ -822,8 +873,34 @@
             document.getElementById('time-display-highlights').innerHTML = html;
         }
 
-        // --- TV REMOTE LOGIC (Simplified focus elements to include tabs) ---
-        const focusableElements = 'button, [onclick]:not([onclick="closeVideo()"]):not(.close-error-btn), a, select';
+        // IMPORTANT: The following functions are placeholders. You must ensure your original 
+        // working code for these functions is present in the final HTML file.
+
+        function showTab(sectionId, element) {
+            allSections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+            navItems.forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Re-run focus logic when changing tabs
+            updateFocusedElements();
+            setFocus(0); 
+        }
+
+        function openMatchChannels(channels) {
+            // Your original working logic for opening the video player and showing servers
+            console.log("Opening video channels:", channels);
+            document.getElementById('video-player').style.display = 'flex';
+            // Placeholder: Call video loading and server button creation functions here
+            // loadVideoSource(channels[0].url); // Load first server by default
+        }
+        
+        function closeVideo() {
+            // Your original working logic for closing the video player
+             document.getElementById('video-player').style.display = 'none';
+        }
+        
+        // --- TV REMOTE LOGIC (Updated to include new tabs) ---
         let currentFocusIndex = 0;
         let focusedElements = [];
 
@@ -831,29 +908,28 @@
             focusedElements = [];
             
             if (document.getElementById('video-player').style.display === 'flex') {
-                // Focus elements in video player mode
                 focusedElements = Array.from(document.querySelectorAll('#close-btn, #quality-select, #error-message-box .close-error-btn, #server-buttons .server-button'));
             } else {
-                 // Focus elements in content mode
                 const activeSection = document.querySelector('.content > div:not(.hidden)');
-                const navBar = document.querySelector('.bottom-nav');
                 
-                if (activeSection) {
-                    // Include the filter tabs in focusable elements
+                if (activeSection && activeSection.id === 'home-section') {
+                    // 1. Join Now link
+                    focusedElements = focusedElements.concat(Array.from(activeSection.querySelectorAll('.join-now-link')));
+                    // 2. Filter tabs
                     focusedElements = focusedElements.concat(Array.from(document.querySelectorAll('.filter-tabs .tab-item')));
-
-                    // Only select cards that are currently visible (not hidden by the filter)
-                    focusedElements = focusedElements.concat(Array.from(activeSection.querySelectorAll('.join-now-link, .match-card:not(.hidden), .channel-card, .highlight-card')));
+                    // 3. Visible Match cards
+                    focusedElements = focusedElements.concat(Array.from(activeSection.querySelectorAll('.match-card:not(.hidden)')));
+                } else if (activeSection) {
+                    // For Live TV and Highlights, include cards
+                    focusedElements = focusedElements.concat(Array.from(activeSection.querySelectorAll('.join-now-link, .channel-card, .highlight-card')));
                 }
                 
-                if (navBar) {
-                    focusedElements = focusedElements.concat(Array.from(navBar.querySelectorAll('.nav-item')));
-                }
+                // 4. Bottom Navigation
+                focusedElements = focusedElements.concat(Array.from(document.querySelectorAll('.bottom-nav .nav-item')));
             }
         }
         
         function setFocus(newIndex) {
-             // ... (Rest of setFocus function remains the same) ...
             if (focusedElements[currentFocusIndex]) {
                 focusedElements[currentFocusIndex].classList.remove('focused');
                 focusedElements[currentFocusIndex].blur(); 
@@ -877,7 +953,6 @@
         }
         
         document.addEventListener('keydown', function(e) {
-             // ... (Keydown logic remains the same, using updated focus logic) ...
             let handled = true;
 
             switch (e.code) {
@@ -917,10 +992,7 @@
             }
         });
         // --- END TV REMOTE LOGIC ---
-        
-        
-        // (Other helper functions like openMatchChannels, selectServer, closeVideo, showTab remain unchanged)
-        
+
         
         // Initial setup and recurring tasks
         document.addEventListener('DOMContentLoaded', () => {
@@ -933,20 +1005,25 @@
             
             // Set recurring interval for status and countdown updates
             setInterval(() => {
-                checkMatchStatus(); // Update status (Live/Upcoming/Finished) and re-apply filter
-                updateCountdown();  // Update the countdown text
+                checkMatchStatus(); 
+                updateCountdown();  
             }, 1000);
 
             // Show Home tab on page load
             const defaultTab = document.getElementById('nav-home');
-            showTab('home-section', defaultTab); 
+            // Assuming your original showTab function works
+            if (typeof showTab === 'function') {
+                showTab('home-section', defaultTab); 
+            } else {
+                 document.getElementById('home-section').classList.remove('hidden');
+            }
             
             // Apply 'All' filter initially
             filterMatches('all', document.getElementById('tab-all'), false); 
             
             // Initial update for TV focus elements
             updateFocusedElements();
-            setFocus(0); // Focus on the first element (likely the 'All' tab)
+            setFocus(0); 
         });
 
     </script>
