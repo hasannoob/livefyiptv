@@ -10,16 +10,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 
 <style>
-/* BASE STYLES & ORIGINAL STYLES */
+/* ================================================
+  ১. BASE এবং GENERAL স্টাইল
+================================================
+*/
 body {
     font-family: 'Arial', sans-serif;
     background-color: black;
     color: #fff;
     margin: 0;
     padding: 0;
-    padding-bottom: 70px;
+    padding-bottom: 70px; /* ফিক্সড বটম নেভের জন্য স্পেস */
     overflow-x: hidden;
 }
+
 /* --- HEADER STYLE --- */
 .main-header {
     background-color: #C80815;
@@ -33,7 +37,8 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 0;
 }
-/* Welcome text box styling */
+
+/* Welcome Box (Marquee) */
 .welcome-box {
     background-color: #333;
     padding: 5px;
@@ -42,7 +47,6 @@ body {
     overflow: hidden;
     position: relative;
 }
-/* Animated title style (Marquee) */
 .welcome-text {
     display: inline-block;
     white-space: nowrap;
@@ -51,22 +55,19 @@ body {
     color: #00ff00;
     font-weight: bold;
 }
-/* Animation keyframe */
 @keyframes marquee {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
+
 .content {
     padding: 10px;
     max-width: 600px;
     margin: 0 auto;
     padding-top: 20px;
 }
-/* --- HEADER AND TIME STYLES (For Clock) --- */
+
+/* --- SECTION HEADER, TIME এবং TELEGRAM লিঙ্ক স্টাইল --- */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -94,13 +95,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     min-width: 90px;
 }
-.datetime-box .date-text {
-    color: #ffd700;
-}
-/* Join Now Link Style */
-.join-now-link i {
-    margin-right: 5px;
-}
+.datetime-box .date-text { color: #ffd700; }
 .join-now-link {
     text-decoration: none;
     background-color: #00ff00;
@@ -113,14 +108,14 @@ body {
     white-space: nowrap;
     border: 1px solid #000;
 }
-.join-now-link:hover {
-    background-color: #00e600;
-    color: #111;
-}
-/* Match Card Styles */
-.match-card,
-.highlight-card,
-.banner {
+.join-now-link i { margin-right: 5px; }
+.join-now-link:hover { background-color: #00e600; color: #111; }
+
+/* ================================================
+  ২. ম্যাচ কার্ড এবং হাইলাইটস স্টাইল
+================================================
+*/
+.match-card, .highlight-card, .banner {
     background-color: #222;
     border: 1px solid #00ffc8;
     border-radius: 10px;
@@ -131,17 +126,142 @@ body {
     cursor: pointer;
     transition: transform 0.3s;
 }
+.match-card:hover, .highlight-card:hover { transform: scale(1.03); }
 
-.match-card:hover,
-.highlight-card:hover {
-    transform: scale(1.03);
+/* Match Card specific */
+.match-title {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+.team img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid red;
+}
+.team-name {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+.match-info { text-align: center; }
+.time {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+.date {
+    font-size: 10px;
+    color: #00FF00;
+    margin-top: 2px;
+}
+.match-status-wrapper {
+    min-height: 35px; /* Ensure consistent height for all states */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.live-animation {
+    color: #C80815;
+    font-size: 15px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+.countdown-text { color: #00ff00; font-size: 14px; font-weight: bold; margin-top: 2px; }
+.full-time-text { color: #ffd700; font-size: 14px; font-weight: bold; margin-top: 2px; }
+
+/* Highlight Card specific */
+.highlight-card {
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+}
+.highlight-card .info { flex-grow: 1; }
+.highlight-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #c80815;
 }
 
-/* *************************************************************** */
-/* নতুন ডিজাইন: লাইভ টিভি চ্যানেল কার্ডের স্টাইল (আপনার ছবির মতো) */
-/* *************************************************************** */
+/* Banner specific */
+.banner {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #C80815;
+    cursor: default;
+    transform: none;
+    transition: none;
+    margin-top: 25px;
+}
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+.banner:hover { transform: none; }
 
-/* চ্যানেলের কার্ডের গ্রিড ব্যবস্থা */
+/* ================================================
+  ৩. ট্যাব স্টাইল
+================================================
+*/
+.match-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.match-tab-btn {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #888;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.match-tab-btn.active-tab {
+    background-color: #C80815;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+.hidden {
+    display: none !important;
+}
+
+/* ================================================
+  ৪. কাস্টম চ্যানেল কার্ড স্টাইল (আপনার ছবি অনুযায়ী)
+================================================
+*/
 .channel-grid {
     display: flex;
     flex-wrap: wrap;
@@ -149,7 +269,6 @@ body {
     gap: 15px 5px; /* লম্বালম্বি ও পাশাপাশি ব্যবধান */
     margin-top: 20px;
     padding: 0 5px;
-    
 }
 
 /* প্রতিটি চ্যানেল কার্ডের মূল কাঠামো */
@@ -181,8 +300,8 @@ body {
     height: 90px;
     border-radius: 50%; 
     overflow: hidden; 
-    background-color: #333; /* বৃত্তের পটভূমি রঙ */
-    border: 3px solid #C80815; /* বর্ডার রঙ */
+    background-color: #333; 
+    border: 3px solid #C80815; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,7 +316,12 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover; 
-    /* যদি ইমেজ ব্যবহার করা হয়, সেটা যেন বৃত্তের মধ্যে ফিট হয় */
+}
+.circular-icon-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* চ্যানেলের নাম (বৃত্তের নিচে) */
@@ -213,180 +337,14 @@ body {
     text-overflow: ellipsis;
     white-space: normal;
 }
-
-/* অপ্রয়োজনীয় ছোট লেখা লুকিয়ে রাখা */
 .channel-card p {
     display: none; 
 }
 
-/* যদি আপনি বৃত্তের মধ্যে ইমেজ ব্যবহার করতে চান */
-.circular-icon-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-/* *************************************************************** */
-/* চ্যানেল কার্ডের স্টাইল শেষ */
-/* *************************************************************** */
-
-.highlight-card {
-    text-align: left;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding: 10px;
-}
-.highlight-card .info {
-    flex-grow: 1;
-}
-.highlight-card img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #c80815;
-}
-/* BANNER SPECIFIC STYLES */
-.banner {
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #C80815;
-    cursor: default;
-    transform: none;
-    transition: none;
-    margin-top: 25px;
-}
-.banner-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-}
-.banner:hover {
-    transform: none;
-}
-/* Match Info Styles */
-.match-title {
-    background-color: #000;
-    color: #fff;
-    display: inline-block;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.team {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px 0;
-}
-.team img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid red;
-}
-.team-name {
-    text-align: center;
-    font-size: 10px;
-    font-weight: bold;
-}
-.match-info {
-    text-align: center;
-}
-.time {
-    font-size: 15px;
-    color: white;
-    font-weight: bold;
-}
-.date {
-    font-size: 10px;
-    color: #00FF00;
-    margin-top: 2px;
-}
-.match-stage {
-    background-color: black;
-    color: white;
-    padding: 1px 5px;
-    border-radius: 10px;
-    font-size: 8px;
-    display: inline-block;
-    margin-top: 5px;
-}
-.live-animation {
-    color: #C80815;
-    font-size: 15px;
-    font-weight: bold;
-    animation: blink 1s infinite;
-}
-.hidden {
-    display: none !important;
-}
-/* LIVE text blink animation */
-@keyframes blink {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.3;
-    }
-}
-/* TABS */
-.match-tabs {
-    display: flex;
-    justify-content: space-around;
-    margin: 15px 0;
-    background-color: #1a1a1a;
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-.match-tab-btn {
-    flex-grow: 1;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 8px;
-    background-color: transparent;
-    color: #888;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-.match-tab-btn.active-tab {
-    background-color: #C80815;
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    transform: translateY(-2px);
-}
-/* Countdown Text */
-.countdown-text {
-    color: #00ff00;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 2px;
-}
-/* Full Time Text (Recent) */
-.full-time-text {
-    color: #ffd700;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 2px;
-}
-.match-status-wrapper {
-    min-height: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-/* PLAYER STYLES */
+/* ================================================
+  ৫. ভিডিও প্লেয়ার স্টাইল
+================================================
+*/
 #video-player {
     display: none;
     position: fixed;
@@ -428,6 +386,7 @@ body {
     height: 100%;
     filter: brightness(1);
 }
+/* Watermark/Loading Animator */
 #video-overlay {
     position: absolute;
     top: 0;
@@ -464,29 +423,38 @@ body {
     animation: pulse 1s infinite !important;
 }
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
 }
 @keyframes watermark-blink {
-    0%,
-    100% {
-        opacity: 0.8;
-    }
-    50% {
-        opacity: 0.5;
-    }
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.5; }
 }
-/* Error Message Box Styles */
+/* Close Button */
+#close-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 22px;
+    color: white;
+    background-color: #C80815;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(200, 8, 21, 1);
+}
+#close-btn:hover { background-color: #FF003C; transform: scale(1.1); }
+#close-btn:active { transform: scale(0.95); box-shadow: 0 0 5px rgba(200, 8, 21, 0.8); }
+
+/* Error Message Box */
 #error-message-box {
     background-color: #1a1a1a;
     border: 3px solid #FF003C;
@@ -500,16 +468,8 @@ body {
     display: none;
     position: relative;
 }
-#error-title {
-    color: #FF003C;
-    font-size: 20px;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-#error-text {
-    color: #ddd;
-    font-size: 14px;
-}
+#error-title { color: #FF003C; font-size: 20px; margin-bottom: 5px; font-weight: bold; }
+#error-text { color: #ddd; font-size: 14px; }
 #error-message-box .close-error-btn {
     position: absolute;
     top: -10px;
@@ -527,7 +487,8 @@ body {
     cursor: pointer;
     z-index: 100;
 }
-/* Control Area (Quality + Servers) */
+
+/* Controls Area (Quality and Servers) */
 #controls-area {
     width: 100%;
     max-width: 900px;
@@ -537,7 +498,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
-/* Quality Selector Styles */
 #quality-selector-container {
     display: flex;
     justify-content: space-between;
@@ -560,10 +520,7 @@ body {
     outline: none;
     transition: border-color 0.3s;
 }
-#quality-select:focus {
-    border-color: #C80815;
-}
-/* Server Buttons Styles */
+#quality-select:focus { border-color: #C80815; }
 #server-buttons {
     display: flex;
     justify-content: center;
@@ -584,45 +541,13 @@ body {
     box-sizing: border-box;
     max-width: 300px;
 }
-.server-button:hover {
-    background-color: #00ffc8;
-    color: black;
-    box-shadow: 0 0 10px #00ffc8;
-}
+.server-button:hover { background-color: #00ffc8; color: black; box-shadow: 0 0 10px #00ffc8; }
 .server-button.active-server {
     background-color: #C80815;
     color: white;
     border: 2px solid #fff;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(200, 8, 21, 0.6);
-}
-/* CLOSE BUTTON STYLE */
-#close-btn {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    font-size: 22px;
-    color: white;
-    background-color: #C80815;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s;
-    box-shadow: 0 0 15px rgba(200, 8, 21, 1);
-}
-#close-btn:hover {
-    background-color: #FF003C;
-    transform: scale(1.1);
-}
-#close-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 5px rgba(200, 8, 21, 0.8);
 }
 </style>
 </head>
@@ -669,7 +594,22 @@ body {
                     <img src="https://flagcdn.com/w20/pk.png" alt="Pakistan Flag">
                 </div>
             </div>
+            <div class="match-card" onclick="openPlayer('Live Match 2', 'https://example.com/live-stream-2', 'Server 1:720p', 'S1')">
+                <div class="match-title">Champions League</div>
+                <div class="team">
+                    <img src="https://flagcdn.com/w20/de.png" alt="Bayern Flag">
+                    <div class="team-name">BAYERN</div>
+                    <div class="match-info">
+                        <div class="match-status-wrapper">
+                            <span class="live-animation">LIVE NOW!</span>
+                        </div>
+                        <div class="match-stage">Round of 16</div>
+                    </div>
+                    <div class="team-name">JUVENTUS</div>
+                    <img src="https://flagcdn.com/w20/it.png" alt="Juventus Flag">
+                </div>
             </div>
+        </div>
 
         <div id="upcoming-matches-section" class="hidden">
             <div class="match-card" onclick="alert('Match details: Will start soon.')">
@@ -679,7 +619,7 @@ body {
                     <div class="team-name">Man. Utd.</div>
                     <div class="match-info">
                         <div class="match-status-wrapper">
-                             <div class="countdown-text" id="countdown-1">Starting in 2h 30m</div>
+                            <div class="countdown-text" id="countdown-1">Starting in 2h 30m</div>
                         </div>
                         <div class="date" id="match-time-1">01:00 AM, 26 Nov</div>
                         <div class="match-stage">Premier League</div>
@@ -688,7 +628,23 @@ body {
                     <img src="https://flagcdn.com/w20/gb-eng.png" alt="Chelsea Logo">
                 </div>
             </div>
+            <div class="match-card" onclick="alert('Match details: Will start soon.')">
+                <div class="match-title">NBA</div>
+                <div class="team">
+                    <img src="https://flagcdn.com/w20/us.png" alt="Lakers Logo">
+                    <div class="team-name">LAKERS</div>
+                    <div class="match-info">
+                        <div class="match-status-wrapper">
+                            <div class="countdown-text">Starting in 4h 0m</div>
+                        </div>
+                        <div class="date">04:00 AM, 26 Nov</div>
+                        <div class="match-stage">Regular Season</div>
+                    </div>
+                    <div class="team-name">CLIPPERS</div>
+                    <img src="https://flagcdn.com/w20/us.png" alt="Clippers Logo">
+                </div>
             </div>
+        </div>
 
         <div id="recent-matches-section" class="hidden">
             <div class="match-card" onclick="openPlayer('Recent Highlights', 'https://example.com/recent-highlights', 'Server 1:360p,Server 2:480p', 'S1,S2')">
@@ -708,9 +664,26 @@ body {
                     <img src="https://flagcdn.com/w20/es.png" alt="Barcelona Logo">
                 </div>
             </div>
+            <div class="match-card" onclick="openPlayer('Recent Highlights 2', 'https://example.com/recent-highlights-2', '360p', 'S1')">
+                <div class="match-title">T20 Series</div>
+                <div class="team">
+                    <img src="https://flagcdn.com/w20/au.png" alt="Australia Flag">
+                    <div class="team-name">AUSTRALIA</div>
+                    <div class="match-info">
+                        <div class="match-status-wrapper">
+                            <div class="full-time-text">Full Time</div>
+                            <span class="time">160/7 (20)</span>
+                        </div>
+                        <div class="date">23 Nov</div>
+                        <div class="match-stage">3rd T20</div>
+                    </div>
+                    <div class="team-name">ENGLAND</div>
+                    <img src="https://flagcdn.com/w20/gb-eng.png" alt="England Flag">
+                </div>
             </div>
+        </div>
 
-        ---
+        <hr>
 
         <div id="sports-channels-section">
             <div class="section-header">
@@ -719,7 +692,7 @@ body {
                     <i class="fa-brands fa-telegram"></i> JOIN NOW
                 </a>
                 <div class="datetime-box">
-                    <span id="current-time">11:50 PM</span><br>
+                    <span id="current-time">11:57 PM</span><br>
                     <span class="date-text" id="current-date">25 Nov, 2025</span>
                 </div>
             </div>
@@ -746,7 +719,7 @@ body {
                     </div>
                     <h4>CNN VIP</h4>
                 </div>
-
+                
                 <div class="channel-card" onclick="openPlayer('ESPN', 'https://example.com/hls/espn', '1080p', 'S1')">
                     <div class="circular-icon-container" style="background-color: #008800; border-color: #fff;"> 
                         <span class="channel-icon" style="font-size: 28px; font-weight: 900; color: #fff;">ESPN</span>
@@ -772,10 +745,9 @@ body {
             <div class="banner" onclick="window.open('https://your-ad-link.com', '_blank')">
                 <img src="https://via.placeholder.com/600x100/111111/FFFFFF?text=Ad+Space+-+Download+Our+App" alt="Ad Banner" class="banner-image">
             </div>
-
         </div>
 
-        ---
+        <hr>
 
         <div id="highlights-section">
             <div class="section-header">
@@ -790,8 +762,15 @@ body {
                     <p style="font-size: 12px; color: #aaa; margin: 0;">Full Match Highlights (10 mins)</p>
                 </div>
             </div>
+             <div class="highlight-card" onclick="openPlayer('Highlight: Boxing KO', 'https://example.com/highlights-video-2', '720p', 'S1')">
+                <img src="https://via.placeholder.com/100x70/333333/FFFFFF?text=KO" alt="Boxing Thumbnail">
+                <div class="info">
+                    <div class="match-title" style="background-color: #0000FF;">BOXING</div>
+                    <p style="font-weight: bold; margin: 0; font-size: 16px;">Heavyweight Knockout</p>
+                    <p style="font-size: 12px; color: #aaa; margin: 0;">Fight of the Year (3 mins)</p>
+                </div>
             </div>
-
+        </div>
     </div>
 
     <div id="video-player">
@@ -820,9 +799,8 @@ body {
             <div id="server-buttons">
                 </div>
         </div>
-
     </div>
-
+    
     <script>
         // --- 1. Global Variables & Setup ---
         let hls;
@@ -833,14 +811,13 @@ body {
         const serverButtons = document.getElementById('server-buttons');
         const errorMessageBox = document.getElementById('error-message-box');
         
-        // Match Data Structure (Example - In a real app, this would be fetched from an API)
+        // Match Data for Countdown
         const matchData = {
             'upcoming-match-1': {
-                time: moment().add(2, 'hours'), // Match starts 2 hours from now
+                time: moment().add(2, 'hours'), // 2 ঘণ্টা পর শুরু হবে
                 targetId: 'countdown-1',
                 timeId: 'match-time-1'
             }
-            // Add more upcoming matches here
         };
 
         // --- 2. Clock and Date Initialization ---
@@ -897,9 +874,7 @@ body {
             document.querySelector(`.match-tab-btn[onclick*="${tabName}"]`).classList.add('active-tab');
         }
 
-        // --- 5. Player Control Functions ---
-
-        // Helper to destroy HLS instance
+        // --- 5. Player Control Helpers ---
         function destroyHls() {
             if (hls) {
                 hls.destroy();
@@ -907,12 +882,10 @@ body {
             }
         }
         
-        // Function to hide the error box
         function hideErrorBox() {
             errorMessageBox.style.display = 'none';
         }
 
-        // Function to show the error box
         function showErrorBox(title = 'CONNECTION ERROR!', text = 'Failed to load the stream. Please try a different server or check your connection.') {
             document.getElementById('error-title').textContent = title;
             document.getElementById('error-text').textContent = text;
@@ -934,12 +907,9 @@ body {
                 hls.attachMedia(video);
                 
                 hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-                    // console.log("HLS Manifest loaded with " + data.levels.length + " quality levels.");
-                    // After manifest is parsed, remove loading state and set initial watermark
                     livefyTextAnimator.classList.remove('is-loading');
                     livefyTextAnimator.textContent = 'LIVEFY TV';
 
-                    // Populate quality options
                     qualitySelect.innerHTML = '';
                     const levels = data.levels;
                     levels.forEach((level, index) => {
@@ -949,7 +919,6 @@ body {
                         qualitySelect.appendChild(option);
                     });
                     
-                    // Set default quality (usually auto or highest)
                     qualitySelect.value = hls.currentLevel === -1 ? 0 : hls.currentLevel;
                     
                     video.play().catch(e => console.error("Video play failed:", e));
@@ -959,7 +928,6 @@ body {
                     if (data.fatal) {
                         switch (data.type) {
                             case Hls.ErrorTypes.NETWORK_ERROR:
-                                // try to recover network error
                                 console.error("HLS: Fatal network error encountered, trying to recover");
                                 showErrorBox('NETWORK ERROR', 'Could not reach the server. Trying to reconnect...');
                                 hls.startLoad();
@@ -970,7 +938,6 @@ body {
                                 hls.recoverMediaError();
                                 break;
                             default:
-                                // cannot recover
                                 console.error("HLS: Unrecoverable error:", data);
                                 showErrorBox('FATAL ERROR', 'An unrecoverable stream error occurred. Please try a different server.');
                                 destroyHls();
@@ -980,7 +947,6 @@ body {
                 });
 
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                // Native HLS support (Safari/iOS)
                 video.src = url;
                 video.addEventListener('loadedmetadata', function() {
                     video.play().catch(e => console.error("Video play failed:", e));
@@ -996,9 +962,8 @@ body {
                 showErrorBox('HLS UNSUPPORTED', 'Your browser does not support HLS streaming.');
             }
             
-            // Handle native video errors
             video.onerror = function() {
-                if (!Hls.isSupported() || !hls) { // Only show native error if HLS isn't running or supported
+                if (!Hls.isSupported() || !hls) { 
                     showErrorBox('STREAM ERROR', 'The stream link is broken or invalid or your connection is poor.');
                     livefyTextAnimator.style.display = 'none';
                 }
@@ -1013,30 +978,24 @@ body {
             }
         });
 
-
         // --- 8. Main Function to Open Player ---
         function openPlayer(channelName, defaultUrl, qualityMapString, serverNamesString) {
             
-            // 1. Prepare Server Data
             const servers = serverNamesString.split(',').map(s => s.trim());
             const qualities = qualityMapString.split(',').map(q => q.trim());
             
-            // Map: S1:url1,S2:url2 -> {S1: url1, S2: url2} or just use the first URL for all servers
             let serverUrls = {};
             if (qualities.length > 1 && qualities[0].includes(':')) {
-                 // Assume complex map: "S1:url1,S2:url2"
                  qualities.forEach(q => {
                      const [server, url] = q.split(':');
                      serverUrls[server] = url;
                  });
             } else {
-                // Assume simple setup: Use defaultUrl for all servers
                 servers.forEach((server, index) => {
                     serverUrls[server] = defaultUrl; 
                 });
             }
 
-            // 2. Build Server Buttons
             serverButtons.innerHTML = '';
             servers.forEach((serverName, index) => {
                 const url = serverUrls[serverName] || defaultUrl; 
@@ -1045,27 +1004,22 @@ body {
                 button.textContent = serverName;
                 button.setAttribute('data-url', url);
                 button.onclick = function() {
-                    // Set active class
                     document.querySelectorAll('.server-button').forEach(btn => btn.classList.remove('active-server'));
                     this.classList.add('active-server');
-                    // Load the stream
                     loadHlsStream(url);
                 };
                 serverButtons.appendChild(button);
             });
 
-
-            // 3. Show Player and Load Stream
             videoPlayer.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Hide scroll bar
+            document.body.style.overflow = 'hidden'; 
             
-            // Auto-click the first server button to start loading
             const firstServerButton = document.querySelector('.server-button');
             if (firstServerButton) {
                 firstServerButton.classList.add('active-server');
                 loadHlsStream(firstServerButton.getAttribute('data-url'));
             } else {
-                 loadHlsStream(defaultUrl); // Fallback if no server buttons were created
+                 loadHlsStream(defaultUrl); 
             }
         }
 
@@ -1074,12 +1028,12 @@ body {
             destroyHls();
             video.src = '';
             videoPlayer.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scroll bar
+            document.body.style.overflow = 'auto'; 
             livefyTextAnimator.style.display = 'none';
             hideErrorBox();
         };
 
-        // --- 10. Play/Pause Watermark Visibility ---
+        // --- 10. Watermark/Loading Status Handlers ---
         video.addEventListener('play', () => {
             livefyTextAnimator.style.display = 'block';
             livefyTextAnimator.classList.remove('is-loading');
@@ -1087,24 +1041,19 @@ body {
         });
 
         video.addEventListener('pause', () => {
-             // Keep watermark visible on pause, but stop blinking
             livefyTextAnimator.style.animation = 'none';
         });
 
         video.addEventListener('waiting', () => {
-            // Show loading state if buffering
             livefyTextAnimator.textContent = 'BUFFERING...';
             livefyTextAnimator.classList.add('is-loading');
         });
 
         video.addEventListener('playing', () => {
-            // Restore blinking animation and watermark text
             livefyTextAnimator.style.animation = 'watermark-blink 5s infinite';
             livefyTextAnimator.textContent = 'LIVEFY TV';
             livefyTextAnimator.classList.remove('is-loading');
         });
-
-
     </script>
 </body>
 </html>
