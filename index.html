@@ -3947,7 +3947,7 @@
         if(currentChannelIdx === -1) return;
         const chName = channels[currentChannelIdx].name;
         const text = `Report: Channel ${chName} is not working.`;
-        window.open(`https://t.me/livefytv=${encodeURIComponent(text)}`, '_blank');
+        window.open(`https://t.me/livefytv ${encodeURIComponent(text)}`, '_blank');
     }
 
     function showToast(msg) {
