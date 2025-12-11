@@ -142,7 +142,7 @@
 
 <div class="app-container">
     <div class="header">
-        <div class="logo"><i class="fas fa-play-circle"></i> ToffeePro</div>
+        <div class="logo"><i class="fas fa-play-circle"></i> LiveFyPro</div>
         <div class="live-badge">● LIVE</div>
     </div>
 
@@ -271,7 +271,8 @@
             logo: "https://i.postimg.cc/fWV00yP8/20250529_123315.png",
             category: "Sports",
             sources: [
-                { label: "Server 1", url: "https://bongoflixbd.top/?watch=212f6ccc690a978b72b758522a82d9b4", isEmbed: true }
+                { label: "Server 1", url: "https://bongoflixbd.top/?watch=212f6ccc690a978b72b758522a82d9b4", 
+                 isEmbed: true }
             ]
         },
 {
@@ -638,16 +639,16 @@
                 sources: [
                     { label: "Server 1 (HD)", url: "https://live-en.aisports.cc/moviebox/device01/playlist.m3u8" }
                 ]
-            },{
+            },
+            {
+                
     name: "Sky Sports NZ 1",
     logo: "https://iili.io/KbJy77S.png",
     sources: [
         {
             label: "HD (DASH)",
             url: "https://dice-live-oc.akamaized.net/.../2093682/219026-311906/manifest-d.mpd",
-            drm: {
-                "aefc2c8d1c8840f1b6981f856c9269ba": "cf8ea114c45b4d6596b2748258ab74d6"
-            }
+            drm: {"aefc2c8d1c8840f1b6981f856c9269ba": "cf8ea114c45b4d6596b2748258ab74d6" }
         }
     ]
 },
@@ -2617,7 +2618,7 @@
     ]
 },
 {
-    name: "A SPOR",
+    name: "A SPORT",
     logo: "https://i.ibb.co/xSjB51j/aspor.png",
     sources: [
         { label: "480p (HLS)", url: "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p.m3u8" },
@@ -3947,7 +3948,7 @@
         if(currentChannelIdx === -1) return;
         const chName = channels[currentChannelIdx].name;
         const text = `Report: Channel ${chName} is not working.`;
-        window.open(`https://t.me/livefytv ${encodeURIComponent(text)}`, '_blank');
+        window.open(`https://t.me/livefytv`, '_blank');
     }
 
     function showToast(msg) {
