@@ -1,558 +1,1137 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXQ8N910Y"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FZXQ8N910Y');
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livefy TV (Create By HASAN)</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="refresh" content="7200">
-    <meta name="description" content="Watch Live TV Channels On 𝐏𝗿𝗶𝘆𝗼 𝐓𝐕. Join Now For The Best Streaming Experience!">
-    <meta name="keywords" content="Eamin Talukdar, Priyo TV, Bdix Live TV">
-    <meta name="robots" content="index, follow">
+<style>
+/* BASE STYLES & ORIGINAL STYLES (NO CHANGE) */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 70px;
+    overflow-x: hidden;
+}
+.main-header {
+    background-color: #C80815;
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0;
+}
+.welcome-box {
+    background-color: #333;
+    padding: 5px;
+    border: 2px solid Red;
+    margin-top: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.welcome-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 80s linear infinite;
+    font-size: 20px;
+    color: #00ff00;
+    font-weight: bold;
+}
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+.content {
+    padding: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444;
+}
+.section-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    min-width: 120px;
+}
+.datetime-box {
+    background-color: #C80815;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: right;
+    line-height: 1.2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    min-width: 90px;
+}
+.datetime-box .date-text { color: #ffd700; }
+.join-now-link i { margin-right: 5px; }
+.join-now-link {
+    text-decoration: none;
+    background-color: #00ff00;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    border: 1px solid #000;
+}
+.join-now-link:hover {
+    background-color: #00e600;
+    color: #111;
+}
+.match-card, .highlight-card, .banner {
+    background-color: #222;
+    border: 1px solid #00ffc8;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.match-card:hover, .highlight-card:hover { transform: scale(1.03); }
 
-    <title>Livefy 𝐓𝐕</title>
-    <link rel="icon" href="https://i.postimg.cc/kgBj5B1v/priyotv.png" type="image/png">
+/* ================================================================== */
+/* ========= নতুন এবং ইউনিক লাইভ টিভি সেকশনের স্টাইল শুরু ========= */
+/* ================================================================== */
+.channel-grid {
+    display: grid;
+    /* Responsive Grid: স্ক্রিন অনুযায়ী কলাম সংখ্যা পরিবর্তন হবে */
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px; /* কার্ডগুলোর মধ্যে ফাঁকা জায়গা */
+    padding-top: 10px;
+}
+.channel-item {
+    position: relative; /* ভেতরের ওভারলে ঠিকমতো বসানোর জন্য */
+    background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+    border-radius: 12px;
+    overflow: hidden; /* ভেতরের কন্টেন্ট যাতে বাইরে না যায় */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #444;
+    aspect-ratio: 4 / 3; /* কার্ডগুলোর আকৃতি ঠিক রাখার জন্য */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.channel-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 255, 200, 0.25);
+    border-color: #00ffc8;
+}
+.channel-logo {
+    width: 65%;
+    max-height: 50px;
+    object-fit: contain; /* লোগো যেন চ্যাপ্টা না হয়ে যায় */
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+}
+.channel-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: #eee;
+    text-align: center;
+    line-height: 1.2;
+}
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* সাধারণ অবস্থায় অদৃশ্য থাকবে */
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* যাতে ওভারলের উপর ক্লিক করা যায় */
+}
+.channel-item:hover .play-overlay {
+    opacity: 1; /* Hover করলে দৃশ্যমান হবে */
+}
+.play-icon {
+    font-size: 36px;
+    color: #00ffc8;
+    text-shadow: 0 0 15px #00ffc8;
+}
+/* ================================================================== */
+/* =================== নতুন স্টাইলের শেষ =================== */
+/* ================================================================== */
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root { --bg-color: #050505; --accent: #ff0000; --tg-color: #0088cc; }
-        
-        html, body { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background-color: var(--bg-color); color: #fff; 
-            font-family: 'Poppins', sans-serif; overflow: hidden; 
-        }
-
-        /* --- Preloader --- */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10000;
-        }
-        .loader-logo { width: 130px; height: auto; margin-bottom: 15px; animation: smoothPulse 2.5s infinite ease-in-out; }
-        .loader-title { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: 4px; text-transform: uppercase; }
-
-        @keyframes smoothPulse { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1); opacity: 1; } }
-
-        /* Layout Structure */
-        .wrapper { display: flex; flex-direction: column; height: 100vh; width: 100%; }
-        .app-container { display: flex; flex: 1; overflow: hidden; }
-        
-        .player-area { flex: 1.8; background: #000; display: flex; flex-direction: column; border-right: 1px solid #222; padding: 15px 0; }
-        .video-box { width: 96%; margin: 0 auto; position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #1a1a1a; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
-        .video-box::before { content: ""; display: block; padding-top: 56.25%; }
-        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        
-        .content-area { flex: 1; display: flex; flex-direction: column; background: #080808; overflow: hidden; position: relative; }
-        
-        /* Tabs */
-        .tab-wrapper { background: #000; padding: 12px 8px; display: flex; gap: 8px; overflow-x: auto; border-bottom: 1px solid #222; flex-shrink: 0; scrollbar-width: none; }
-        .tab-wrapper::-webkit-scrollbar { display: none; }
-        .tab-btn { padding: 8px 16px; background: #111; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid #333; color: #888; white-space: nowrap; transition: 0.3s; }
-        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-        /* Channel Grid */
-        .channel-container { flex: 1; overflow-y: auto; padding-bottom: 100px; }
-        .channel-grid { padding: 12px; display: none; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .channel-grid.active { display: grid; }
-        .channel-card { position: relative; background: #111; border-radius: 10px; padding: 3px; cursor: pointer; aspect-ratio: 16 / 10; overflow: hidden; z-index: 1; }
-        .channel-card.active::before { content: ""; position: absolute; width: 400%; height: 400%; top: -150%; left: -150%; background: conic-gradient(from 0deg, #ff0000, #fbff00, #00ff11, #0044ff, #ff00ea, #ff0000); animation: rotate 1.5s linear infinite; z-index: -1; }
-        .inner-card { background: #fff; width: 100%; height: 100%; border-radius: 7px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .inner-card img { max-width: 90%; max-height: 90%; transform: scale(1.3); }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-
-        /* --- Telegram UI --- */
-        .tg-wrapper {
-            position: fixed; bottom: 40px; right: 20px; z-index: 777;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .tg-btn {
-            width: 50px; height: 50px; background: var(--tg-color);
-            color: white; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; 
-            text-decoration: none; box-shadow: 0 8px 25px rgba(0, 136, 204, 0.7);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: messengerShake 4s infinite ease-in-out;
-        }
-        .tg-btn i { font-size: 24px; } 
-
-        .tg-label {
-            margin-top: 8px; background: rgba(0,0,0,0.8); color: #fff;
-            font-size: 10px; font-weight: 800; padding: 4px 10px;
-            border-radius: 12px; border: 1px solid #333;
-            text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .tg-btn:hover { transform: scale(1.15) rotate(5deg); }
-
-        @keyframes messengerShake {
-            0%, 90%, 100% { transform: rotate(0); }
-            92% { transform: rotate(15deg); }
-            94% { transform: rotate(-15deg); }
-            96% { transform: rotate(10deg); }
-            98% { transform: rotate(-10deg); }
-        }
-
-        /* Footer */
-        .footer-fixed { width: 100%; height: 50px; background: #000; border-top: 1px solid #222; display: flex; align-items: center; justify-content: center; z-index: 10; }
-        .footer-text { font-size: 14px; font-weight: 800; color: #fff; margin: 0; }
-
-        /* Responsive Fixes */
-        @media (max-width: 768px) {
-            .app-container { flex-direction: column; }
-            .player-area { flex: none; padding: 0; border-right: none; }
-            .video-box { width: 100%; border-radius: 0; border: none; }
-            .channel-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            .tg-wrapper { bottom: 65px; right: 20px; } 
-        }
-    </style>
+.highlight-card {
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+}
+.highlight-card .info { flex-grow: 1; }
+.highlight-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #c80815;
+}
+.banner {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #C80815;
+    cursor: default;
+    transform: none;
+    transition: none;
+    margin-top: 25px;
+}
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+.banner:hover { transform: none; }
+.match-title {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+.team img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid red;
+}
+.team-name {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+.match-info { text-align: center; }
+.time {
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+.date {
+    font-size: 10px;
+    color: #00FF00;
+    margin-top: 2px;
+}
+.match-stage {
+    background-color: black;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 10px;
+    font-size: 8px;
+    display: inline-block;
+    margin-top: 5px;
+}
+.live-animation {
+    color: #C80815;
+    font-size: 15px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+.hidden { display: none !important; }
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+.match-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.match-tab-btn {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #888;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.match-tab-btn.active-tab {
+    background-color: #C80815;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+.countdown-text {
+    color: #00ff00;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+.full-time-text {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+.match-status-wrapper {
+    min-height: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#video-player {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #080808;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+#video-container-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background-color: black;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.4);
+}
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    border: 4px solid #00ff00;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5);
+}
+#video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: brightness(1);
+}
+#video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 50;
+    pointer-events: none;
+}
+#livefy-text-animator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #00ff00;
+    font-size: 14px;
+    font-weight: 900;
+    opacity: 0.8;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    animation: watermark-blink 5s infinite;
+    display: none;
+}
+.is-loading {
+    color: #FF003C !important;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-color: #FF003C !important;
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.8) !important;
+    animation: pulse 1s infinite !important;
+}
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes watermark-blink {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.5; }
+}
+#error-message-box {
+    background-color: #1a1a1a;
+    border: 3px solid #FF003C;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 95%;
+    width: 350px;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+    display: none;
+    position: relative;
+}
+#error-title {
+    color: #FF003C;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+#error-text {
+    color: #ddd;
+    font-size: 14px;
+}
+#error-message-box .close-error-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 18px;
+    color: white;
+    background-color: #C80815;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+}
+#controls-area {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+#quality-selector-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    color: #00ffc8;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #333;
+}
+#quality-select {
+    background-color: #000;
+    color: #00ffc8;
+    border: 1px solid #00ffc8;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+#quality-select:focus { border-color: #C80815; }
+#server-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.server-button {
+    background-color: #333;
+    color: #00ffc8;
+    border: 1px solid #00ffc8;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.2s, color 0.5s, box-shadow 0.3s;
+    flex: 1 1 calc(50% - 15px);
+    box-sizing: border-box;
+    max-width: 300px;
+}
+.server-button:hover {
+    background-color: #00ffc8;
+    color: black;
+    box-shadow: 0 0 10px #00ffc8;
+}
+.server-button.active-server {
+    background-color: #C80815;
+    color: white;
+    border: 2px solid #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(200, 8, 21, 0.6);
+}
+#close-btn {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 22px;
+    color: white;
+    background-color: #C80815;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(200, 8, 21, 1);
+}
+#close-btn:hover {
+    background-color: #FF003C;
+    transform: scale(1.1);
+}
+#close-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px rgba(200, 8, 21, 0.8);
+}
+@media (max-width: 600px) {
+    #close-btn {
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    z-index: 999;
+}
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding: 5px 10px;
+}
+.nav-item.active { color: #00ff00; }
+.nav-item span {
+    font-size: 12px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+}
+</style>
 </head>
 <body>
-
-<div id="preloader">
-    <div class="loader-content">
-        <img src="https://i.postimg.cc/kgBj5B1v/priyotv.png" class="loader-logo">
-        <h1 class="loader-title" style="color:white">LiveFy <span style="color:red">𝐓𝐕</span></h1>
+    <header class="main-header"> LIVEFY TV </header>
+    <div class="welcome-box">
+        <div class="welcome-text"> স্বাগতম।| লাইভ যে কোন খেলার আপডেট পেতে আমাদের টেলিগ্রাম চ্যানেলে জয়েন করুন। ভিডিও প্লে হতে ১০ থেকে ১৫ সেকেন্ড সময় লাগতে পারে। এইটা আপনার ইন্টারনেট গতির উপর নির্ভর করবে।। ধন্যবাদ।। </div>
     </div>
-</div>
+    <div class="content">
+        <div id="home-section">
+            <div class="section-header">
+                <h2 id="match-section-title">All Matches</h2> <a href="https://t.me/livefytv" class="join-now-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane"></i> Join Now
+                </a>
+                <div id="time-display-home" class="datetime-box"></div>
+            </div>
 
-<div class="tg-wrapper">
-    <a href="https://t.me/bpltve" target="_blank" class="tg-btn">
-        <i class="fab fa-telegram-plane"></i>
-    </a>
-    <div class="tg-label">Contact US</div>
-</div>
+            <div class="match-tabs">
+                <button class="match-tab-btn active-tab" onclick="filterMatches('all', this)">ALL</button>
+                <button class="match-tab-btn" onclick="filterMatches('live', this)">LIVE</button>
+                <button class="match-tab-btn" onclick="filterMatches('upcoming', this)">UPCOMING</button>
+                <button class="match-tab-btn" onclick="filterMatches('recent', this)">RECENT</button>
+            </div>
 
+            <div id="match-list-container">
+                <!-- Match cards will be dynamically inserted here by JS -->
+            </div>
+            
+            <div class="banner" id="home-banner">
+                <a href="https://www.effectivegatecpm.com/zdqc4sm7qt?key=2ee33388356594706e35bcca2fde65ed" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.ibb.co/r21d4Q4J/file-0000000033647206a7307cdfd35e4b7f.png" alt="Home Section Banner" class="banner-image" onerror="this.onerror=null; this.src='https://placehold.co/600x100/C80815/ffffff?text=LIVEFY+AD+SPACE';">
+                </a>
+            </div>
+            
+            <!-- This is a sample card to show how it looks, JS will populate real ones -->
+            <div id="match-card-1" class="match-card" data-match-id="1" onclick="openMatchChannels([ {name: 'Server 2', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767704076~acl=%2f*~data=hdntl~hmac=ec0ba35ac4e20adfd03da45a04149e3ec618566dedf3f440e89ce2e470171d30/level_1.m3u8'}, ])">
+                <div class="match-title">Cricket || Big Bash League 2026</div>
+                <div class="team">
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png" alt="BBL Logo">
+                        <div class="team-name">BBL</div>
+                    </div>
+                    <div class="match-info">
+                        <div class="match-status-wrapper">
+                            <div class="time" id="time1">02:15 PM</div>
+                            <div class="date" id="date1">06/01/2026</div>
+                            <div id="live1" class="live-animation hidden">LIVE NOW</div>
+                            <div id="countdown1" class="countdown-text hidden"></div>
+                            <div id="fulltime1" class="full-time-text hidden">FULL TIME</div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png" alt="BBL Logo">
+                        <div class="team-name">BBL</div>
+                    </div>
+                </div>
+                <div class="match-stage">Cricket Live Match</div>
+            </div>
+            <!-- More match cards will follow... -->
 
-<div class="wrapper">
-    <div class="app-container">
-        <div class="player-area">
-            <div class="video-box">
-                <iframe id="tvPlayer" src="" allow="autoplay; encrypted-media" allowfullscreen="true"></iframe>
+        </div>
+
+        <script type="text/javascript" src="//pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js"></script>
+
+        <!-- ================================================================== -->
+        <!-- ========= পরিবর্তিত এবং নতুন ডিজাইনের লাইভ টিভি সেকশন ========= -->
+        <!-- ================================================================== -->
+        <div id="sports-channels-section" class="hidden">
+            <div class="section-header">
+                <h2>Live TV</h2>
+                <a href="https://t.me/livefytv" class="join-now-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane"></i> Join Now
+                </a>
+                <div id="time-display-channels" class="datetime-box"></div>
+            </div>
+            
+            <div class="channel-grid">
+                <!-- Channel items will be added here -->
+                <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=T+Sports" alt="T Sports" class="channel-logo">
+                    <span class="channel-name">T Sports</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Ten Cricket', url: 'https://m.xigzo.store/live.php?id=86db7302947d&e=.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Ten+Cricket" alt="Ten Cricket" class="channel-logo">
+                    <span class="channel-name">Ten Cricket</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'RTA TV HD', url: 'https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA3)/03.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=RTA+TV" alt="RTA TV HD" class="channel-logo">
+                    <span class="channel-name">RTA TV HD</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'BANGLAVISION', url: 'https://owrcovcrpy.gpcdn.net/bpk-tv/1715/output/index.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=BanglaVision" alt="BANGLAVISION" class="channel-logo">
+                    <span class="channel-name">BanglaVision</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Star Jalsha HD', url: 'https://edge2.roarzone.info:8443/roarzone/bk/30/index.m3u8?token=2aaff4c5d0abb2a2dcea5ba6ed98bc728903642f-851e9b6406957a1e1bde3b504a81f43c-1767459057-1767455457'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Star+Jalsha" alt="Star Jalsha HD" class="channel-logo">
+                    <span class="channel-name">Star Jalsha HD</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'N TV', url: 'https://owrcovcrpy.gpcdn.net/bpk-tv/1716/output/index.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=N+TV" alt="N TV" class="channel-logo">
+                    <span class="channel-name">N TV</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Sharjah Sports', url: 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Sharjah+Sports" alt="Sharjah Sports" class="channel-logo">
+                    <span class="channel-name">Sharjah Sports</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Dubai Sports 1', url: 'https://dmidspta.cdn.mgmlcdn.com/dubaisports/smil:dubaisports.stream.smil/chunklist.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Dubai+Sports+1" alt="Dubai Sports 1" class="channel-logo">
+                    <span class="channel-name">Dubai Sports 1</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Willow Cricket', url: 'https://livetvpro.vercel.app/api/m3u8-proxy?url=https%3A%2F%2Ffl1.moveonjoy.com%2FWILLOW_CRICKET%2Ftracks-v1a1%2Fmono.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Willow" alt="Willow" class="channel-logo">
+                    <span class="channel-name">Willow Cricket</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Sky Sports', url: 'http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/9258/index.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Sky+Sports" alt="Sky Sports" class="channel-logo">
+                    <span class="channel-name">Sky Sports</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Sony LIV', url: 'https://dai.google.com/linear/hls/event/biQJgf06SJCitj-nd502ow/master.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=Sony+LIV" alt="Sony LIV" class="channel-logo">
+                    <span class="channel-name">Sony LIV</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'FIFA +', url: 'https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8'}])">
+                    <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=FIFA+" alt="FIFA +" class="channel-logo">
+                    <span class="channel-name">FIFA +</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                 <!-- আপনি এখানে আরও চ্যানেল যোগ করতে পারেন -->
+            </div>
+
+            <div class="banner" id="channels-banner">
+                <a href="https://www.effectivegatecpm.com/zdqc4sm7qt?key=2ee33388356594706e35bcca2fde65ed" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.ibb.co/3yRrLxfK/20251002-090751.jpg" alt="Channels Section Banner" class="banner-image" onerror="this.onerror=null; this.src='https://placehold.co/600x100/00ff00/000000?text=SPORTS+AD+SPACE';">
+                </a>
             </div>
         </div>
-
-        <div class="content-area">
-            <div class="tab-wrapper">
-                                    <div class="tab-btn active" onclick="openTab(event, 'cat_0')">Live</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_1')">Bangla</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_2')">Indian</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_3')">Hindi</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_4')">Kids</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_5')">Music</div>
-                                    <div class="tab-btn " onclick="openTab(event, 'cat_6')">Others</div>
-                            </div>
-
-            <div class="channel-container">
-                                    <div id="cat_0" class="channel-grid active">
-                                                    <div class="channel-card item-box" onclick="loadChannel('tsports', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/VL5yTtwr/20250707_141739.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('nagorik', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/8zQ0DYBH/20250720_201346.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('eurosports', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/K89SfFWN/20251208_221926.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starsports1', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/N0sYHFDj/20251002_230032.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starsports2', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/yNvbVTHy/20250702_032050.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('dubaisports', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/CxvT7Y24/20251208_222149.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starselect1', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/50ykjF9d/20250702_032238.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starselect2', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/DzvFX06y/20251002_225947.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ten1', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/cH2Cc7zX/20250529_122631.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ten2', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/x12k7R1Z/20250529_122855.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ten3', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/vH9g3jb9/20250529_123011.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ten5', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/kMLRN93q/20250529_123147.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_1" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('btv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/JnWdHSrq/20250529-071604.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('jamuna', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/L4D0hyrt/20250529-071035.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('somoy', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/Qxn4JFNV/20250529-071147.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('channel24', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/nLmPznJr/20250529-071852.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ekattor', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/D0xCDZqj/20250529-071258.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('atnnews', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/4NBkk4fT/20250529-102724.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('banglavision', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/JzGFfbYb/20250529-072833.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ntv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/kgzHqBLL/20250529-072107.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('atnbangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/FHBMzPkW/20250529-102502.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('channeli', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/J47vqwbY/20250529-101717.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('gtv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/jjKGfnW8/20250704_201040.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('deepto', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/9XPHbts0/20250529-103607.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('maasranga', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/WbnjN67C/20250529-104926.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ekushetv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/L6R2F0jj/20250529_105209.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('rtv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/8kmxMkrr/20250529_101852.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('mytv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/HxGF4V2b/20250529_103226.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('moviebangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/wBN1BtXk/20251127_095813.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('metv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/j2hVjtyP/20250529-103904.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_2" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('starjalsha', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/hvRgj26W/20250529-105408.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zeebangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/ry5MbLR8/20250529-105712.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('colorsbangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/HLdjn6zR/20250602_220804.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('enterr10', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/LX122cy3/20250529-111624.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonyaath', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/ZqgJkbLq/20250529-111438.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('akashbangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/PJ5V7VsN/20250711_062758.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('ruposhibangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/pLs2ZYhz/20250529_111853.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('jalshamovies', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/T2nGNxc8/20250707_053157.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zeebanglacinema', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/Zq0JDBpg/20250529_110358.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_3" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('colors', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/pdy3k1qZ/20251202_090150.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('andtv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/bJzsJNt9/20250529_133255.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('andpicture', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/k5N2qtB5/20250529_133459.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starmovies', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/TYcpKMDZ/20251222_213635.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('starplus', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/q7gWQZjw/20251202_090307.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('stargold', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/PqN0KF2M/20251202_090224.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zeetv', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/1z18kKRT/20250529_133622.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zeecinema', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/nhDsSWxB/20250529_133753.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zeebollywood', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/52SzwQF1/20251222_220548.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('hum', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/RFXqn515/20250529_132912.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('b4umovie', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/13nLvxQx/20250630_050504.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonytelevision', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/0yDQ0JGC/20250529_131726.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonymax', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/zX9vhkhB/20250529_131834.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonymaxhd', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/zX9vhkhB/20250529_131834.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonymax2', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/KYbYqvJh/20250529_132238.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_4" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('duronto', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/s2WM2BPR/20251127_095726.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('nick', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/5y5VX5t9/20250707_053227.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('pogo', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/W3FbtF4r/20250529_115709.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('discoverykids', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/pXdcjfHg/20250529_115821.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('cartoonnetwork', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/zvTzSsKG/20250529-115440.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('sonyyay', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/wBbj6c9g/20250529_115914.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_5" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('sangeetbangla', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/pdddb1bs/20250529_120025.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('9xm', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/P5yq7ncL/20250529_120144.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('zoom', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/7hz6tG8D/20250529_121941.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('yrfmusic', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/hPFhzrTG/20250529_121624.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('showbox', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/MKyHyQmm/20250529_120709.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('b4umusic', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/ZqfCWzxk/20250529_122103.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                                    <div id="cat_6" class="channel-grid ">
-                                                    <div class="channel-card item-box" onclick="loadChannel('discoveryhd', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/k4xxp7zh/20251002_232031.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('animalplanet', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/qR885pSD/20251002_231959.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                                    <div class="channel-card item-box" onclick="loadChannel('natgeo', this)">
-                                <div class="inner-card">
-                                    <img src="https://i.postimg.cc/Zn4KK0kW/20251031_210443.png" alt="Priyo TV">
-                                </div>
-                            </div>
-                                            </div>
-                            </div>
+        <!-- ================================================================== -->
+        <!-- =================== নতুন ডিজাইনের শেষ =================== -->
+        <!-- ================================================================== -->
+        
+        <div id="highlights-section" class="hidden">
+            <div class="section-header">
+                <h2>Highlights</h2>
+                <a href="https://t.me/livefytv" class="join-now-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane"></i> Join Now
+                </a>
+                <div id="time-display-highlights" class="datetime-box"></div>
+            </div>
+            <div class="highlight-card" onclick="openMatchChannels([{name: 'Highlight 1', url: 'https://vodintlv2.in-maa-1.linodeobjects.com/AsiaCup2025/Match5/master.m3u8'}])">
+                <img src="https://placehold.co/70x70/ffcc00/000000?text=Wicket" alt="Highlight 3">
+                <div class="info">
+                    <p style="font-size: 16px; font-weight: bold;">Top 5 Wickets: BANGLADESH WIN</p>
+                    <p style="color:#aaa; font-size: 12px;">Asia Cup 2025 - Bangladesh vs Sri Lanka</p>
+                </div>
+            </div>
+            <div class="highlight-card" onclick="openMatchChannels([{name: 'Highlight 2', url: 'https://vod.bongobd.com/vod/vod/919f93a7400e4149a70d204beb589074/0/6/06148633e94e41b2a3b1738d4185c389/4a8cf536bf2646e8b86f84bd67f5f526_x264_360p_700k.m3u8p_700k.m3u8'}])">
+                <img src="https://placehold.co/70x70/00ff00/000000?text=Goal" alt="Highlight 2">
+                <div class="info">
+                    <p style="font-size: 16px; font-weight: bold;">Liverpool vs Man City: All Goals</p>
+                    <p style="color:#aaa; font-size: 12px;">EPL | 8 Mins</p>
+                </div>
+            </div>
+            <div class="banner" id="highlights-banner">
+                <a href="https://www.effectivegatecpm.com/zdqc4sm7qt?key=2ee33388356594706e35bcca2fde65ed" target="_blank" rel="noopener noreferrer">
+                    <img src="https://landings-cdn.adsterratech.com/referralBanners/gif/468x60_adsterra_reff.gif" alt="Highlights Section Banner" class="banner-image" onerror="this.onerror=null; this.src='https://placehold.co/600x100/00ffc8/000000?text=HIGHLIGHTS+AD+SPACE';">
+                </a>
+            </div>
         </div>
     </div>
+    <div id="video-player">
+        <div id="video-container-wrapper">
+            <button id="close-btn" onclick="closeVideo()">❌</button>
+            <div class="video-wrapper">
+                <video id="video" controls autoplay playsinline></video>
+                <div id="video-overlay">
+                    <span id="livefy-text-animator">LIVEFY TV</span>
+                </div>
+            </div>
+        </div>
+        <div id="error-message-box">
+            <button class="close-error-btn" onclick="closeVideo()">✖</button>
+            <h3 id="error-title">Error (Playback Failure)</h3>
+            <p id="error-text">The video cannot be loaded. The stream link might be invalid, the server may be down, or your device might not support HLS format. Please try another server.</p>
+        </div>
+        <div id="controls-area">
+            <div id="quality-selector-container">
+                <label for="quality-select">Video Quality:</label>
+                <select id="quality-select" onchange="changeQuality(this.value)">
+                    <option value="-1">Auto</option>
+                </select>
+            </div>
+            <div id="server-buttons"></div>
+        </div>
+    </div>
+    <nav class="bottom-nav">
+        <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)">
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+            <span>Home</span>
+        </div>
+        <div id="nav-channels" class="nav-item" onclick="showTab('sports-channels-section', this)">
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg>
+            <span>Live TV</span>
+        </div>
+        <div id="nav-highlights" class="nav-item" onclick="showTab('highlights-section', this)">
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 13c-2.34 0-4.59.88-6.23 2.52-1.64 1.64-2.52 3.88-2.52 6.23H5V3h14v10.5h-1.5zm-5.5 3.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z"></path></svg>
+            <span>Highlights</span>
+        </div>
+    </nav>
+    <script>
+        // আপনার সম্পূর্ণ জাভাস্ক্রিপ্ট কোডটি এখানে অপরিবর্তিত রাখা হয়েছে
+        let hls = null;
+        const video = document.getElementById('video');
+        const qualitySelect = document.getElementById('quality-select');
+        const qualityContainer = document.getElementById('quality-selector-container');
+        const serverButtonsContainer = document.getElementById('server-buttons');
+        const allSections = document.querySelectorAll('.content > div');
+        const navItems = document.querySelectorAll('.nav-item');
+        const errorMessageBox = document.getElementById('error-message-box');
+        const livefyTextAnimator = document.getElementById('livefy-text-animator');
+        const videoOverlay = document.getElementById('video-overlay');
+        const matchListContainer = document.getElementById('match-list-container');
+        const matchTabBtns = document.querySelectorAll('.match-tab-btn');
+        const matchSectionTitle = document.getElementById('match-section-title');
+        let currentFilter = 'all';
 
-    <footer class="footer-fixed">
-        <p class="footer-text">© 2026 <span style="color:red">LiveFy</span></p>
-    </footer>
-</div>
+        function showMessage(title, message) {
+            document.getElementById('video-container-wrapper').style.display = 'none';
+            document.getElementById('controls-area').style.display = 'none';
+            document.getElementById('error-title').textContent = title;
+            document.getElementById('error-text').textContent = message;
+            errorMessageBox.style.display = 'block';
+            livefyTextAnimator.style.display = 'none';
+        }
 
-<script>
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            preloader.style.transition = 'opacity 1s ease-out';
-            setTimeout(() => { preloader.style.display = 'none'; }, 1000);
-        }, 2000); 
-    });
+        function hideMessage() {
+            errorMessageBox.style.display = 'none';
+            document.getElementById('video-container-wrapper').style.display = 'block';
+            document.getElementById('controls-area').style.display = 'block';
+        }
 
-    function openTab(evt, catId) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        evt.currentTarget.classList.add('active');
-        document.querySelectorAll('.channel-grid').forEach(g => g.classList.remove('active'));
-        document.getElementById(catId).classList.add('active');
-        document.querySelector('.channel-container').scrollTop = 0;
-    }
+        function populateQualitySelector() {
+            qualitySelect.innerHTML = '';
+            const autoOption = new Option('Auto', -1);
+            qualitySelect.add(autoOption);
+            if (hls && hls.levels && hls.levels.length > 0) {
+                hls.levels.forEach((level, index) => {
+                    const resolution = level.height ? `${level.height}p` : 'Unknown';
+                    const bitrate = level.bitrate ? ` (${Math.round(level.bitrate / 1000)}kbps)` : '';
+                    const option = new Option(resolution + bitrate, index);
+                    qualitySelect.add(option);
+                });
+                qualityContainer.style.display = 'flex';
+            } else {
+                qualityContainer.style.display = 'none';
+            }
+            qualitySelect.value = hls ? hls.currentLevel : -1;
+        }
 
-    function loadChannel(id, el) {
-        document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        document.getElementById('tvPlayer').src = "play.php?id=" + id;
-    }
+        function changeQuality(index) {
+            if (hls) {
+                hls.currentLevel = parseInt(index, 10);
+            }
+        }
 
-    window.onload = function() {
-        setTimeout(() => {
-            const firstChannel = document.querySelector('.item-box');
-            if(firstChannel) firstChannel.click();
-        }, 1200);
-    };
-</script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"b26dd59ce61d417f983f3ca5da83d087","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+        function showLoading() {
+            livefyTextAnimator.textContent = 'LIVEFY TV - LOADING...';
+            livefyTextAnimator.classList.add('is-loading');
+            livefyTextAnimator.style.display = 'block';
+        }
+
+        function showWatermark() {
+            livefyTextAnimator.textContent = 'LIVEFY TV';
+            livefyTextAnimator.classList.remove('is-loading');
+            livefyTextAnimator.style.display = 'block';
+        }
+
+        function hideWatermark() {
+            livefyTextAnimator.style.display = 'none';
+        }
+
+        function loadVideoSource(videoSrc) {
+            hideMessage();
+            showLoading();
+            if (!videoSrc || videoSrc.startsWith('http://channel-url') || videoSrc.startsWith('http://highlight-url')) {
+                if (hls) {
+                    hls.destroy();
+                    hls = null;
+                }
+                video.removeAttribute('src');
+                video.load();
+                qualityContainer.style.display = 'none';
+                showMessage("Error: No Link Found", "No URL found for the video stream or the link is only a demo.");
+                return;
+            }
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+            video.removeAttribute('src');
+            video.load();
+            qualitySelect.innerHTML = '<option value="-1">Auto</option>';
+            const isHls = videoSrc.toLowerCase().endsWith('.m3u8');
+            if (isHls && Hls.isSupported()) {
+                qualityContainer.style.display = 'flex';
+                hls = new Hls({
+                    maxBufferLength: 10,
+                    maxMaxBufferLength: 30,
+                    fragLoadingMaxRetry: 10,
+                    fragLoadingRetryDelay: 500,
+                    levelLoadingMaxRetry: 5,
+                    abrEwmaFastAveragingTime: 3,
+                    abrEwmaSlowAveragingTime: 9,
+                    startFragPrefetch: true,
+                    liveSyncDurationCount: 3
+                });
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    populateQualitySelector();
+                    if (hls.live) {
+                        video.currentTime = video.duration - 1;
+                    }
+                    video.play().catch(e => console.log("Video auto-play blocked:", e));
+                });
+                hls.on(Hls.Events.LEVEL_SWITCHED, function(event, data) {
+                    qualitySelect.value = data.level;
+                });
+                hls.on(Hls.Events.ERROR, function(event, data) {
+                    if (data.fatal) {
+                        if (hls) {
+                            hls.destroy();
+                            hls = null;
+                        }
+                        video.src = videoSrc;
+                        video.load();
+                        const nativeErrorHandler = function() {
+                            hideWatermark();
+                            showMessage("Fatal Error", "HLS and Native playback failed. The stream link is likely dead or has severe CORS issues. Please try another server.");
+                            video.removeEventListener('error', nativeErrorHandler);
+                        };
+                        video.addEventListener('error', nativeErrorHandler);
+                        video.play().catch(e => console.log("Native fallback play blocked:", e));
+                    }
+                });
+            } else {
+                qualityContainer.style.display = 'none';
+                video.src = videoSrc;
+                video.load();
+                const errorHandler = function() {
+                    hideWatermark();
+                    showMessage("Playback Failed", "The video cannot be played in this browser or with this link. The link might be down or the format is unsupported.");
+                    video.removeEventListener('error', errorHandler);
+                };
+                video.addEventListener('error', errorHandler);
+                video.play().catch(e => {});
+            }
+        }
+
+        function openMatchChannels(channelsData) {
+            document.getElementById('video-player').style.display = 'flex';
+            serverButtonsContainer.innerHTML = '';
+            hideMessage();
+            if (!channelsData || channelsData.length === 0) {
+                showMessage("Error", "No channels found for this match.");
+                loadVideoSource('');
+                return;
+            }
+            channelsData.forEach((channel, index) => {
+                const button = document.createElement('button');
+                button.className = 'server-button';
+                button.textContent = channel.name;
+                button.onclick = () => selectServer(channel.url, button);
+                serverButtonsContainer.appendChild(button);
+            });
+            const firstButton = serverButtonsContainer.querySelector('.server-button');
+            if (firstButton) {
+                selectServer(channelsData[0].url, firstButton);
+            }
+        }
+
+        function selectServer(serverSrc, clickedButton) {
+            document.querySelectorAll('.server-button').forEach(btn => {
+                btn.classList.remove('active-server');
+            });
+            if (clickedButton) {
+                clickedButton.classList.add('active-server');
+            }
+            loadVideoSource(serverSrc);
+        }
+
+        function closeVideo() {
+            document.getElementById('video-player').style.display = 'none';
+            if (hls) {
+                hls.destroy();
+                hls = null;
+            }
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+            document.getElementById('video-container-wrapper').style.display = 'block';
+            document.getElementById('controls-area').style.display = 'block';
+            errorMessageBox.style.display = 'none';
+            qualitySelect.innerHTML = '<option value="-1">Auto</option>';
+            qualityContainer.style.display = 'flex';
+            serverButtonsContainer.innerHTML = '';
+            hideWatermark();
+        }
+
+        function showTab(sectionIdToShow, clickedElement) {
+            allSections.forEach(section => {
+                if (section.id) {
+                    section.classList.add('hidden');
+                }
+            });
+            const sectionToShow = document.getElementById(sectionIdToShow);
+            if (sectionToShow) {
+                sectionToShow.classList.remove('hidden');
+            }
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            clickedElement.classList.add('active');
+            if (sectionIdToShow === 'home-section') {
+                filterMatches(currentFilter, document.querySelector(`.match-tab-btn[onclick*="${currentFilter}"]`) || document.querySelector('.match-tab-btn'));
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function updateClock() {
+            const now = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const dateOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+            const timeString = now.toLocaleTimeString('en-US', timeOptions);
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            const html = ` <span style="font-size: 14px; display: block;">${timeString}</span> <span class="date-text" style="display: block;">${dateString}</span> `;
+            document.getElementById('time-display-home').innerHTML = html;
+            document.getElementById('time-display-channels').innerHTML = html;
+            document.getElementById('time-display-highlights').innerHTML = html;
+        }
+
+        const matchesData = [
+            { id: '1', start: '06/01/2026 14:00', end: '06/01/2026 18:30' },
+            { id: '2', start: '04/01/2026 21:00', end: '04/01/2026 23:00' },
+            { id: '3', start: '04/01/2026 10:55', end: '04/01/2026 14:30' },
+            { id: '4', start: '05/01/2026 04:00', end: '05/01/2026 12:00' },
+            { id: '5', start: '04/01/2026 18:00', end: '04/01/2026 23:00' },
+            { id: '6', start: '05/01/2026 13:00', end: '05/01/2026 17:30' },
+            { id: '7', start: '04/01/2026 18:30', end: '04/01/2026 20:50' },
+            { id: '8', start: '05/01/2026 21:30', end: '06/01/2026 01:30' },
+            { id: '9', start: '04/01/2026 23:00', end: '05/01/2026 02:30' },
+            { id: '10', start: '04/01/2026 21:00', end: '04/01/2026 23:00' },
+            { id: '11', start: '05/01/2026 18:00', end: '05/01/2026 22:30' },
+        ];
+
+        function checkMatchStatus() {
+            const now = moment();
+            matchesData.forEach(match => {
+                const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm');
+                const endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
+                const timeEl = document.getElementById(`time${match.id}`);
+                const dateEl = document.getElementById(`date${match.id}`);
+                const liveEl = document.getElementById(`live${match.id}`);
+                const countdownEl = document.getElementById(`countdown${match.id}`);
+                const fulltimeEl = document.getElementById(`fulltime${match.id}`);
+                const cardEl = document.getElementById(`match-card-${match.id}`);
+                if (!cardEl) return;
+                [timeEl, dateEl, liveEl, countdownEl, fulltimeEl].forEach(el => el && el.classList.add('hidden'));
+                cardEl.classList.remove('live', 'upcoming', 'recent');
+                if (now.isBetween(startMoment, endMoment)) {
+                    liveEl && liveEl.classList.remove('hidden');
+                    cardEl.classList.add('live');
+                    cardEl.style.order = -1;
+                } else if (now.isBefore(startMoment)) {
+                    cardEl.classList.add('upcoming');
+                    const diff = moment.duration(startMoment.diff(now));
+                    const days = Math.floor(diff.asDays());
+                    const hours = diff.hours();
+                    const minutes = diff.minutes();
+                    const seconds = diff.seconds();
+                    let countdownText = '';
+                    if (days > 0) {
+                        countdownText = `${days}D ${hours}H`;
+                    } else if (hours > 0) {
+                        countdownText = `${hours}H ${minutes}M`;
+                    } else {
+                        countdownText = `Starts in ${minutes}M ${seconds}S`;
+                    }
+                    if (countdownEl) {
+                        countdownEl.textContent = countdownText;
+                        countdownEl.classList.remove('hidden');
+                    }
+                    timeEl && timeEl.classList.remove('hidden');
+                    dateEl && dateEl.classList.remove('hidden');
+                    cardEl.style.order = startMoment.unix();
+                } else {
+                    cardEl.classList.add('recent');
+                    fulltimeEl && fulltimeEl.classList.remove('hidden');
+                    timeEl && timeEl.classList.remove('hidden');
+                    dateEl && dateEl.classList.remove('hidden');
+                    cardEl.style.order = -endMoment.unix();
+                }
+                applyMatchFilter(cardEl);
+            });
+        }
+        
+        function applyMatchFilter(cardEl) {
+            if (currentFilter === 'all') {
+                cardEl.classList.remove('hidden');
+            } else if (cardEl.classList.contains(currentFilter)) {
+                cardEl.classList.remove('hidden');
+            } else {
+                cardEl.classList.add('hidden');
+            }
+        }
+        
+        function filterMatches(filter, clickedButton) {
+            currentFilter = filter;
+            matchTabBtns.forEach(btn => btn.classList.remove('active-tab'));
+            clickedButton && clickedButton.classList.add('active-tab');
+            const titleMap = { 'all': 'All', 'live': 'Live', 'upcoming': 'Upcoming', 'recent':'Recent' };
+            matchSectionTitle.textContent = titleMap[filter] || 'All Matches';
+            document.querySelectorAll('.match-card').forEach(cardEl => {
+                applyMatchFilter(cardEl);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            video.addEventListener('loadstart', showLoading);
+            video.addEventListener('waiting', () => { if (!video.paused) showLoading(); });
+            video.addEventListener('canplay', showWatermark);
+            video.addEventListener('playing', showWatermark);
+            video.addEventListener('pause', hideWatermark);
+            video.addEventListener('ended', hideWatermark);
+            updateClock();
+            setInterval(updateClock, 1000);
+            checkMatchStatus();
+            setInterval(checkMatchStatus, 1000); 
+            const defaultTab = document.getElementById('nav-home');
+            showTab('home-section', defaultTab);
+            filterMatches('all', document.querySelector('.match-tab-btn[onclick*="all"]'));
+            hideWatermark();
+        });
+    </script>
 </body>
 </html>
