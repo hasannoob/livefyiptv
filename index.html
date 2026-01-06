@@ -613,6 +613,8 @@ body {
             </div>
             
             <!-- This is a sample card to show how it looks, JS will populate real ones -->
+            
+            
             <div id="match-card-1" class="match-card" data-match-id="1" onclick="openMatchChannels([ {name: 'Server 2', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767704076~acl=%2f*~data=hdntl~hmac=ec0ba35ac4e20adfd03da45a04149e3ec618566dedf3f440e89ce2e470171d30/level_1.m3u8'}, ])">
                 <div class="match-title">Cricket || Big Bash League 2026</div>
                 <div class="team">
@@ -636,6 +638,32 @@ body {
                 </div>
                 <div class="match-stage">Cricket Live Match</div>
             </div>
+
+
+            <div id="match-card-2" class="match-card" data-match-id="1" onclick="openMatchChannels([ {name: 'Server 2', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767704076~acl=%2f*~data=hdntl~hmac=ec0ba35ac4e20adfd03da45a04149e3ec618566dedf3f440e89ce2e470171d30/level_1.m3u8'}, ])">
+                <div class="match-title">Cricket || Big Bash League 2026</div>
+                <div class="team">
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png" alt="BBL Logo">
+                        <div class="team-name">BBL</div>
+                    </div>
+                    <div class="match-info">
+                        <div class="match-status-wrapper">
+                            <div class="time" id="time2">02:15 PM</div>
+                            <div class="date" id="date2">06/01/2026</div>
+                            <div id="live2" class="live-animation hidden">LIVE NOW</div>
+                            <div id="countdown2" class="countdown-text hidden"></div>
+                            <div id="fulltime2" class="full-time-text hidden">FULL TIME</div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png" alt="BBL Logo">
+                        <div class="team-name">BBL</div>
+                    </div>
+                </div>
+                <div class="match-stage">Cricket Live Match</div>
+            </div>
+            
             <!-- More match cards will follow... -->
 
         </div>
@@ -656,6 +684,7 @@ body {
             
             <div class="channel-grid">
                 <!-- Channel items will be added here -->
+               
                 <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])">
                     <img src="https://placehold.co/120x80/1a1a1a/ffffff?text=T+Sports" alt="T Sports" class="channel-logo">
                     <span class="channel-name">T Sports</span>
@@ -1031,7 +1060,7 @@ body {
 
         const matchesData = [
             { id: '1', start: '06/01/2026 14:00', end: '06/01/2026 18:30' },
-            { id: '2', start: '04/01/2026 21:00', end: '04/01/2026 23:00' },
+            { id: '2', start: '06/01/2026 21:00', end: '06/01/2026 23:00' },
             { id: '3', start: '04/01/2026 10:55', end: '04/01/2026 14:30' },
             { id: '4', start: '05/01/2026 04:00', end: '05/01/2026 12:00' },
             { id: '5', start: '04/01/2026 18:00', end: '04/01/2026 23:00' },
