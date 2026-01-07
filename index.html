@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy TV (Final with Animation)</title>
+    <title>Livefy TV (Final Premium Version)</title>
     
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,7 +15,7 @@
     --text-primary: #c9d1d9; --text-secondary: #8b949e; --accent-primary: #58a6ff;
     --accent-red: #c80815; --accent-green: #238636;
 }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-primary); color: var(--text-primary); margin: 0; padding: 0; padding-bottom: 70px; overflow-x: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-primary); color: var(--text-primary); margin: 0; padding-bottom: 70px; overflow-x: hidden; }
 .main-header { background: linear-gradient(90deg, #c80815, #8a020c); color: white; padding: 15px 10px; text-align: center; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-bottom: 2px solid #ffc107; }
 .welcome-box { background-color: var(--bg-secondary); padding: 5px; border: 1px solid var(--border-color); margin-top: 5px; overflow: hidden; position: relative; }
 .welcome-text { display: inline-block; white-space: nowrap; animation: marquee 80s linear infinite; font-size: 18px; color: var(--accent-primary); font-weight: bold; }
@@ -46,38 +46,45 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
 .match-tab-btn.active-tab { background-color: var(--accent-primary); color: var(--bg-primary); }
 
-/* Live TV Section Styles */
-.channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding-top: 10px; }
-.channel-item { position: relative; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid var(--border-color); aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; }
-.channel-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2); border-color: var(--accent-primary); }
-.channel-logo { width: 50%; height: 50%; object-fit: contain; margin-bottom: 8px; }
-.channel-name { font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; }
+/* ========= ফাইনাল এবং ইউনিক লাইভ টিভি সেকশন ========= */
+.channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; padding-top: 10px; perspective: 1000px; }
+.channel-item { position: relative; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid var(--border-color); aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; transform-style: preserve-3d; }
+.channel-item:hover { transform: translateZ(20px) rotateX(5deg) rotateY(-5deg); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--accent-primary); }
+.channel-logo-wrapper { position: relative; width: 60%; height: 60%; }
+.channel-logo { width: 100%; height: 100%; object-fit: contain; }
+.channel-logo-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); z-index: -1; }
+.channel-name { font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; margin-top: 8px; }
 .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 17, 23, 0.7); backdrop-filter: blur(2px); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
 .channel-item:hover .play-overlay { opacity: 1; }
 .play-icon { font-size: 32px; color: var(--accent-primary); }
+/* ========= স্টাইলের শেষ ========= */
 
 /* Video Player Styles */
 #video-player { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(13, 17, 23, 0.9); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 10px; box-sizing: border-box; }
 #player-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 16/9; background-color: #000; border-radius: 15px; box-shadow: 0 0 30px rgba(88, 166, 255, 0.3); border: 2px solid var(--border-color); overflow: hidden; }
-#video-container, #iframe-container { width: 100%; height: 100%; position: relative; }
+#video-container { width: 100%; height: 100%; position: relative; }
+#iframe-container { width: 100%; height: 100%; display: none; }
 #video { width: 100%; height: 100%; }
 #embed-iframe { width: 100%; height: 100%; border: 0; }
-#close-btn { position: absolute; top: 20px; right: 20px; font-size: 22px; color: white; background-color: rgba(200, 8, 21, 0.8); border: 2px solid #fff; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1011; transition: all 0.3s; }
+#close-btn { position: absolute; top: 15px; right: 15px; font-size: 18px; color: white; background-color: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1011; transition: all 0.3s; }
+#close-btn:hover { background-color: var(--accent-red); }
 #error-message-box { display: none; background-color: var(--bg-secondary); border: 1px solid #f85149; padding: 20px; border-radius: 8px; text-align: center; max-width: 95%; width: 400px; margin-top: 20px; }
-#controls-area { width: 100%; max-width: 900px; margin-top: 20px; padding: 10px; background-color: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color); }
+#controls-area { width: 100%; max-width: 900px; margin-top: 15px; padding: 10px; background-color: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
 #server-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-.server-button { background-color: #21262d; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.server-button { background-color: #21262d; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .server-button.active-server { background-color: var(--accent-primary); color: var(--bg-primary); border-color: var(--accent-primary); }
+#quality-selector-container { display: none; } /* Initially hidden */
+#quality-select { background-color: #21262d; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
 
-/* --- অ্যানিমেশনের জন্য নতুন এবং পুরনো CSS --- */
+/* Animation CSS */
 #video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
 #livefy-text-animator { position: absolute; bottom: 15px; right: 15px; font-size: 14px; font-weight: 900; opacity: 0.8; z-index: 60; background-color: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.5); display: none; }
 .is-loading { color: #FF003C !important; border: 1px solid #FF003C !important; animation: pulse 1s infinite !important; }
 #livefy-text-animator:not(.is-loading) { color: #00ff00; border: 1px solid #00ff00; animation: watermark-blink 5s infinite; }
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
 @keyframes watermark-blink { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.5; } }
-/* --- অ্যানিমেশন CSS শেষ --- */
 
+/* Bottom Nav */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--bg-secondary); display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid var(--border-color); z-index: 999; }
 .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); cursor: pointer; transition: color 0.2s; padding: 5px 10px; }
 .nav-item.active { color: var(--accent-primary); }
@@ -110,27 +117,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         <div id="sports-channels-section" class="hidden">
             <div class="section-header"><h2>Live TV</h2><div id="time-display-channels" class="datetime-box"></div></div>
             <div class="channel-grid">
-                <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])"><img src="https://i.ibb.co/wJ02v0P/t-sports.png" class="channel-logo"><span class="channel-name">T Sports</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
-                <div class="channel-item" onclick="openMatchChannels([{name: 'Ten Cricket', url: 'https://m.xigzo.store/live.php?id=86db7302947d&e=.m3u8'}])"><img src="https://i.ibb.co/hZ5H3Zp/Ten-Cricket.png" class="channel-logo"><span class="channel-name">Ten Cricket</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
-                <div class="channel-item" onclick="openMatchChannels([{name: 'YouTube', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'}])"><img src="https://i.ibb.co/PggY2p3/fifa-plus.png" class="channel-logo"><span class="channel-name">YouTube Test</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])">
+                    <div class="channel-logo-wrapper"><div class="channel-logo-bg"></div><img src="https://i.ibb.co/wJ02v0P/t-sports.png" class="channel-logo"></div>
+                    <span class="channel-name">T Sports</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Ten Cricket', url: 'https://m.xigzo.store/live.php?id=86db7302947d&e=.m3u8'}])">
+                    <div class="channel-logo-wrapper"><div class="channel-logo-bg"></div><img src="https://i.ibb.co/hZ5H3Zp/Ten-Cricket.png" class="channel-logo"></div>
+                    <span class="channel-name">Ten Cricket</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'YouTube', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'}])">
+                    <div class="channel-logo-wrapper"><div class="channel-logo-bg"></div><img src="https://i.ibb.co/PggY2p3/fifa-plus.png" class="channel-logo"></div>
+                    <span class="channel-name">YouTube Test</span>
+                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
+                </div>
             </div>
         </div>
     </div>
     
     <div id="video-player">
-        <button id="close-btn" onclick="closeVideo()">❌</button>
         <div id="player-wrapper">
             <div id="video-container">
                 <video id="video" controls autoplay playsinline></video>
-                <!-- আপনার অনুরোধ অনুযায়ী অ্যানিমেশন ফিরিয়ে আনা হয়েছে -->
-                <div id="video-overlay">
-                    <span id="livefy-text-animator"></span>
-                </div>
+                <div id="video-overlay"><span id="livefy-text-animator"></span></div>
+                <button id="close-btn" onclick="closeVideo()">❌</button>
             </div>
-            <div id="iframe-container" style="display: none;"><iframe id="embed-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <div id="iframe-container">
+                <iframe id="embed-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
         </div>
         <div id="error-message-box"><h3 id="error-title"></h3><p id="error-text"></p></div>
-        <div id="controls-area"><div id="server-buttons"></div></div>
+        <div id="controls-area">
+            <div id="server-buttons"></div>
+            <div id="quality-selector-container">
+                <select id="quality-select" onchange="changeQuality(this.value)"></select>
+            </div>
+        </div>
     </div>
 
     <nav class="bottom-nav">
@@ -147,27 +170,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         { id: 4, start: '07/01/2026 19:30', end: '08/01/2026 01:00', title: 'PAK vs SL T20', team1: 'Pakistan', team2: 'Sri Lanka', logo1: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg', logo2: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg', stage: '1st T20 Match', streams: [{name: 'Server 1', url: 'https://premierleagpl23.akamaized.net/hls/live/2110098/Tapmad-ENC-34/master.m3u8'}] }
     ];
 
-    // --- Global Variables ---
     let hls = null;
     const videoContainer = document.getElementById('video-container'), videoElement = document.getElementById('video'), iframeContainer = document.getElementById('iframe-container'), iframeElement = document.getElementById('embed-iframe');
     const allSections = document.querySelectorAll('.content > div'), navItems = document.querySelectorAll('.nav-item'), errorMessageBox = document.getElementById('error-message-box'), serverButtonsContainer = document.getElementById('server-buttons');
     const matchListContainer = document.getElementById('match-list-container'), matchTabBtns = document.querySelectorAll('.match-tab-btn'), matchSectionTitle = document.getElementById('match-section-title');
-    const livefyTextAnimator = document.getElementById('livefy-text-animator');
+    const livefyTextAnimator = document.getElementById('livefy-text-animator'), qualityContainer = document.getElementById('quality-selector-container'), qualitySelect = document.getElementById('quality-select');
     let currentFilter = 'all';
 
-    // --- Animation Functions ---
     function showLoading() { livefyTextAnimator.textContent = 'LIVEFY TV - LOADING...'; livefyTextAnimator.classList.add('is-loading'); livefyTextAnimator.style.display = 'block'; }
     function showWatermark() { livefyTextAnimator.textContent = 'LIVEFY TV'; livefyTextAnimator.classList.remove('is-loading'); livefyTextAnimator.style.display = 'block'; }
     function hideWatermark() { livefyTextAnimator.style.display = 'none'; }
     
-    // --- Player Logic ---
-    function playHLS(url) { hideWatermark(); if (hls) { hls.destroy(); } if (Hls.isSupported()) { hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoElement); } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) { videoElement.src = url; } }
-    function playNative(url) { hideWatermark(); if (hls) { hls.destroy(); } videoElement.src = url; }
-    function playIframe(url) { hideWatermark(); if (hls) hls.destroy(); videoElement.src = ''; videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
-    function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); if (videoIdMatch) { playIframe(`https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
-    function playContent(url) { hideMessage(); videoContainer.style.display = 'block'; iframeContainer.style.display = 'none'; if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8')) { playHLS(url); } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ts')) { playNative(url); } else { playIframe(url); } }
+    function populateQualitySelector() {
+        qualityContainer.style.display = 'none';
+        qualitySelect.innerHTML = '';
+        if (hls && hls.levels.length > 1) {
+            const autoOption = new Option('Auto', -1);
+            qualitySelect.add(autoOption);
+            hls.levels.forEach((level, index) => {
+                const option = new Option(`${level.height}p`, index);
+                qualitySelect.add(option);
+            });
+            qualitySelect.value = hls.currentLevel;
+            qualityContainer.style.display = 'block';
+        }
+    }
+    function changeQuality(level) { if (hls) { hls.currentLevel = parseInt(level); } }
 
-    // --- UI Control Functions ---
+    function playHLS(url) { hideWatermark(); if (hls) hls.destroy(); if (Hls.isSupported()) { hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoElement); hls.on(Hls.Events.MANIFEST_PARSED, populateQualitySelector); } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) { videoElement.src = url; } }
+    function playNative(url) { hideWatermark(); qualityContainer.style.display = 'none'; if (hls) hls.destroy(); videoElement.src = url; }
+    function playIframe(url) { hideWatermark(); qualityContainer.style.display = 'none'; if (hls) hls.destroy(); videoElement.src = ''; videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
+    function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); if (videoIdMatch) { playIframe(`https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
+    function playContent(url) { hideMessage(); videoContainer.style.display = 'block'; iframeContainer.style.display = 'none'; if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8')) { playHLS(url); } else { playNative(url); } }
+
     function openMatchChannels(channels) { document.getElementById('video-player').style.display = 'flex'; serverButtonsContainer.innerHTML = ''; hideMessage(); if (!channels || channels.length === 0) { showMessage("Error", "No channels found."); return; } channels.forEach(ch => { const btn = document.createElement('button'); btn.className = 'server-button'; btn.textContent = ch.name; btn.onclick = () => selectServer(ch.url, btn); serverButtonsContainer.appendChild(btn); }); selectServer(channels[0].url, serverButtonsContainer.querySelector('.server-button')); }
     function selectServer(url, btn) { document.querySelectorAll('.server-button').forEach(b => b.classList.remove('active-server')); if (btn) btn.classList.add('active-server'); playContent(url); }
     function closeVideo() { document.getElementById('video-player').style.display = 'none'; if (hls) hls.destroy(); videoElement.src = ''; iframeElement.src = 'about:blank'; hideWatermark(); }
@@ -180,32 +215,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
         const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         const html = `${timeString} <span class="date-text">${dateString}</span>`;
-        if(document.getElementById('time-display-home')) document.getElementById('time-display-home').innerHTML = html;
-        if(document.getElementById('time-display-channels')) document.getElementById('time-display-channels').innerHTML = html;
+        ['time-display-home', 'time-display-channels'].forEach(id => { if (document.getElementById(id)) document.getElementById(id).innerHTML = html; });
     }
     
     function populateMatchList() {
         matchListContainer.innerHTML = '';
         matchesData.forEach(match => {
             const streamsJson = JSON.stringify(match.streams);
-            matchListContainer.innerHTML += `
-                <div id="match-card-${match.id}" class="match-card" onclick='openMatchChannels(${streamsJson})'>
-                    <div class="match-body">
-                        <div class="team-vs">
-                            <div class="team-logo"><img src="${match.logo1}" alt="${match.team1}"><div class="team-name">${match.team1}</div></div>
-                            <div class="match-details">
-                                <div class="status-box">
-                                    <div class="time" id="time${match.id}"></div> <div class="date" id="date${match.id}"></div>
-                                    <div id="live${match.id}" class="live-animation hidden">LIVE</div>
-                                    <div id="countdown${match.id}" class="countdown-text hidden"></div>
-                                    <div id="fulltime${match.id}" class="full-time-text hidden">FINISHED</div>
-                                </div>
-                            </div>
-                            <div class="team-logo"><img src="${match.logo2}" alt="${match.team2}"><div class="team-name">${match.team2}</div></div>
-                        </div>
-                    </div>
-                    <div class="match-footer">${match.title} - ${match.stage}</div>
-                </div>`;
+            matchListContainer.innerHTML += `<div id="match-card-${match.id}" class="match-card" onclick='openMatchChannels(${streamsJson})'><div class="match-body"><div class="team-vs"><div class="team-logo"><img src="${match.logo1}" alt="${match.team1}"><div class="team-name">${match.team1}</div></div><div class="match-details"><div class="status-box"><div class="time" id="time${match.id}"></div> <div class="date" id="date${match.id}"></div><div id="live${match.id}" class="live-animation hidden">LIVE</div><div id="countdown${match.id}" class="countdown-text hidden"></div><div id="fulltime${match.id}" class="full-time-text hidden">FINISHED</div></div></div><div class="team-logo"><img src="${match.logo2}" alt="${match.team2}"><div class="team-name">${match.team2}</div></div></div></div><div class="match-footer">${match.title} - ${match.stage}</div></div>`;
         });
     }
 
@@ -216,16 +233,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
             if (!cardEl) return;
             const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm'), endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
             const liveEl = cardEl.querySelector(`#live${match.id}`), countdownEl = cardEl.querySelector(`#countdown${match.id}`), fulltimeEl = cardEl.querySelector(`#fulltime${match.id}`), timeEl = cardEl.querySelector(`#time${match.id}`), dateEl = cardEl.querySelector(`#date${match.id}`);
-            [liveEl, countdownEl, fulltimeEl, timeEl, dateEl].forEach(el => el.style.display = 'none');
+            [liveEl, countdownEl, fulltimeEl].forEach(el => el.style.display = 'none');
+            timeEl.style.display = 'block'; dateEl.style.display = 'block';
             cardEl.classList.remove('live', 'upcoming', 'recent');
             if (now.isBetween(startMoment, endMoment)) {
                 liveEl.style.display = 'block'; cardEl.classList.add('live'); cardEl.style.order = -1;
             } else if (now.isBefore(startMoment)) {
                 const diff = moment.duration(startMoment.diff(now));
                 countdownEl.textContent = diff.asDays() >= 1 ? `${Math.floor(diff.asDays())}d ${diff.hours()}h` : diff.asHours() >= 1 ? `${diff.hours()}h ${diff.minutes()}m` : `${diff.minutes()}m ${diff.seconds()}s`;
-                countdownEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
+                countdownEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
             } else {
-                fulltimeEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
+                fulltimeEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
             }
             applyMatchFilter(cardEl);
         });
@@ -238,10 +256,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         updateClock(); setInterval(updateClock, 1000);
         populateMatchList(); checkMatchStatus(); setInterval(checkMatchStatus, 1000);
         showTab('home-section', document.querySelector('#nav-home'));
-        
-        // অ্যানিমেশন চালু করার জন্য ইভেন্ট লিসেনার
         videoElement.addEventListener('loadstart', showLoading);
         videoElement.addEventListener('waiting', showLoading);
+        videoElement.addEventListener('canplay', showWatermark);
         videoElement.addEventListener('playing', showWatermark);
         videoElement.addEventListener('pause', hideWatermark);
         videoElement.addEventListener('ended', hideWatermark);
