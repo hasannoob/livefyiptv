@@ -3,25 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy TV (Final Premium Version)</title>
+    <title>Livefy TV (Final with Animation)</title>
     
-    <!-- External Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 
 <style>
 :root {
-    --bg-primary: #0d1117;
-    --bg-secondary: #161b22;
-    --border-color: #30363d;
-    --text-primary: #c9d1d9;
-    --text-secondary: #8b949e;
-    --accent-primary: #58a6ff;
-    --accent-red: #c80815;
-    --accent-green: #238636;
+    --bg-primary: #0d1117; --bg-secondary: #161b22; --border-color: #30363d;
+    --text-primary: #c9d1d9; --text-secondary: #8b949e; --accent-primary: #58a6ff;
+    --accent-red: #c80815; --accent-green: #238636;
 }
-/* Base Styles */
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-primary); color: var(--text-primary); margin: 0; padding: 0; padding-bottom: 70px; overflow-x: hidden; }
 .main-header { background: linear-gradient(90deg, #c80815, #8a020c); color: white; padding: 15px 10px; text-align: center; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-bottom: 2px solid #ffc107; }
 .welcome-box { background-color: var(--bg-secondary); padding: 5px; border: 1px solid var(--border-color); margin-top: 5px; overflow: hidden; position: relative; }
@@ -33,59 +26,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .datetime-box { background-color: var(--bg-secondary); color: white; padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; text-align: right; border: 1px solid var(--border-color); }
 .datetime-box .date-text { color: var(--text-secondary); font-size: 10px; }
 .join-now-link { text-decoration: none; background: var(--accent-green); color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; transition: background-color 0.3s; white-space: nowrap; border: 1px solid #2ea043; }
-.join-now-link:hover { background-color: #2ea043; }
 
-/* ========= নতুন এবং ইউনিক ম্যাচ কার্ড ডিজাইন ========= */
-.match-card {
-    background: rgba(22, 27, 34, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin-bottom: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-    overflow: hidden;
-    position: relative;
-    padding-top: 10px;
-}
+/* Match Card Styles */
+.match-card { background: rgba(22, 27, 34, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 15px; text-align: center; cursor: pointer; transition: transform 0.2s ease-in-out, box-shadow 0.2s; overflow: hidden; position: relative; padding-top: 10px; }
 .match-card:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--accent-primary), transparent); opacity: 0; transition: opacity 0.3s; }
 .match-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 .match-card:hover:before { opacity: 1; }
 .match-body { padding: 10px 15px; }
 .team-vs { display: flex; justify-content: space-around; align-items: center; }
-.team-logo { text-align: center; }
 .team-logo img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--border-color); padding: 2px; background-color: var(--bg-primary); }
 .team-name { font-size: 12px; font-weight: 600; color: #f0f6fc; margin-top: 5px; }
-.match-details { text-align: center; padding: 0 10px; }
 .status-box { font-size: 14px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
 .match-footer { background: rgba(13, 17, 23, 0.5); padding: 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border-color); }
 .live-animation { color: #f75555; animation: blink 1.5s infinite; }
 .countdown-text { color: #3fb950; }
 .full-time-text { color: #d29922; }
 @keyframes blink { 0%, 100% { opacity: 1; text-shadow: 0 0 5px #f75555; } 50% { opacity: 0.5; } }
-/* ========= ম্যাচ কার্ড ডিজাইন শেষ ========= */
-
 .match-tabs { display: flex; justify-content: space-around; margin: 20px 0; background-color: var(--bg-secondary); border-radius: 8px; padding: 5px; border: 1px solid var(--border-color); }
 .match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
 .match-tab-btn.active-tab { background-color: var(--accent-primary); color: var(--bg-primary); }
 
-/* ========= আরও স্টাইলিশ লাইভ টিভি সেকশন ========= */
+/* Live TV Section Styles */
 .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding-top: 10px; }
 .channel-item { position: relative; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid var(--border-color); aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; }
 .channel-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2); border-color: var(--accent-primary); }
-.channel-logo { width: 50%; height: 50%; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); }
+.channel-logo { width: 50%; height: 50%; object-fit: contain; margin-bottom: 8px; }
 .channel-name { font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; }
 .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 17, 23, 0.7); backdrop-filter: blur(2px); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
 .channel-item:hover .play-overlay { opacity: 1; }
 .play-icon { font-size: 32px; color: var(--accent-primary); }
-/* ========= স্টাইলের শেষ ========= */
 
 /* Video Player Styles */
 #video-player { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(13, 17, 23, 0.9); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 10px; box-sizing: border-box; }
 #player-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 16/9; background-color: #000; border-radius: 15px; box-shadow: 0 0 30px rgba(88, 166, 255, 0.3); border: 2px solid var(--border-color); overflow: hidden; }
-#video-container, #iframe-container { width: 100%; height: 100%; }
+#video-container, #iframe-container { width: 100%; height: 100%; position: relative; }
 #video { width: 100%; height: 100%; }
 #embed-iframe { width: 100%; height: 100%; border: 0; }
 #close-btn { position: absolute; top: 20px; right: 20px; font-size: 22px; color: white; background-color: rgba(200, 8, 21, 0.8); border: 2px solid #fff; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1011; transition: all 0.3s; }
@@ -95,7 +69,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .server-button { background-color: #21262d; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .server-button.active-server { background-color: var(--accent-primary); color: var(--bg-primary); border-color: var(--accent-primary); }
 
-/* Bottom Nav */
+/* --- অ্যানিমেশনের জন্য নতুন এবং পুরনো CSS --- */
+#video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+#livefy-text-animator { position: absolute; bottom: 15px; right: 15px; font-size: 14px; font-weight: 900; opacity: 0.8; z-index: 60; background-color: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.5); display: none; }
+.is-loading { color: #FF003C !important; border: 1px solid #FF003C !important; animation: pulse 1s infinite !important; }
+#livefy-text-animator:not(.is-loading) { color: #00ff00; border: 1px solid #00ff00; animation: watermark-blink 5s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
+@keyframes watermark-blink { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.5; } }
+/* --- অ্যানিমেশন CSS শেষ --- */
+
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--bg-secondary); display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid var(--border-color); z-index: 999; }
 .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); cursor: pointer; transition: color 0.2s; padding: 5px 10px; }
 .nav-item.active { color: var(--accent-primary); }
@@ -133,16 +115,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
                 <div class="channel-item" onclick="openMatchChannels([{name: 'YouTube', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'}])"><img src="https://i.ibb.co/PggY2p3/fifa-plus.png" class="channel-logo"><span class="channel-name">YouTube Test</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
             </div>
         </div>
-        
-        <div id="highlights-section" class="hidden">
-            <div class="section-header"><h2>Highlights</h2><div id="time-display-highlights" class="datetime-box"></div></div>
-        </div>
     </div>
     
     <div id="video-player">
         <button id="close-btn" onclick="closeVideo()">❌</button>
         <div id="player-wrapper">
-            <div id="video-container"><video id="video" controls autoplay playsinline></video></div>
+            <div id="video-container">
+                <video id="video" controls autoplay playsinline></video>
+                <!-- আপনার অনুরোধ অনুযায়ী অ্যানিমেশন ফিরিয়ে আনা হয়েছে -->
+                <div id="video-overlay">
+                    <span id="livefy-text-animator"></span>
+                </div>
+            </div>
             <div id="iframe-container" style="display: none;"><iframe id="embed-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
         </div>
         <div id="error-message-box"><h3 id="error-title"></h3><p id="error-text"></p></div>
@@ -156,68 +140,37 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     </nav>
 
 <script>
-    // =========================================================================
-    // ============== এখানেই সব ম্যাচ যোগ বা এডিট করবেন ==============
-    // =========================================================================
     const matchesData = [
-        { 
-            id: 6, 
-            start: '07/01/2026 13:00', end: '07/01/2026 17:30',
-            title: 'BPL 2026', 
-            team1: 'Dhaka Capitals', team2: 'Noakhali Express', 
-            logo1: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Logo_of_Dhaka_Capitals.svg', 
-            logo2: 'https://upload.wikimedia.org/wikipedia/en/4/42/Noakhali_Express_logo.jpg', 
-            stage: 'Cricket Match', 
-            streams: [{name: 'Server BD', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767857680~acl=%2f*~data=hdntl~hmac=694a135b74b0f519bded909e0fb4b3c53fa5e85b594951624bcb2d3dddd481fa/level_0.m3u8'}] 
-        },
-        { 
-            id: 1, 
-            start: '07/01/2026 14:15', end: '07/01/2026 18:30',
-            title: 'Big Bash League', team1: 'BBL Team 1', team2: 'BBL Team 2', 
-            logo1: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', 
-            logo2: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', 
-            stage: 'Cricket Live Match',
-            streams: [{name: 'Server 1', url: 'https://cbsn-livestream.cbsnews.com/out/v1/9ce8ea1a86624997a911c7515c2d3386/master.m3u8'}]
-        },
-        { 
-            id: 11, 
-            start: '07/01/2026 18:00', end: '07/01/2026 22:30',
-            title: 'BPL 2026', team1: 'Chattogram', team2: 'Sylhet', 
-            logo1: 'https://upload.wikimedia.org/wikipedia/en/b/b8/Chattogram_Royals_logo.png', 
-            logo2: 'https://upload.wikimedia.org/wikipedia/en/4/43/Sylhet_Titans_logo.jpg', 
-            stage: 'BPL Cricket live match',
-            streams: [{name: 'Server 1', url: 'https://bd-streams.site/crx/bdstreams.bio.link.php?id=skyscric'}, {name: 'Tampad', url: 'https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad25879-ENC-300/level_1.m3u8'}]
-        },
-        {
-            id: 4,
-            start: '07/01/2026 19:30', end: '08/01/2026 01:00',
-            title: 'PAK vs SL T20', team1: 'Pakistan', team2: 'Sri Lanka',
-            logo1: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg',
-            logo2: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg',
-            stage: '1st T20 Match',
-            streams: [{name: 'Server 1', url: 'https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad25879-ENC-300/master.m3u8'}]
-        }
+        { id: 6, start: '07/01/2026 13:00', end: '07/01/2026 17:30', title: 'BPL 2026', team1: 'Dhaka Capitals', team2: 'Noakhali Express', logo1: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Logo_of_Dhaka_Capitals.svg', logo2: 'https://upload.wikimedia.org/wikipedia/en/4/42/Noakhali_Express_logo.jpg', stage: 'Cricket Match', streams: [{name: 'Server BD', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767857680~acl=%2f*~data=hdntl~hmac=694a135b74b0f519bded909e0fb4b3c53fa5e85b594951624bcb2d3dddd481fa/level_0.m3u8'}] },
+        { id: 1, start: '07/01/2026 14:15', end: '07/01/2026 18:30', title: 'Big Bash League', team1: 'BBL Team 1', team2: 'BBL Team 2', logo1: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', logo2: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', stage: 'Cricket Live Match', streams: [{name: 'Server 1', url: 'https://cbsn-livestream.cbsnews.com/out/v1/9ce8ea1a86624997a911c7515c2d3386/master.m3u8'}] },
+        { id: 11, start: '07/01/2026 18:00', end: '07/01/2026 22:30', title: 'BPL 2026', team1: 'Chattogram', team2: 'Sylhet', logo1: 'https://upload.wikimedia.org/wikipedia/en/b/b8/Chattogram_Royals_logo.png', logo2: 'https://upload.wikimedia.org/wikipedia/en/4/43/Sylhet_Titans_logo.jpg', stage: 'BPL Cricket live match', streams: [{name: 'Server 1', url: 'https://bd-streams.site/crx/bdstreams.bio.link.php?id=skyscric'}, {name: 'Tampad', url: 'https://premierleagpl23.akamaized.net/hls/live/2110098/Tapmad-ENC-34/level_1.m3u8'}] },
+        { id: 4, start: '07/01/2026 19:30', end: '08/01/2026 01:00', title: 'PAK vs SL T20', team1: 'Pakistan', team2: 'Sri Lanka', logo1: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg', logo2: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg', stage: '1st T20 Match', streams: [{name: 'Server 1', url: 'https://premierleagpl23.akamaized.net/hls/live/2110098/Tapmad-ENC-34/master.m3u8'}] }
     ];
-    // =========================================================================
 
     // --- Global Variables ---
     let hls = null;
     const videoContainer = document.getElementById('video-container'), videoElement = document.getElementById('video'), iframeContainer = document.getElementById('iframe-container'), iframeElement = document.getElementById('embed-iframe');
     const allSections = document.querySelectorAll('.content > div'), navItems = document.querySelectorAll('.nav-item'), errorMessageBox = document.getElementById('error-message-box'), serverButtonsContainer = document.getElementById('server-buttons');
     const matchListContainer = document.getElementById('match-list-container'), matchTabBtns = document.querySelectorAll('.match-tab-btn'), matchSectionTitle = document.getElementById('match-section-title');
+    const livefyTextAnimator = document.getElementById('livefy-text-animator');
     let currentFilter = 'all';
 
+    // --- Animation Functions ---
+    function showLoading() { livefyTextAnimator.textContent = 'LIVEFY TV - LOADING...'; livefyTextAnimator.classList.add('is-loading'); livefyTextAnimator.style.display = 'block'; }
+    function showWatermark() { livefyTextAnimator.textContent = 'LIVEFY TV'; livefyTextAnimator.classList.remove('is-loading'); livefyTextAnimator.style.display = 'block'; }
+    function hideWatermark() { livefyTextAnimator.style.display = 'none'; }
+    
     // --- Player Logic ---
-    function playHLS(url) { if (hls) { hls.destroy(); } if (Hls.isSupported()) { hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoElement); hls.on(Hls.Events.MANIFEST_PARSED, () => videoElement.play()); } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) { videoElement.src = url; videoElement.addEventListener('loadedmetadata', () => videoElement.play()); } }
-    function playNative(url) { if (hls) { hls.destroy(); } videoElement.src = url; videoElement.play(); }
-    function playIframe(url) { if (hls) hls.destroy(); videoElement.src = ''; videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
+    function playHLS(url) { hideWatermark(); if (hls) { hls.destroy(); } if (Hls.isSupported()) { hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoElement); } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) { videoElement.src = url; } }
+    function playNative(url) { hideWatermark(); if (hls) { hls.destroy(); } videoElement.src = url; }
+    function playIframe(url) { hideWatermark(); if (hls) hls.destroy(); videoElement.src = ''; videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
     function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); if (videoIdMatch) { playIframe(`https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
     function playContent(url) { hideMessage(); videoContainer.style.display = 'block'; iframeContainer.style.display = 'none'; if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8')) { playHLS(url); } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ts')) { playNative(url); } else { playIframe(url); } }
 
     // --- UI Control Functions ---
     function openMatchChannels(channels) { document.getElementById('video-player').style.display = 'flex'; serverButtonsContainer.innerHTML = ''; hideMessage(); if (!channels || channels.length === 0) { showMessage("Error", "No channels found."); return; } channels.forEach(ch => { const btn = document.createElement('button'); btn.className = 'server-button'; btn.textContent = ch.name; btn.onclick = () => selectServer(ch.url, btn); serverButtonsContainer.appendChild(btn); }); selectServer(channels[0].url, serverButtonsContainer.querySelector('.server-button')); }
     function selectServer(url, btn) { document.querySelectorAll('.server-button').forEach(b => b.classList.remove('active-server')); if (btn) btn.classList.add('active-server'); playContent(url); }
-    function closeVideo() { document.getElementById('video-player').style.display = 'none'; if (hls) hls.destroy(); videoElement.src = ''; iframeElement.src = 'about:blank'; }
+    function closeVideo() { document.getElementById('video-player').style.display = 'none'; if (hls) hls.destroy(); videoElement.src = ''; iframeElement.src = 'about:blank'; hideWatermark(); }
     function showMessage(title, msg) { errorMessageBox.style.display = 'block'; document.getElementById('error-title').textContent = title; document.getElementById('error-text').textContent = msg; }
     function hideMessage() { errorMessageBox.style.display = 'none'; }
     function showTab(id, el) { allSections.forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); navItems.forEach(i => i.classList.remove('active')); el.classList.add('active'); }
@@ -227,14 +180,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
         const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         const html = `${timeString} <span class="date-text">${dateString}</span>`;
-        if (document.getElementById('time-display-home')) document.getElementById('time-display-home').innerHTML = html;
-        if (document.getElementById('time-display-channels')) document.getElementById('time-display-channels').innerHTML = html;
-        if (document.getElementById('time-display-highlights')) document.getElementById('time-display-highlights').innerHTML = html;
+        if(document.getElementById('time-display-home')) document.getElementById('time-display-home').innerHTML = html;
+        if(document.getElementById('time-display-channels')) document.getElementById('time-display-channels').innerHTML = html;
     }
     
     function populateMatchList() {
         matchListContainer.innerHTML = '';
-        if (matchesData.length === 0) { matchListContainer.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">No matches scheduled.</p>'; return; }
         matchesData.forEach(match => {
             const streamsJson = JSON.stringify(match.streams);
             matchListContainer.innerHTML += `
@@ -265,24 +216,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
             if (!cardEl) return;
             const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm'), endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
             const liveEl = cardEl.querySelector(`#live${match.id}`), countdownEl = cardEl.querySelector(`#countdown${match.id}`), fulltimeEl = cardEl.querySelector(`#fulltime${match.id}`), timeEl = cardEl.querySelector(`#time${match.id}`), dateEl = cardEl.querySelector(`#date${match.id}`);
-            [liveEl, countdownEl, fulltimeEl].forEach(el => el.style.display = 'none');
-            timeEl.style.display = 'block'; dateEl.style.display = 'block';
+            [liveEl, countdownEl, fulltimeEl, timeEl, dateEl].forEach(el => el.style.display = 'none');
             cardEl.classList.remove('live', 'upcoming', 'recent');
-            
             if (now.isBetween(startMoment, endMoment)) {
                 liveEl.style.display = 'block'; cardEl.classList.add('live'); cardEl.style.order = -1;
             } else if (now.isBefore(startMoment)) {
                 const diff = moment.duration(startMoment.diff(now));
                 countdownEl.textContent = diff.asDays() >= 1 ? `${Math.floor(diff.asDays())}d ${diff.hours()}h` : diff.asHours() >= 1 ? `${diff.hours()}h ${diff.minutes()}m` : `${diff.minutes()}m ${diff.seconds()}s`;
-                countdownEl.style.display = 'block';
-                timeEl.textContent = startMoment.format('hh:mm A');
-                dateEl.textContent = startMoment.format('DD MMM');
-                cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
+                countdownEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
             } else {
-                fulltimeEl.style.display = 'block';
-                timeEl.textContent = startMoment.format('hh:mm A');
-                dateEl.textContent = startMoment.format('DD MMM');
-                cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
+                fulltimeEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
             }
             applyMatchFilter(cardEl);
         });
@@ -295,6 +238,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         updateClock(); setInterval(updateClock, 1000);
         populateMatchList(); checkMatchStatus(); setInterval(checkMatchStatus, 1000);
         showTab('home-section', document.querySelector('#nav-home'));
+        
+        // অ্যানিমেশন চালু করার জন্য ইভেন্ট লিসেনার
+        videoElement.addEventListener('loadstart', showLoading);
+        videoElement.addEventListener('waiting', showLoading);
+        videoElement.addEventListener('playing', showWatermark);
+        videoElement.addEventListener('pause', hideWatermark);
+        videoElement.addEventListener('ended', hideWatermark);
     });
 </script>
 
