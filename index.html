@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy TV (Premium Final Version)</title>
-
-    <!-- Shaka Player CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.4/themes/dark.css">
+    <title>Livefy TV (Final Premium Version)</title>
     
-    <!-- অন্যান্য লাইব্রেরি -->
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
-
-    <!-- Shaka Player JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.4/shaka-player.ui.js"></script>
 
 <style>
 :root {
@@ -44,6 +39,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .match-card {
     background: rgba(22, 27, 34, 0.7);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     margin-bottom: 15px;
@@ -54,21 +50,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     position: relative;
     padding-top: 10px;
 }
-.match-card:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-.match-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+.match-card:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--accent-primary), transparent); opacity: 0; transition: opacity 0.3s; }
+.match-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 .match-card:hover:before { opacity: 1; }
 .match-body { padding: 10px 15px; }
 .team-vs { display: flex; justify-content: space-around; align-items: center; }
@@ -77,18 +60,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .team-name { font-size: 12px; font-weight: 600; color: #f0f6fc; margin-top: 5px; }
 .match-details { text-align: center; padding: 0 10px; }
 .status-box { font-size: 14px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-.vs-separator { font-size: 18px; font-weight: bold; color: var(--text-secondary); }
 .match-footer { background: rgba(13, 17, 23, 0.5); padding: 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border-color); }
-/* ========= ম্যাচ কার্ড ডিজাইন শেষ ========= */
-
-.highlight-card, .banner { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-.match-tabs { display: flex; justify-content: space-around; margin: 20px 0; background-color: var(--bg-secondary); border-radius: 8px; padding: 5px; border: 1px solid var(--border-color); }
-.match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
-.match-tab-btn.active-tab { background-color: var(--accent-primary); color: var(--bg-primary); }
 .live-animation { color: #f75555; animation: blink 1.5s infinite; }
 .countdown-text { color: #3fb950; }
 .full-time-text { color: #d29922; }
 @keyframes blink { 0%, 100% { opacity: 1; text-shadow: 0 0 5px #f75555; } 50% { opacity: 0.5; } }
+/* ========= ম্যাচ কার্ড ডিজাইন শেষ ========= */
+
+.match-tabs { display: flex; justify-content: space-around; margin: 20px 0; background-color: var(--bg-secondary); border-radius: 8px; padding: 5px; border: 1px solid var(--border-color); }
+.match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.match-tab-btn.active-tab { background-color: var(--accent-primary); color: var(--bg-primary); }
 
 /* ========= আরও স্টাইলিশ লাইভ টিভি সেকশন ========= */
 .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding-top: 10px; }
@@ -141,7 +122,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
                 <button class="match-tab-btn" onclick="filterMatches('upcoming', this)">UPCOMING</button>
                 <button class="match-tab-btn" onclick="filterMatches('recent', this)">RECENT</button>
             </div>
-            <div id="match-list-container"><p style="text-align:center; color:#8b949e;">Loading matches...</p></div>
+            <div id="match-list-container"><p style="text-align:center; color:var(--text-secondary);">Loading matches...</p></div>
         </div>
         
         <div id="sports-channels-section" class="hidden">
@@ -155,7 +136,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         
         <div id="highlights-section" class="hidden">
             <div class="section-header"><h2>Highlights</h2><div id="time-display-highlights" class="datetime-box"></div></div>
-            <div class="highlight-card" onclick="openMatchChannels([{name: 'Highlight 1', url: 'YOUR_HIGHLIGHT_URL.mp4'}])"><img src="https://placehold.co/70x70/58a6ff/0d1117?text=HL"><div class="info"><p style="font-size: 16px; font-weight: bold;">Watch Highlights</p><p style="color:#8b949e; font-size: 12px;">Category | 5 Mins</p></div></div>
         </div>
     </div>
     
@@ -181,70 +161,63 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     // =========================================================================
     const matchesData = [
         { 
+            id: 6, 
+            start: '07/01/2026 13:00', end: '07/01/2026 17:30',
+            title: 'BPL 2026', 
+            team1: 'Dhaka Capitals', team2: 'Noakhali Express', 
+            logo1: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Logo_of_Dhaka_Capitals.svg', 
+            logo2: 'https://upload.wikimedia.org/wikipedia/en/4/42/Noakhali_Express_logo.jpg', 
+            stage: 'Cricket Match', 
+            streams: [{name: 'Server BD', url: 'https://saseries.akamaized.net/hls/live/2110097/T56A87p03/hdntl=exp=1767857680~acl=%2f*~data=hdntl~hmac=694a135b74b0f519bded909e0fb4b3c53fa5e85b594951624bcb2d3dddd481fa/level_0.m3u8'}] 
+        },
+        { 
             id: 1, 
-            start: '06/01/2026 14:15', // তারিখ ফরম্যাট: DD/MM/YYYY HH:mm (24-hour)
-            end: '06/01/2026 18:30',
-            title: 'Big Bash League', 
-            team1: 'Sydney Sixers', 
-            team2: 'Perth Scorchers', 
-            logo1: 'https://placehold.co/45x45/ec1c24/ffffff?text=SS', 
-            logo2: 'https://placehold.co/45x45/f07d21/ffffff?text=PS', 
-            stage: 'Final Match', 
-            streams: [
-                {name: 'Server 1 (M3U8)', url: 'https://cbsn-livestream.cbsnews.com/out/v1/9ce8ea1a86624997a911c7515c2d3386/master.m3u8'}, // ডেমো M3U8 লিঙ্ক
-                {name: 'Server 2 (YT)', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'} // ডেমো ইউটিউব লিঙ্ক
-            ] 
+            start: '07/01/2026 14:15', end: '07/01/2026 18:30',
+            title: 'Big Bash League', team1: 'BBL Team 1', team2: 'BBL Team 2', 
+            logo1: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', 
+            logo2: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Big_Bash_League_%28logo%29.png', 
+            stage: 'Cricket Live Match',
+            streams: [{name: 'Server 1', url: 'https://cbsn-livestream.cbsnews.com/out/v1/9ce8ea1a86624997a911c7515c2d3386/master.m3u8'}]
         },
         { 
-            id: 2, 
-            start: moment().add(2, 'hours').format('DD/MM/YYYY HH:mm'), // এখন থেকে ২ ঘণ্টা পর
-            end: moment().add(5, 'hours').format('DD/MM/YYYY HH:mm'),
-            title: 'Premier League', 
-            team1: 'Man United', 
-            team2: 'Liverpool', 
-            logo1: 'https://placehold.co/45x45/da291c/ffffff?text=MU', 
-            logo2: 'https://placehold.co/45x45/c8102e/ffffff?text=LFC', 
-            stage: 'Group Stage', 
-            streams: [
-                {name: 'Server 1', url: 'YOUR_STREAM_URL_HERE'}
-            ]
+            id: 11, 
+            start: '07/01/2026 18:00', end: '07/01/2026 22:30',
+            title: 'BPL 2026', team1: 'Chattogram', team2: 'Sylhet', 
+            logo1: 'https://upload.wikimedia.org/wikipedia/en/b/b8/Chattogram_Royals_logo.png', 
+            logo2: 'https://upload.wikimedia.org/wikipedia/en/4/43/Sylhet_Titans_logo.jpg', 
+            stage: 'BPL Cricket live match',
+            streams: [{name: 'Server 1', url: 'https://bd-streams.site/crx/bdstreams.bio.link.php?id=skyscric'}, {name: 'Tampad', url: 'https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad25879-ENC-300/level_1.m3u8'}]
         },
-        { 
-            id: 3, 
-            start: moment().subtract(4, 'hours').format('DD/MM/YYYY HH:mm'), // ৪ ঘণ্টা আগে শুরু হয়েছিল
-            end: moment().subtract(1, 'hours').format('DD/MM/YYYY HH:mm'), // ১ ঘণ্টা আগে শেষ হয়েছে
-            title: 'Champions League', 
-            team1: 'Real Madrid', 
-            team2: 'FC Barcelona', 
-            logo1: 'https://placehold.co/45x45/febe10/000000?text=RM', 
-            logo2: 'https://placehold.co/45x45/a50044/ffffff?text=FCB', 
-            stage: 'Semi Final', 
-            streams: [
-                {name: 'Server 1', url: 'YOUR_STREAM_URL_HERE'}
-            ]
+        {
+            id: 4,
+            start: '07/01/2026 19:30', end: '08/01/2026 01:00',
+            title: 'PAK vs SL T20', team1: 'Pakistan', team2: 'Sri Lanka',
+            logo1: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg',
+            logo2: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg',
+            stage: '1st T20 Match',
+            streams: [{name: 'Server 1', url: 'https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad25879-ENC-300/master.m3u8'}]
         }
     ];
     // =========================================================================
 
     // --- Global Variables ---
-    let shakaPlayer = null;
+    let hls = null;
     const videoContainer = document.getElementById('video-container'), videoElement = document.getElementById('video'), iframeContainer = document.getElementById('iframe-container'), iframeElement = document.getElementById('embed-iframe');
     const allSections = document.querySelectorAll('.content > div'), navItems = document.querySelectorAll('.nav-item'), errorMessageBox = document.getElementById('error-message-box'), serverButtonsContainer = document.getElementById('server-buttons');
     const matchListContainer = document.getElementById('match-list-container'), matchTabBtns = document.querySelectorAll('.match-tab-btn'), matchSectionTitle = document.getElementById('match-section-title');
     let currentFilter = 'all';
 
     // --- Player Logic ---
-    async function initShakaPlayer() { if (!shaka.Player.isBrowserSupported()) { console.error('Browser not supported!'); return; } if (!shakaPlayer) { shakaPlayer = new shaka.Player(videoElement); const ui = new shaka.ui.Overlay(shakaPlayer, videoContainer, videoElement); ui.getControls(); shakaPlayer.addEventListener('error', onPlayerError); } }
-    function onPlayerError(e) { showMessage("Playback Error", `Code: ${e.detail.code}. Please try another server.`); }
-    async function playShaka(url) { iframeContainer.style.display = 'none'; videoContainer.style.display = 'block'; await initShakaPlayer(); try { await shakaPlayer.load(url); } catch (e) { onPlayerError({ detail: e }); } }
-    function playIframe(url) { if (shakaPlayer) shakaPlayer.unload(); videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
+    function playHLS(url) { if (hls) { hls.destroy(); } if (Hls.isSupported()) { hls = new Hls(); hls.loadSource(url); hls.attachMedia(videoElement); hls.on(Hls.Events.MANIFEST_PARSED, () => videoElement.play()); } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) { videoElement.src = url; videoElement.addEventListener('loadedmetadata', () => videoElement.play()); } }
+    function playNative(url) { if (hls) { hls.destroy(); } videoElement.src = url; videoElement.play(); }
+    function playIframe(url) { if (hls) hls.destroy(); videoElement.src = ''; videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
     function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); if (videoIdMatch) { playIframe(`https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
-    function playContent(url) { hideMessage(); if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8') || url.endsWith('.mpd')) { playShaka(url); } else { playIframe(url); } }
+    function playContent(url) { hideMessage(); videoContainer.style.display = 'block'; iframeContainer.style.display = 'none'; if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8')) { playHLS(url); } else if (url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ts')) { playNative(url); } else { playIframe(url); } }
 
     // --- UI Control Functions ---
     function openMatchChannels(channels) { document.getElementById('video-player').style.display = 'flex'; serverButtonsContainer.innerHTML = ''; hideMessage(); if (!channels || channels.length === 0) { showMessage("Error", "No channels found."); return; } channels.forEach(ch => { const btn = document.createElement('button'); btn.className = 'server-button'; btn.textContent = ch.name; btn.onclick = () => selectServer(ch.url, btn); serverButtonsContainer.appendChild(btn); }); selectServer(channels[0].url, serverButtonsContainer.querySelector('.server-button')); }
     function selectServer(url, btn) { document.querySelectorAll('.server-button').forEach(b => b.classList.remove('active-server')); if (btn) btn.classList.add('active-server'); playContent(url); }
-    async function closeVideo() { document.getElementById('video-player').style.display = 'none'; if (shakaPlayer) await shakaPlayer.unload(); iframeElement.src = 'about:blank'; }
+    function closeVideo() { document.getElementById('video-player').style.display = 'none'; if (hls) hls.destroy(); videoElement.src = ''; iframeElement.src = 'about:blank'; }
     function showMessage(title, msg) { errorMessageBox.style.display = 'block'; document.getElementById('error-title').textContent = title; document.getElementById('error-text').textContent = msg; }
     function hideMessage() { errorMessageBox.style.display = 'none'; }
     function showTab(id, el) { allSections.forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); navItems.forEach(i => i.classList.remove('active')); el.classList.add('active'); }
@@ -261,7 +234,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     
     function populateMatchList() {
         matchListContainer.innerHTML = '';
-        if (matchesData.length === 0) { matchListContainer.innerHTML = '<p style="text-align:center; color:#8b949e;">No matches scheduled.</p>'; return; }
+        if (matchesData.length === 0) { matchListContainer.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">No matches scheduled.</p>'; return; }
         matchesData.forEach(match => {
             const streamsJson = JSON.stringify(match.streams);
             matchListContainer.innerHTML += `
@@ -292,16 +265,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
             if (!cardEl) return;
             const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm'), endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
             const liveEl = cardEl.querySelector(`#live${match.id}`), countdownEl = cardEl.querySelector(`#countdown${match.id}`), fulltimeEl = cardEl.querySelector(`#fulltime${match.id}`), timeEl = cardEl.querySelector(`#time${match.id}`), dateEl = cardEl.querySelector(`#date${match.id}`);
-            [liveEl, countdownEl, fulltimeEl, timeEl, dateEl].forEach(el => el.style.display = 'none');
+            [liveEl, countdownEl, fulltimeEl].forEach(el => el.style.display = 'none');
+            timeEl.style.display = 'block'; dateEl.style.display = 'block';
             cardEl.classList.remove('live', 'upcoming', 'recent');
+            
             if (now.isBetween(startMoment, endMoment)) {
                 liveEl.style.display = 'block'; cardEl.classList.add('live'); cardEl.style.order = -1;
             } else if (now.isBefore(startMoment)) {
                 const diff = moment.duration(startMoment.diff(now));
                 countdownEl.textContent = diff.asDays() >= 1 ? `${Math.floor(diff.asDays())}d ${diff.hours()}h` : diff.asHours() >= 1 ? `${diff.hours()}h ${diff.minutes()}m` : `${diff.minutes()}m ${diff.seconds()}s`;
-                countdownEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
+                countdownEl.style.display = 'block';
+                timeEl.textContent = startMoment.format('hh:mm A');
+                dateEl.textContent = startMoment.format('DD MMM');
+                cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
             } else {
-                fulltimeEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
+                fulltimeEl.style.display = 'block';
+                timeEl.textContent = startMoment.format('hh:mm A');
+                dateEl.textContent = startMoment.format('DD MMM');
+                cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
             }
             applyMatchFilter(cardEl);
         });
@@ -311,8 +292,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     function filterMatches(filter, btn) { currentFilter = filter; matchTabBtns.forEach(b => b.classList.remove('active-tab')); if (btn) btn.classList.add('active-tab'); document.querySelectorAll('.match-card').forEach(applyMatchFilter); }
 
     document.addEventListener('DOMContentLoaded', () => {
-        shaka.polyfill.installAll();
-        initShakaPlayer();
         updateClock(); setInterval(updateClock, 1000);
         populateMatchList(); checkMatchStatus(); setInterval(checkMatchStatus, 1000);
         showTab('home-section', document.querySelector('#nav-home'));
