@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livefy TV (Final Version)</title>
+    <title>Livefy TV (Premium Final Version)</title>
 
     <!-- Shaka Player CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.4/themes/dark.css">
@@ -16,148 +16,146 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.4/shaka-player.ui.js"></script>
 
 <style>
+:root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --accent-primary: #58a6ff;
+    --accent-red: #c80815;
+    --accent-green: #238636;
+}
 /* Base Styles */
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; padding: 0; padding-bottom: 70px; overflow-x: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-primary); color: var(--text-primary); margin: 0; padding: 0; padding-bottom: 70px; overflow-x: hidden; }
 .main-header { background: linear-gradient(90deg, #c80815, #8a020c); color: white; padding: 15px 10px; text-align: center; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-bottom: 2px solid #ffc107; }
-.welcome-box { background-color: #161b22; padding: 5px; border: 1px solid #30363d; margin-top: 5px; overflow: hidden; position: relative; }
-.welcome-text { display: inline-block; white-space: nowrap; animation: marquee 80s linear infinite; font-size: 18px; color: #58a6ff; font-weight: bold; }
+.welcome-box { background-color: var(--bg-secondary); padding: 5px; border: 1px solid var(--border-color); margin-top: 5px; overflow: hidden; position: relative; }
+.welcome-text { display: inline-block; white-space: nowrap; animation: marquee 80s linear infinite; font-size: 18px; color: var(--accent-primary); font-weight: bold; }
 @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 .content { padding: 10px; max-width: 600px; margin: 0 auto; padding-top: 20px; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid #30363d; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border-color); }
 .section-header h2 { font-size: 22px; font-weight: bold; color: #f0f6fc; margin: 0; }
-.datetime-box { background-color: #161b22; color: white; padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; text-align: right; border: 1px solid #30363d; }
-.datetime-box .date-text { color: #8b949e; font-size: 10px; }
-.join-now-link { text-decoration: none; background: #238636; color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; transition: background-color 0.3s; white-space: nowrap; border: 1px solid #2ea043; }
+.datetime-box { background-color: var(--bg-secondary); color: white; padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; text-align: right; border: 1px solid var(--border-color); }
+.datetime-box .date-text { color: var(--text-secondary); font-size: 10px; }
+.join-now-link { text-decoration: none; background: var(--accent-green); color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 700; transition: background-color 0.3s; white-space: nowrap; border: 1px solid #2ea043; }
 .join-now-link:hover { background-color: #2ea043; }
-.match-card, .highlight-card, .banner { background-color: #161b22; border: 1px solid #30363d; border-radius: 10px; margin-bottom: 15px; padding: 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.2s ease-in-out, border-color 0.2s; }
-.match-card:hover, .highlight-card:hover { transform: scale(1.03); border-color: #58a6ff; }
+
+/* ========= নতুন এবং ইউনিক ম্যাচ কার্ড ডিজাইন ========= */
+.match-card {
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    overflow: hidden;
+    position: relative;
+    padding-top: 10px;
+}
+.match-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.match-card:hover:before { opacity: 1; }
+.match-body { padding: 10px 15px; }
+.team-vs { display: flex; justify-content: space-around; align-items: center; }
+.team-logo { text-align: center; }
+.team-logo img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--border-color); padding: 2px; background-color: var(--bg-primary); }
+.team-name { font-size: 12px; font-weight: 600; color: #f0f6fc; margin-top: 5px; }
+.match-details { text-align: center; padding: 0 10px; }
+.status-box { font-size: 14px; font-weight: bold; min-height: 40px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.vs-separator { font-size: 18px; font-weight: bold; color: var(--text-secondary); }
+.match-footer { background: rgba(13, 17, 23, 0.5); padding: 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border-color); }
+/* ========= ম্যাচ কার্ড ডিজাইন শেষ ========= */
+
+.highlight-card, .banner { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.match-tabs { display: flex; justify-content: space-around; margin: 20px 0; background-color: var(--bg-secondary); border-radius: 8px; padding: 5px; border: 1px solid var(--border-color); }
+.match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.match-tab-btn.active-tab { background-color: var(--accent-primary); color: var(--bg-primary); }
+.live-animation { color: #f75555; animation: blink 1.5s infinite; }
+.countdown-text { color: #3fb950; }
+.full-time-text { color: #d29922; }
+@keyframes blink { 0%, 100% { opacity: 1; text-shadow: 0 0 5px #f75555; } 50% { opacity: 0.5; } }
 
 /* ========= আরও স্টাইলিশ লাইভ টিভি সেকশন ========= */
 .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding-top: 10px; }
-.channel-item { position: relative; background: #161b22; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid #30363d; aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; }
-.channel-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2); border-color: #58a6ff; }
+.channel-item { position: relative; background: var(--bg-secondary); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid var(--border-color); aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; }
+.channel-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2); border-color: var(--accent-primary); }
 .channel-logo { width: 50%; height: 50%; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); }
-.channel-name { font-size: 12px; font-weight: 600; color: #c9d1d9; text-align: center; }
+.channel-name { font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: center; }
 .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 17, 23, 0.7); backdrop-filter: blur(2px); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
 .channel-item:hover .play-overlay { opacity: 1; }
-.play-icon { font-size: 32px; color: #58a6ff; }
+.play-icon { font-size: 32px; color: var(--accent-primary); }
 /* ========= স্টাইলের শেষ ========= */
-
-.highlight-card { text-align: left; display: flex; gap: 15px; align-items: center; padding: 15px; }
-.highlight-card img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid #30363d; }
-.banner { padding: 0; overflow: hidden; border-color: #c80815; }
-.match-title { background-color: #0d1117; color: #8b949e; display: inline-block; padding: 3px 8px; border-radius: 15px; font-size: 10px; font-weight: bold; margin-bottom: 8px; border: 1px solid #30363d; }
-.team { display: flex; justify-content: space-between; align-items: center; margin: 5px 0; }
-.team img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #30363d; }
-.team-name { text-align: center; font-size: 11px; font-weight: 600; color: #f0f6fc; }
-.match-info { text-align: center; }
-.time { font-size: 16px; color: white; font-weight: bold; }
-.date { font-size: 11px; color: #8b949e; margin-top: 2px; }
-.match-stage { background-color: #0d1117; color: #8b949e; padding: 2px 8px; border-radius: 10px; font-size: 9px; display: inline-block; margin-top: 8px; border: 1px solid #30363d; }
-.live-animation { color: #f75555; font-size: 15px; font-weight: bold; animation: blink 1.5s infinite; }
-.hidden { display: none !important; }
-@keyframes blink { 0%, 100% { opacity: 1; text-shadow: 0 0 5px #f75555; } 50% { opacity: 0.5; text-shadow: none; } }
-.match-tabs { display: flex; justify-content: space-around; margin: 20px 0; background-color: #161b22; border-radius: 8px; padding: 5px; border: 1px solid #30363d; }
-.match-tab-btn { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 6px; background-color: transparent; color: #8b949e; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
-.match-tab-btn.active-tab { background-color: #58a6ff; color: #0d1117; }
-.countdown-text { color: #3fb950; font-size: 14px; font-weight: bold; }
-.full-time-text { color: #d29922; font-size: 14px; font-weight: bold; }
-.match-status-wrapper { min-height: 35px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
 /* Video Player Styles */
 #video-player { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(13, 17, 23, 0.9); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 10px; box-sizing: border-box; }
-#player-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 16/9; background-color: #000; border-radius: 15px; box-shadow: 0 0 30px rgba(88, 166, 255, 0.3); border: 2px solid #30363d; overflow: hidden; }
+#player-wrapper { position: relative; width: 100%; max-width: 900px; aspect-ratio: 16/9; background-color: #000; border-radius: 15px; box-shadow: 0 0 30px rgba(88, 166, 255, 0.3); border: 2px solid var(--border-color); overflow: hidden; }
 #video-container, #iframe-container { width: 100%; height: 100%; }
 #video { width: 100%; height: 100%; }
 #embed-iframe { width: 100%; height: 100%; border: 0; }
 #close-btn { position: absolute; top: 20px; right: 20px; font-size: 22px; color: white; background-color: rgba(200, 8, 21, 0.8); border: 2px solid #fff; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1011; transition: all 0.3s; }
-#error-message-box { display: none; background-color: #161b22; border: 1px solid #f85149; padding: 20px; border-radius: 8px; text-align: center; max-width: 95%; width: 400px; margin-top: 20px; }
-#error-title { color: #f85149; font-size: 20px; margin: 0 0 10px; }
-#error-text { color: #c9d1d9; font-size: 14px; margin: 0; }
-#controls-area { width: 100%; max-width: 900px; margin-top: 20px; padding: 10px; background-color: #161b22; border-radius: 8px; border: 1px solid #30363d; }
+#error-message-box { display: none; background-color: var(--bg-secondary); border: 1px solid #f85149; padding: 20px; border-radius: 8px; text-align: center; max-width: 95%; width: 400px; margin-top: 20px; }
+#controls-area { width: 100%; max-width: 900px; margin-top: 20px; padding: 10px; background-color: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color); }
 #server-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-.server-button { background-color: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px; padding: 10px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.server-button:hover { background-color: #30363d; }
-.server-button.active-server { background-color: #58a6ff; color: #0d1117; border-color: #58a6ff; }
+.server-button { background-color: #21262d; color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px 15px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.server-button.active-server { background-color: var(--accent-primary); color: var(--bg-primary); border-color: var(--accent-primary); }
 
 /* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: #161b22; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #30363d; z-index: 999; }
-.nav-item { display: flex; flex-direction: column; align-items: center; color: #8b949e; cursor: pointer; transition: color 0.2s; padding: 5px 10px; }
-.nav-item.active { color: #58a6ff; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--bg-secondary); display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid var(--border-color); z-index: 999; }
+.nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); cursor: pointer; transition: color 0.2s; padding: 5px 10px; }
+.nav-item.active { color: var(--accent-primary); }
 .nav-item span { font-size: 12px; margin-top: 3px; font-weight: 500; }
 .nav-item svg { width: 24px; height: 24px; }
+.hidden { display: none; }
 </style>
 </head>
 <body>
 
     <header class="main-header"> Livefy TV </header>
-    <div class="welcome-box">
-        <div class="welcome-text"> Welcome! For live game updates, join our Telegram channel. Video playback may take 10-15 seconds depending on your internet speed. Thank you! </div>
-    </div>
+    <div class="welcome-box"><div class="welcome-text"> Welcome! Join our Telegram for live updates. Video playback may take 10-15 seconds. </div></div>
     
     <div class="content">
         <div id="home-section">
             <div class="section-header">
                 <h2 id="match-section-title">All Matches</h2>
-                <a href="https://t.me/livefytv" class="join-now-link" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-telegram-plane"></i> Join Now
-                </a>
+                <a href="https://t.me/livefytv" class="join-now-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Join Now</a>
                 <div id="time-display-home" class="datetime-box"></div>
             </div>
-
             <div class="match-tabs">
                 <button class="match-tab-btn active-tab" onclick="filterMatches('all', this)">ALL</button>
                 <button class="match-tab-btn" onclick="filterMatches('live', this)">LIVE</button>
                 <button class="match-tab-btn" onclick="filterMatches('upcoming', this)">UPCOMING</button>
                 <button class="match-tab-btn" onclick="filterMatches('recent', this)">RECENT</button>
             </div>
-
-            <div id="match-list-container">
-                <p style="text-align:center; color:#8b949e;">Loading matches...</p>
-            </div>
-            
-            <div class="banner" id="home-banner">
-                <a href="#" target="_blank"><img src="https://placehold.co/600x100/c80815/ffffff?text=ADVERTISEMENT" alt="Home Banner" class="banner-image"></a>
-            </div>
+            <div id="match-list-container"><p style="text-align:center; color:#8b949e;">Loading matches...</p></div>
         </div>
         
         <div id="sports-channels-section" class="hidden">
-            <div class="section-header">
-                <h2>Live TV</h2>
-                <div id="time-display-channels" class="datetime-box"></div>
-            </div>
-            
+            <div class="section-header"><h2>Live TV</h2><div id="time-display-channels" class="datetime-box"></div></div>
             <div class="channel-grid">
-                <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])">
-                    <img src="https://i.ibb.co/wJ02v0P/t-sports.png" alt="T Sports" class="channel-logo">
-                    <span class="channel-name">T Sports</span>
-                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
-                </div>
-                <div class="channel-item" onclick="openMatchChannels([{name: 'Ten Cricket', url: 'https://m.xigzo.store/live.php?id=86db7302947d&e=.m3u8'}])">
-                    <img src="https://i.ibb.co/hZ5H3Zp/Ten-Cricket.png" alt="Ten Cricket" class="channel-logo">
-                    <span class="channel-name">Ten Cricket</span>
-                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
-                </div>
-                <div class="channel-item" onclick="openMatchChannels([{name: 'YouTube', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'}])">
-                    <img src="https://i.ibb.co/PggY2p3/fifa-plus.png" alt="YouTube" class="channel-logo">
-                    <span class="channel-name">YouTube Test</span>
-                    <div class="play-overlay"><i class="fas fa-play play-icon"></i></div>
-                </div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'T Sports', url: 'https://tvsen1.aynaott.com/YNMn5kZz8aLm/index.m3u8'}])"><img src="https://i.ibb.co/wJ02v0P/t-sports.png" class="channel-logo"><span class="channel-name">T Sports</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'Ten Cricket', url: 'https://m.xigzo.store/live.php?id=86db7302947d&e=.m3u8'}])"><img src="https://i.ibb.co/hZ5H3Zp/Ten-Cricket.png" class="channel-logo"><span class="channel-name">Ten Cricket</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
+                <div class="channel-item" onclick="openMatchChannels([{name: 'YouTube', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'}])"><img src="https://i.ibb.co/PggY2p3/fifa-plus.png" class="channel-logo"><span class="channel-name">YouTube Test</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div></div>
             </div>
         </div>
         
         <div id="highlights-section" class="hidden">
-            <div class="section-header">
-                <h2>Highlights</h2>
-                <div id="time-display-highlights" class="datetime-box"></div>
-            </div>
-            <div class="highlight-card" onclick="openMatchChannels([{name: 'Highlight 1', url: 'YOUR_HIGHLIGHT_URL.mp4'}])">
-                <img src="https://placehold.co/70x70/58a6ff/0d1117?text=HL" alt="Highlight 1">
-                <div class="info">
-                    <p style="font-size: 16px; font-weight: bold;">Watch Awesome Highlights</p>
-                    <p style="color:#8b949e; font-size: 12px;">Category | 5 Mins</p>
-                </div>
-            </div>
+            <div class="section-header"><h2>Highlights</h2><div id="time-display-highlights" class="datetime-box"></div></div>
+            <div class="highlight-card" onclick="openMatchChannels([{name: 'Highlight 1', url: 'YOUR_HIGHLIGHT_URL.mp4'}])"><img src="https://placehold.co/70x70/58a6ff/0d1117?text=HL"><div class="info"><p style="font-size: 16px; font-weight: bold;">Watch Highlights</p><p style="color:#8b949e; font-size: 12px;">Category | 5 Mins</p></div></div>
         </div>
     </div>
     
@@ -172,47 +170,75 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     </div>
 
     <nav class="bottom-nav">
-        <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)">
-            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg><span>Home</span>
-        </div>
-        <div id="nav-channels" class="nav-item" onclick="showTab('sports-channels-section', this)">
-            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg><span>Live TV</span>
-        </div>
-        <div id="nav-highlights" class="nav-item" onclick="showTab('highlights-section', this)">
-            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 13c-2.34 0-4.59.88-6.23 2.52-1.64 1.64-2.52 3.88-2.52 6.23H5V3h14v10.5h-1.5zm-5.5 3.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z"></path></svg><span>Highlights</span>
-        </div>
+        <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg><span>Home</span></div>
+        <div id="nav-channels" class="nav-item" onclick="showTab('sports-channels-section', this)"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg><span>Live TV</span></div>
+        <div id="nav-highlights" class="nav-item" onclick="showTab('highlights-section', this)"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 13c-2.34 0-4.59.88-6.23 2.52-1.64 1.64-2.52 3.88-2.52 6.23H5V3h14v10.5h-1.5zm-5.5 3.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z"></path></svg><span>Highlights</span></div>
     </nav>
 
 <script>
+    // =========================================================================
+    // ============== এখানেই সব ম্যাচ যোগ বা এডিট করবেন ==============
+    // =========================================================================
+    const matchesData = [
+        { 
+            id: 1, 
+            start: '06/01/2026 14:15', // তারিখ ফরম্যাট: DD/MM/YYYY HH:mm (24-hour)
+            end: '06/01/2026 18:30',
+            title: 'Big Bash League', 
+            team1: 'Sydney Sixers', 
+            team2: 'Perth Scorchers', 
+            logo1: 'https://placehold.co/45x45/ec1c24/ffffff?text=SS', 
+            logo2: 'https://placehold.co/45x45/f07d21/ffffff?text=PS', 
+            stage: 'Final Match', 
+            streams: [
+                {name: 'Server 1 (M3U8)', url: 'https://cbsn-livestream.cbsnews.com/out/v1/9ce8ea1a86624997a911c7515c2d3386/master.m3u8'}, // ডেমো M3U8 লিঙ্ক
+                {name: 'Server 2 (YT)', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk'} // ডেমো ইউটিউব লিঙ্ক
+            ] 
+        },
+        { 
+            id: 2, 
+            start: moment().add(2, 'hours').format('DD/MM/YYYY HH:mm'), // এখন থেকে ২ ঘণ্টা পর
+            end: moment().add(5, 'hours').format('DD/MM/YYYY HH:mm'),
+            title: 'Premier League', 
+            team1: 'Man United', 
+            team2: 'Liverpool', 
+            logo1: 'https://placehold.co/45x45/da291c/ffffff?text=MU', 
+            logo2: 'https://placehold.co/45x45/c8102e/ffffff?text=LFC', 
+            stage: 'Group Stage', 
+            streams: [
+                {name: 'Server 1', url: 'YOUR_STREAM_URL_HERE'}
+            ]
+        },
+        { 
+            id: 3, 
+            start: moment().subtract(4, 'hours').format('DD/MM/YYYY HH:mm'), // ৪ ঘণ্টা আগে শুরু হয়েছিল
+            end: moment().subtract(1, 'hours').format('DD/MM/YYYY HH:mm'), // ১ ঘণ্টা আগে শেষ হয়েছে
+            title: 'Champions League', 
+            team1: 'Real Madrid', 
+            team2: 'FC Barcelona', 
+            logo1: 'https://placehold.co/45x45/febe10/000000?text=RM', 
+            logo2: 'https://placehold.co/45x45/a50044/ffffff?text=FCB', 
+            stage: 'Semi Final', 
+            streams: [
+                {name: 'Server 1', url: 'YOUR_STREAM_URL_HERE'}
+            ]
+        }
+    ];
+    // =========================================================================
+
     // --- Global Variables ---
     let shakaPlayer = null;
-    const videoContainer = document.getElementById('video-container');
-    const videoElement = document.getElementById('video');
-    const iframeContainer = document.getElementById('iframe-container');
-    const iframeElement = document.getElementById('embed-iframe');
-    const allSections = document.querySelectorAll('.content > div');
-    const navItems = document.querySelectorAll('.nav-item');
-    const errorMessageBox = document.getElementById('error-message-box');
-    const serverButtonsContainer = document.getElementById('server-buttons');
-    const matchListContainer = document.getElementById('match-list-container');
-    const matchTabBtns = document.querySelectorAll('.match-tab-btn');
-    const matchSectionTitle = document.getElementById('match-section-title');
+    const videoContainer = document.getElementById('video-container'), videoElement = document.getElementById('video'), iframeContainer = document.getElementById('iframe-container'), iframeElement = document.getElementById('embed-iframe');
+    const allSections = document.querySelectorAll('.content > div'), navItems = document.querySelectorAll('.nav-item'), errorMessageBox = document.getElementById('error-message-box'), serverButtonsContainer = document.getElementById('server-buttons');
+    const matchListContainer = document.getElementById('match-list-container'), matchTabBtns = document.querySelectorAll('.match-tab-btn'), matchSectionTitle = document.getElementById('match-section-title');
     let currentFilter = 'all';
 
     // --- Player Logic ---
-    async function initShakaPlayer() {
-        if (!shaka.Player.isBrowserSupported()) { console.error('Browser not supported!'); return; }
-        if (!shakaPlayer) {
-            shakaPlayer = new shaka.Player(videoElement);
-            const ui = new shaka.ui.Overlay(shakaPlayer, videoContainer, videoElement);
-            ui.getControls();
-            shakaPlayer.addEventListener('error', onPlayerError);
-        }
-    }
-    function onPlayerError(event) { showMessage("Playback Error", `Code: ${event.detail.code}. Please try another server.`); }
+    async function initShakaPlayer() { if (!shaka.Player.isBrowserSupported()) { console.error('Browser not supported!'); return; } if (!shakaPlayer) { shakaPlayer = new shaka.Player(videoElement); const ui = new shaka.ui.Overlay(shakaPlayer, videoContainer, videoElement); ui.getControls(); shakaPlayer.addEventListener('error', onPlayerError); } }
+    function onPlayerError(e) { showMessage("Playback Error", `Code: ${e.detail.code}. Please try another server.`); }
     async function playShaka(url) { iframeContainer.style.display = 'none'; videoContainer.style.display = 'block'; await initShakaPlayer(); try { await shakaPlayer.load(url); } catch (e) { onPlayerError({ detail: e }); } }
     function playIframe(url) { if (shakaPlayer) shakaPlayer.unload(); videoContainer.style.display = 'none'; iframeContainer.style.display = 'block'; iframeElement.src = url; }
-    function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); const videoId = videoIdMatch ? videoIdMatch[1] : null; if (videoId) { playIframe(`https://www.youtube.com/embed/${videoId}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
+    function playYouTube(url) { const videoIdMatch = url.match(/(?:youtu\.be\/|watch\?v=)([\w-]{11})/); if (videoIdMatch) { playIframe(`https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`); } else { showMessage("Invalid URL", "Could not extract YouTube video ID."); } }
     function playContent(url) { hideMessage(); if (typeof url !== 'string' || !url) { showMessage("Error", "Invalid link."); return; } if (url.includes('youtube.com') || url.includes('youtu.be')) { playYouTube(url); } else if (url.endsWith('.m3u8') || url.endsWith('.mpd')) { playShaka(url); } else { playIframe(url); } }
 
     // --- UI Control Functions ---
@@ -226,39 +252,35 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
     function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-        const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+        const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         const html = `${timeString} <span class="date-text">${dateString}</span>`;
-        document.getElementById('time-display-home').innerHTML = html;
-        if(document.getElementById('time-display-channels')) document.getElementById('time-display-channels').innerHTML = html;
-        if(document.getElementById('time-display-highlights')) document.getElementById('time-display-highlights').innerHTML = html;
+        if (document.getElementById('time-display-home')) document.getElementById('time-display-home').innerHTML = html;
+        if (document.getElementById('time-display-channels')) document.getElementById('time-display-channels').innerHTML = html;
+        if (document.getElementById('time-display-highlights')) document.getElementById('time-display-highlights').innerHTML = html;
     }
-
-    const matchesData = [
-        { id: 1, start: '06/01/2026 14:15', end: '06/01/2026 18:30', title: 'Big Bash League', team1: 'Team A', team2: 'Team B', logo1: 'https://placehold.co/40x40/222/fff?text=A', logo2: 'https://placehold.co/40x40/222/fff?text=B', stage: 'Final', streams: [{name: 'Server 1', url: 'YOUR_M3U8_URL_HERE'}] },
-        { id: 2, start: moment().add(2, 'hours').format('DD/MM/YYYY HH:mm'), end: moment().add(5, 'hours').format('DD/MM/YYYY HH:mm'), title: 'Premier League', team1: 'Team C', team2: 'Team D', logo1: 'https://placehold.co/40x40/222/fff?text=C', logo2: 'https://placehold.co/40x40/222/fff?text=D', stage: 'Group Stage', streams: [{name: 'Server 1', url: 'YOUR_M3U8_URL_HERE'}] },
-        { id: 3, start: moment().subtract(4, 'hours').format('DD/MM/YYYY HH:mm'), end: moment().subtract(1, 'hours').format('DD/MM/YYYY HH:mm'), title: 'Champions League', team1: 'Team E', team2: 'Team F', logo1: 'https://placehold.co/40x40/222/fff?text=E', logo2: 'https://placehold.co/40x40/222/fff?text=F', stage: 'Semi Final', streams: [{name: 'Server 1', url: 'YOUR_M3U8_URL_HERE'}] }
-    ];
     
     function populateMatchList() {
         matchListContainer.innerHTML = '';
+        if (matchesData.length === 0) { matchListContainer.innerHTML = '<p style="text-align:center; color:#8b949e;">No matches scheduled.</p>'; return; }
         matchesData.forEach(match => {
             const streamsJson = JSON.stringify(match.streams);
             matchListContainer.innerHTML += `
-                <div id="match-card-${match.id}" class="match-card" data-match-id="${match.id}" onclick='openMatchChannels(${streamsJson})'>
-                    <div class="match-title">${match.title}</div>
-                    <div class="team">
-                        <div><img src="${match.logo1}" alt="${match.team1}"><div class="team-name">${match.team1}</div></div>
-                        <div class="match-info">
-                            <div class="match-status-wrapper">
-                                <div class="time" id="time${match.id}"></div> <div class="date" id="date${match.id}"></div>
-                                <div id="live${match.id}" class="live-animation hidden">LIVE</div>
-                                <div id="countdown${match.id}" class="countdown-text hidden"></div>
-                                <div id="fulltime${match.id}" class="full-time-text hidden">FINISHED</div>
+                <div id="match-card-${match.id}" class="match-card" onclick='openMatchChannels(${streamsJson})'>
+                    <div class="match-body">
+                        <div class="team-vs">
+                            <div class="team-logo"><img src="${match.logo1}" alt="${match.team1}"><div class="team-name">${match.team1}</div></div>
+                            <div class="match-details">
+                                <div class="status-box">
+                                    <div class="time" id="time${match.id}"></div> <div class="date" id="date${match.id}"></div>
+                                    <div id="live${match.id}" class="live-animation hidden">LIVE</div>
+                                    <div id="countdown${match.id}" class="countdown-text hidden"></div>
+                                    <div id="fulltime${match.id}" class="full-time-text hidden">FINISHED</div>
+                                </div>
                             </div>
+                            <div class="team-logo"><img src="${match.logo2}" alt="${match.team2}"><div class="team-name">${match.team2}</div></div>
                         </div>
-                        <div><img src="${match.logo2}" alt="${match.team2}"><div class="team-name">${match.team2}</div></div>
                     </div>
-                    <div class="match-stage">${match.stage}</div>
+                    <div class="match-footer">${match.title} - ${match.stage}</div>
                 </div>`;
         });
     }
@@ -268,25 +290,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
         matchesData.forEach(match => {
             const cardEl = document.getElementById(`match-card-${match.id}`);
             if (!cardEl) return;
-            const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm');
-            const endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
+            const startMoment = moment(match.start, 'DD/MM/YYYY HH:mm'), endMoment = moment(match.end, 'DD/MM/YYYY HH:mm');
             const liveEl = cardEl.querySelector(`#live${match.id}`), countdownEl = cardEl.querySelector(`#countdown${match.id}`), fulltimeEl = cardEl.querySelector(`#fulltime${match.id}`), timeEl = cardEl.querySelector(`#time${match.id}`), dateEl = cardEl.querySelector(`#date${match.id}`);
-            [liveEl, countdownEl, fulltimeEl, timeEl, dateEl].forEach(el => el.classList.add('hidden'));
+            [liveEl, countdownEl, fulltimeEl, timeEl, dateEl].forEach(el => el.style.display = 'none');
             cardEl.classList.remove('live', 'upcoming', 'recent');
             if (now.isBetween(startMoment, endMoment)) {
-                liveEl.classList.remove('hidden'); cardEl.classList.add('live'); cardEl.style.order = -1;
+                liveEl.style.display = 'block'; cardEl.classList.add('live'); cardEl.style.order = -1;
             } else if (now.isBefore(startMoment)) {
                 const diff = moment.duration(startMoment.diff(now));
-                countdownEl.textContent = diff.asDays() >= 1 ? `${Math.floor(diff.asDays())}d ${diff.hours()}h left` : diff.asHours() >= 1 ? `${diff.hours()}h ${diff.minutes()}m left` : `Starts in ${diff.minutes()}m ${diff.seconds()}s`;
-                countdownEl.classList.remove('hidden'); timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD/MM/YYYY'); timeEl.classList.remove('hidden'); dateEl.classList.remove('hidden'); cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
+                countdownEl.textContent = diff.asDays() >= 1 ? `${Math.floor(diff.asDays())}d ${diff.hours()}h` : diff.asHours() >= 1 ? `${diff.hours()}h ${diff.minutes()}m` : `${diff.minutes()}m ${diff.seconds()}s`;
+                countdownEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('upcoming'); cardEl.style.order = startMoment.unix();
             } else {
-                fulltimeEl.classList.remove('hidden'); timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD/MM/YYYY'); timeEl.classList.remove('hidden'); dateEl.classList.remove('hidden'); cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
+                fulltimeEl.style.display = 'block'; timeEl.textContent = startMoment.format('hh:mm A'); dateEl.textContent = startMoment.format('DD MMM'); timeEl.style.display = 'block'; dateEl.style.display = 'block'; cardEl.classList.add('recent'); cardEl.style.order = 9999999999 - startMoment.unix();
             }
             applyMatchFilter(cardEl);
         });
     }
     
-    function applyMatchFilter(cardEl) { if (!cardEl) return; if (currentFilter === 'all' || cardEl.classList.contains(currentFilter)) { cardEl.classList.remove('hidden'); } else { cardEl.classList.add('hidden'); } }
+    function applyMatchFilter(cardEl) { if (!cardEl) return; if (currentFilter === 'all' || cardEl.classList.contains(currentFilter)) { cardEl.style.display = 'block'; } else { cardEl.style.display = 'none'; } }
     function filterMatches(filter, btn) { currentFilter = filter; matchTabBtns.forEach(b => b.classList.remove('active-tab')); if (btn) btn.classList.add('active-tab'); document.querySelectorAll('.match-card').forEach(applyMatchFilter); }
 
     document.addEventListener('DOMContentLoaded', () => {
