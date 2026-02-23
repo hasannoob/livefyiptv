@@ -1,665 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="theme-color" content="#ff0015">  
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="">
-<title>LiveFy TV, LiveFy TV sports, LiveFy TV live | LiveFy TV live | LiveFy TV sports | LiveFy TV | LiveFy TV world | LiveFy TV live | LiveFy TV | LiveFy TV world | LiveFy TV live | LiveFy TV world | LiveFy TV Sports</title>
-<meta name="description" content="LiveFy TV, LiveFy TV sports, LiveFy TV live, mdhtv, mhd tv, LiveFy TV live cricket, mhd tv world, LiveFy TV live, mhdtv world, madstream live, LiveFy TV telugu, sports live, watch tnt sports online free, tnt sports live stream free, tnt sports live stream, tnt sports 1 live stream, tnt sports 2 live stream, durbin tv, durbin live, tv.durbin, durbin live tv, durbintv, super league kerala, sport live, streameast, cricvip, cricweb, LiveFy TV live cricket, crichd live" />
-<meta name="keywords" content="LiveFy TV, LiveFy TV sports, LiveFy TV live, mdhtv, mhd tv, LiveFy TV live cricket, mhd tv world, LiveFy TV live, mhdtv world, madstream live, LiveFy TV telugu, sports live, watch tnt sports online free, tnt sports live stream free, tnt sports live stream, tnt sports 1 live stream, tnt sports 2 live stream, durbin tv, durbin live, tv.durbin, durbin live tv, durbintv, super league kerala, sport live, streameast, cricvip, cricweb, LiveFy TV live cricket, crichd live" />
-<link rel="canonical" href="https://livefytv.com/livetv/watch/watch-live-west-indies-2/43">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livefy TV (Create By HASAN)</title>
+    
+    <!-- Plyr.css সরানো হয়েছে এবং Shaka Player UI CSS যোগ করা হয়েছে -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.13/shaka-player.ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.13/controls.min.css">
 
-<meta property="og:type" content="movie" />
-<meta property="og:title" content="LiveFy TV, LiveFy TV sports, LiveFy TV live | LiveFy TV live | LiveFy TV sports | LiveFy TV | LiveFy TV world | LiveFy TV live | LiveFy TV | LiveFy TV world | LiveFy TV live | LiveFy TV world | LiveFy TV Sports" />
-<meta property="og:description" content="LiveFy TV, LiveFy TV sports, LiveFy TV live, mdhtv, mhd tv, LiveFy TV live cricket, mhd tv world, LiveFy TV live, mhdtv world, madstream live, LiveFy TV telugu, sports live, watch tnt sports online free, tnt sports live stream free, tnt sports live stream, tnt sports 1 live stream, tnt sports 2 live stream, durbin tv, durbin live, tv.durbin, durbin live tv, durbintv, super league kerala, sport live, streameast, cricvip, cricweb, LiveFy TV live cricket, crichd live" />
-<meta property="og:image" content="https://livefytv.com/upload/livefy_tv_logo.png" />
-<meta property="og:url" content="https://livefytv.com/livetv/watch/watch-live-west-indies-2/43" />
-<meta property="og:image:width" content="1024" />
-<meta property="og:image:height" content="1024" />
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://livefytv.com/upload/livefy_tv_logo.png">
-<link rel="image_src" href="https://livefytv.com/upload/livefy_tv_logo.png">
+    <!-- Hls.js এর প্রয়োজন নেই কারণ Shaka Player এটি নিজে হ্যান্ডেল করে -->
 
-<!-- Favicon -->
-<link rel="icon" href="https://livefytv.com/upload/livefy_tv_favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
+<style>
+:root { 
+    --bg-main: #0D0D10; 
+    --bg-card: rgba(35, 35, 45, 0.5); 
+    --primary-color: #E60023;
+    --secondary-color: #00C853;
+    --text-light: #F0F0F0; 
+    --text-dark: #A0A0A0; 
+    --live-red: #FF3B3B; 
+    --font-main: 'Poppins', sans-serif;
+    /* Shaka Player স্টাইল কাস্টমাইজেশন */
+    --plyr-color-main: var(--primary-color); 
+    --shaka-player-accent: var(--primary-color);
+} 
 
-<!-- LOAD LOCAL CSS -->
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/nice-select.css">
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/megamenu.css">
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/ionicons.css">
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/font-awesome.min.css">
+body { font-family: var(--font-main); background: radial-gradient(circle at top left, rgba(230, 0, 35, 0.15), transparent 40%), radial-gradient(circle at bottom right, rgba(0, 200, 83, 0.15), transparent 40%), var(--bg-main); color: var(--text-light); margin: 0; padding: 0; padding-bottom: 90px; overflow-x: hidden; }
+.main-header { display: flex; justify-content: space-between; align-items: center; color: white; padding: 8px 15px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 990; background-color: rgba(13, 13, 16, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-sizing: border-box; }
 
-   
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/color-style/style-six.css" id="theme">
+.header-content { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.header-title { font-size: 24px; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--primary-color), 0 0 20px var(--primary-color); }
+.flag-bd { width: 36px; height: 24px; background-color: #006a4e; border-radius: 3px; border: 1px solid #fff; position: relative; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.5); animation: wave 3s linear infinite; }
+.flag-bd .red-circle { width: 12px; height: 12px; background-color: #f42a41; border-radius: 50%; }
+@keyframes wave { 0%, 100% { transform: skewX(0) scale(1); } 50% { transform: skewX(-10deg) scale(1.05); } }
 
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/responsive.css">
+.about-content {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin-top: 20px;
+}
+.about-content h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.about-content p {
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+.about-content p strong {
+    color: var(--text-light);
+}
+.about-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.about-content a:hover {
+    text-decoration: underline;
+}
 
-<!-- Splide Slider CSS -->
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/splide.min.css">
+#notification-bell { position: relative; cursor: pointer; }
+#notification-bell .fa-bell { font-size: 24px; color: #fff; }
+#notification-count { position: absolute; top: -5px; right: -8px; background-color: var(--live-red); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; font-weight: bold; display: flex; justify-content: center; align-items: center; border: 1px solid #fff; box-shadow: 0 0 10px var(--live-red); transform: scale(0); transition: transform 0.3s ease; }
+#notification-count.visible { transform: scale(1); }
+#notification-bell .fa-bell.shake { animation: bell-shake-anim 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes bell-shake-anim { 10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-2deg); } 20%, 80% { transform: translate3d(2px, 0, 0) rotate(4deg); } 30%, 50%, 70% { transform: translate3d(-3px, 0, 0) rotate(-6deg); } 40%, 60% { transform: translate3d(3px, 0, 0) rotate(6deg); } }
+#notification-panel { display: none; position: absolute; top: 45px; right: 0; width: 300px; background-color: rgba(20, 20, 25, 0.9); backdrop-filter: blur(15px); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.5); z-index: 1000; max-height: 400px; overflow-y: auto; }
+#notification-panel.show { display: block; }
+.notification-header { padding: 10px 15px; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.notification-list { padding: 0; margin: 0; list-style: none; }
+.notification-item { display: flex; align-items: center; gap: 10px; padding: 10px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: background-color 0.3s; cursor: pointer; }
+.notification-item:hover { background-color: rgba(255, 255, 255, 0.05); }
+.notification-item:last-child { border-bottom: none; }
+.notification-item img { width: 30px; height: 30px; border-radius: 50%; }
+.notification-item .info { flex-grow: 1; font-size: 13px; }
+.notification-item .teams { font-weight: 600; }
+.notification-item .title { font-size: 11px; color: var(--text-dark); }
+.notification-item .live-dot { width: 8px; height: 8px; background-color: var(--live-red); border-radius: 50%; animation: live-pulse 1.5s infinite; }
+.no-notifications { padding: 20px; text-align: center; color: var(--text-dark); }
+.update-bar { position: fixed; top: 50px; left: 0; width: 100%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: white; display: flex; align-items: center; padding: 5px 10px; z-index: 989; overflow: hidden; box-sizing: border-box; } 
+.update-label { font-weight: bold; padding: 2px 8px; background-color: rgba(0,0,0,0.5); color: #fff; border-radius: 5px; margin-right: 10px; font-size: 12px; white-space: nowrap; } 
+.update-marquee { white-space: nowrap; overflow: hidden; flex-grow: 1; } 
+.update-marquee span { color: #000; font-weight: bold; display: inline-block; padding-left: 100%; animation: marquee-update 50s linear infinite; font-size: 14px; } 
+@keyframes marquee-update { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+.content { padding: 10px; max-width: 600px; margin: 0 auto; margin-top: 95px; } 
 
-<link rel="stylesheet" href="https://mhdtvp.com/site_assets/css/jquery-eu-cookie-law-popup.css">
+.section-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px; 
+    padding-bottom: 5px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 74px; 
+    background: var(--bg-main);
+    z-index: 980; 
+    padding-top: 10px;
+} 
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
+.section-header h2 { font-size: 22px; font-weight: bold; color: white; margin: 0; min-width: 120px; } 
+.datetime-box { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: black; padding: 5px 10px; border-radius: 8px; font-size: 10px; font-weight: bold; text-align: right; line-height: 1.2; box-shadow: 0 2px 10px rgba(230, 0, 35, 0.5); min-width: 90px; } .datetime-box .date-text { color: #222; } .join-now-link { text-decoration: none; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: #000; padding: 6px 12px; border-radius: 50px; font-size: 14px; font-weight: 700; transition: all 0.3s; white-space: nowrap; border: none; box-shadow: 0 0 10px var(--primary-color); } .join-now-link:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--secondary-color); }
+.filter-tabs { display: flex; gap: 8px; margin: 25px 0; padding: 5px 10px; overflow-x: auto; scrollbar-width: none; }
+.filter-tabs::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 6px 14px; border: 1px solid var(--bg-card); border-radius: 50px; background-color: var(--bg-card); color: var(--text-dark); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; backdrop-filter: blur(10px); white-space: nowrap; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.tab-btn:hover { background-color: rgba(230, 0, 35, 0.5); color: var(--text-light); }
+.tab-btn.active-tab { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: #000; border-color: transparent; box-shadow: 0 0 15px var(--primary-color); }
+.tab-count { background-color: rgba(0,0,0,0.2); color: var(--text-light); padding: 2px 6px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+.tab-btn.active-tab .tab-count { background-color: rgba(0,0,0,0.5); color: #fff; }
+.match-card { background: #1E1A20; border: 1px solid #28242B; border-radius: 12px; margin-bottom: 10px; padding: 4px 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+.match-card:hover { transform: translateY(-5px); box-shadow: 0 0 25px rgba(230, 0, 35, 0.5); border-color: var(--primary-color); }
 
-    <meta name="monetag" content="925f097a9e0e5048918390bf0953199a">
-<script>(function(s){s.dataset.zone='10640490',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10641081',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+.hot-badge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: linear-gradient(135deg, #FF4B2B, #FF416C);
+    color: white;
+    padding: 4px 10px 4px 15px;
+    font-size: 10px;
+    font-weight: 900;
+    border-radius: 0 12px 0 12px;
+    z-index: 2;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 10px rgba(255, 65, 108, 0.5);
+    animation: pulse-hot 1.5s infinite;
+}
+.hot-badge .fa-fire {
+    text-shadow: 0 0 5px #fff;
+}
+@keyframes pulse-hot {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
 
+@keyframes live-border-animation { 0% { border-color: var(--primary-color); box-shadow: 0 0 15px var(--primary-color); } 50% { border-color: var(--live-red); box-shadow: 0 0 25px var(--live-red); } 100% { border-color: var(--primary-color); box-shadow: 0 0 15px var(--primary-color); } }
+.match-card.live { animation: live-border-animation 2s infinite; }
+.match-title { background-color: #000; color: #fff; display: inline-block; padding: 2px 6px; border-radius: 6px; font-size: 9px; font-weight: bold; margin-bottom: 4px; max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.team { display: flex; justify-content: space-around; align-items: center; margin: 2px 0; }
+.team > div { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.match-info { flex: 0 0 50px; }
+.team img { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #444; padding: 2px; background-color: #fff; }
+.team-name { font-size: 10px; font-weight: 600; margin-top: 4px; width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.match-category { background-color: #28242B; color: var(--text-dark); padding: 2px 8px; border-radius: 50px; font-size: 9px; display: inline-block; margin-top: 4px; }
+.live-animation { position: relative; display: inline-flex; align-items: center; color: var(--live-red); font-size: 12px; font-weight: bold; text-shadow: 0 0 10px var(--live-red); } 
+.live-animation::before { content: ''; display: block; width: 6px; height: 6px; background-color: var(--live-red); border-radius: 50%; margin-right: 5px; box-shadow: 0 0 5px var(--live-red), 0 0 10px var(--live-red); animation: live-pulse 1.5s infinite; } 
+@keyframes live-pulse { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 59, 59, 0); } 100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 59, 59, 0); } } 
+.countdown-text { color: var(--secondary-color); font-size: 11px; font-weight: bold; margin-top: 2px; } 
+.full-time-text { color: #ffd700; font-size: 11px; font-weight: bold; margin-top: 2px; }
+.time { font-size: 12px; font-weight: 700; } 
+.date { font-size: 8px; color: var(--text-dark); margin-top: 1px; }
+.match-status-wrapper { min-height: 35px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding-top: 10px; } .channel-item { position: relative; background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); } .channel-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4); border-color: var(--secondary-color); } .channel-logo { width: 60%; max-height: 45px; object-fit: contain; margin-bottom: 8px; } .channel-name { font-size: 12px; font-weight: bold; color: #eee; text-align: center; line-height: 1.2; } .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; } .channel-item:hover .play-overlay { opacity: 1; } .play-icon { font-size: 32px; color: var(--secondary-color); text-shadow: 0 0 15px var(--secondary-color); } .bottom-nav { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background-color: rgba(20, 20, 25, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 10px 0; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; z-index: 999; box-shadow: 0 5px 20px rgba(0,0,0,0.5); } .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-dark); cursor: pointer; transition: all 0.3s ease; padding: 5px 10px; } .nav-item.active { color: var(--primary-color); transform: scale(1.1); } .nav-item.active svg { filter: drop-shadow(0 0 8px var(--primary-color)); } .nav-item span { font-size: 12px; margin-top: 3px; font-weight: bold; } .nav-item svg { width: 24px; height: 24px; } .hidden { display: none !important; } .alert-btn { background-color: #ffc107; color: #000; border: none; padding: 6px 12px; font-size: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 6px; animation: pulse-glow 2s infinite linear; } .alert-btn .fa-bell { animation: bell-shake 4s infinite ease-in-out 1s; } @keyframes pulse-glow { 0% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.4), 0 0 10px rgba(255, 193, 7, 0.3); } 70% { box-shadow: 0 0 15px rgba(255, 193, 7, 0.8), 0 0 25px rgba(255, 193, 7, 0.6); } 100% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.4), 0 0 10px rgba(255, 193, 7, 0.3); } } @keyframes bell-shake { 0%, 50%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(-15deg); } 20%, 40% { transform: rotate(15deg); } } .alert-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.85); justify-content: center; align-items: center; padding: 15px; box-sizing: border-box; } .alert-modal-content { background-color: #222; margin: auto; padding: 20px; border: 1px solid #ffc107; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 5px 25px rgba(255, 193, 7, 0.2); position: relative; text-align: center; } .alert-close-btn { color: #aaa; position: absolute; top: 5px; right: 10px; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; background: none; border: none; } .alert-close-btn:hover { color: #ffc107; } .alert-content h3 { color: #ffc107; margin-top: 0; margin-bottom: 15px; font-size: 22px; } .alert-content p { color: #ddd; font-size: 15px; line-height: 1.5; margin-bottom: 10px; } .highlight-card { text-align: left; display: flex; gap: 10px; align-items: center; padding: 10px; background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; margin-bottom: 20px; backdrop-filter: blur(10px); cursor: pointer; } .highlight-card:hover { transform: scale(1.03); border-color: var(--primary-color);} .highlight-card .info { flex-grow: 1; } .highlight-card img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 1px solid var(--primary-color); } .banner { padding: 0; overflow: hidden; border: 1px solid var(--primary-color); cursor: pointer; transform: none; transition: none; margin-top: 25px; border-radius: 10px; } .banner-image { width: 100%; height: auto; display: block; border-radius: 10px; } .banner:hover { transform: none; }
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9DNMD96YX8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+#video-player { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(13, 13, 16, 0.8); backdrop-filter: blur(20px); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 10px; box-sizing: border-box; overflow-y: auto; } 
 
-  gtag('config', 'G-9DNMD96YX8');
-</script>
-  
- 
-  
-  
- <style type="text/css">
-      .search .search-input input[type=text]::placeholder, .search .search-input input[type=text].focus {
-          background: #000000 !important; 
-      }
- </style>
+/* Shaka Player কন্টেইনার স্টাইল */
+#video-container-wrapper { 
+    position: relative; 
+    width: 100%; 
+    max-width: 900px; 
+    background-color: black; 
+    border-radius: 15px; 
+    box-shadow: 0 0 25px var(--primary-color); 
+    aspect-ratio: 16/9; /* aspect-ratio এখানে দেওয়া ভালো */
+} 
+/* video-wrapper এর আর প্রয়োজন নেই */
+#video { width: 100%; height: 100%; }
 
+/* Livefy টেক্সট এখন Shaka Player এর উপর বসবে */
+#livefy-text-animator { position: absolute; top: 15px; left: 15px; color: var(--secondary-color); font-size: 14px; font-weight: 900; opacity: 0.8; z-index: 50; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 5px; border: 1px solid var(--secondary-color); box-shadow: 0 0 5px var(--secondary-color); animation: watermark-blink 5s infinite; display: none; pointer-events: none; } 
+.is-loading { color: #FF003C !important; font-size: 16px; padding: 5px 10px; border-color: #FF003C !important; box-shadow: 0 0 15px rgba(255, 0, 60, 0.8) !important; animation: pulse 1s infinite !important; } @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } } @keyframes watermark-blink { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.5; } } #error-message-box { background-color: #1a1a1a; border: 3px solid #FF003C; padding: 10px; border-radius: 12px; text-align: center; max-width: 95%; width: 350px; margin-top: 20px; box-shadow: 0 0 15px rgba(255, 0, 60, 0.6); display: none; position: relative; } #error-title { color: #FF003C; font-size: 20px; margin-bottom: 5px; font-weight: bold; } #error-text { color: #ddd; font-size: 14px; } #error-message-box .close-error-btn { position: absolute; top: -10px; right: -10px; font-size: 18px; color: white; background-color: var(--live-red); border: 2px solid #fff; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; } 
+#controls-area { width: 100%; max-width: 900px; margin-top: 20px; padding: 10px; background-color: rgba(0,0,0,0.3); backdrop-filter: blur(10px); border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); } 
+#quality-selector-container { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; color: var(--secondary-color); font-size: 16px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #333; } 
+#quality-select { background-color: #000; color: var(--secondary-color); border: 1px solid var(--secondary-color); padding: 8px 12px; border-radius: 8px; font-size: 14px; cursor: pointer; outline: none; transition: border-color 0.3s; } #quality-select:focus { border-color: var(--primary-color); } 
+#server-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; } 
+.server-button { background-color: #333; color: var(--secondary-color); border: 1px solid var(--secondary-color); border-radius: 20px; padding: 10px 20px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; flex: 1 1 calc(50% - 15px); box-sizing: border-box; max-width: 300px; } 
+.server-button:hover { background-color: var(--secondary-color); color: black; box-shadow: 0 0 10px var(--secondary-color); } 
+.server-button.active-server { background-color: var(--primary-color); color: white; border: 2px solid #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(230, 0, 35, 0.6); } 
+#close-btn { position: absolute; top: -15px; right: -15px; font-size: 22px; color: white; background-color: var(--live-red); border: 3px solid #fff; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.3s; box-shadow: 0 0 15px rgba(255, 59, 59, 1); } #close-btn:hover { background-color: #FF003C; transform: scale(1.1); } #close-btn:active { transform: scale(0.95); box-shadow: 0 0 5px rgba(200, 8, 21, 0.8); } @media (max-width: 600px) { #close-btn { top: 10px; right: 10px; width: 35px; height: 35px; font-size: 16px; } }
+.three-dot-menu { font-size: 24px; cursor: pointer; color: #fff; width: 40px; display: flex; justify-content: center; align-items: center; }
+.side-popup { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background-color: #141419; z-index: 1001; transform: translateX(-100%); transition: transform 0.3s ease-in-out; display: flex; flex-direction: column; border-right: 1px solid var(--primary-color); }
+.side-popup.show { transform: translateX(0); }
+.popup-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.popup-header h2 { margin: 0; color: var(--primary-color); font-size: 20px; }
+.close-popup-btn { background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
+
+.popup-nav { list-style: none; padding: 20px 0; margin: 0; flex-grow: 1; overflow-y: auto; }
+
+.popup-nav-item { display: flex; align-items: center; gap: 15px; padding: 15px 20px; color: var(--text-dark); cursor: pointer; transition: background-color 0.3s, color 0.3s; font-size: 16px; }
+.popup-nav-item:hover { background-color: rgba(230, 0, 35, 0.2); color: var(--text-light); }
+.popup-nav-item svg { width: 24px; height: 24px; }
+.popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; display: none; backdrop-filter: blur(5px); }
+.popup-overlay.show { display: block; }
+.app-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.app-modal-content { background-color: var(--bg-main); border: 1px solid var(--primary-color); margin: auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 380px; box-shadow: 0 5px 25px rgba(230, 0, 35, 0.3); position: relative; text-align: center; animation: slide-in 0.5s ease-out; }
+@keyframes slide-in { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.app-modal-close-btn { color: #aaa; position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold; cursor: pointer; background: none; border: none; transition: color 0.3s; }
+.app-modal-close-btn:hover { color: var(--primary-color); }
+.app-icon { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 15px; border: 2px solid var(--secondary-color); }
+.app-modal-content h2 { color: var(--text-light); margin-top: 0; margin-bottom: 10px; }
+.app-modal-content p { color: var(--text-dark); font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+.app-download-button { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: #000; padding: 12px 25px; border-radius: 50px; font-size: 16px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s; border: none; box-shadow: 0 0 15px var(--primary-color); }
+.app-download-button:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--secondary-color); }
+</style>
 </head>
 <body>
- 
-
-
-
-    <!-- Start Header -->
-<header>
-  <!-- Start Navigation Area -->
-  <div class="main-menu"> 
-    <nav class="header-section pin-style">
-      <div class="container-fluid">
-        <div class="mod-menu">
-          <div class="row">
-            <div class="col-2"> 
-                               
-                <a href="https://livefytv.com" title="logo" class="logo"><img src="https://livefytv.com/upload/livefy_tv_logo.png" alt="logo" title="logo"></a>
-               
-            </div>
-            <div class="col-7 nav-order-last nopadding">
-              <div class="main-nav leftnav">
-                <ul class="top-nav">
-                  <li class="visible-this d-md-none menu-icon"> <a href="#" class="navbar-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#menu" aria-expanded="false" title="menu-toggle"><i class="fa fa-bars"></i></a> </li>
-                </ul>
-                <div id="menu" class="collapse header-menu">
-                  <ul class="nav vfx-item-nav">
-                    <li><a href="https://livefytv.com" class="" title="home">Home</a></li>
-                    
-                    
-                    
-                                        <li><a href="https://livefytv.com/sports" class="" title="Sports">Sports</a> <span class="arrow"></span>
-                      <ul class="dm-align-2 mega-list">
-                                                <li><a href="https://livefytv.com/sports?cat_id=17" title="Fancode">Fancode</a></li>
-                             
-                      </ul>
-                    </li>
-                         
-
-                                        <li><a href="https://livefytv.com/livetv" class=" active" title="Live TV">Live TV</a> <span class="arrow"></span>
-                      <ul class="dm-align-2 mega-list">
-                                                  <li><a href="https://livefytv.com/livetv?cat_id=6" title="Cricket">Cricket</a></li>
-                                                  <li><a href="https://livefytv.com/livetv?cat_id=2" title="Football">Football</a></li>
-                                                  <li><a href="https://livefytv.com/livetv?cat_id=4" title="Sports">Sports</a></li>
-                             
-                      </ul>
-                    </li>
-                        
- 
-                  </ul>
-                </div>
-              </div>
-            </div>
-      <div class="col-3"> 
-        <div class="right-sub-item-area">
-          <div class="search-item-block">
-            <form class="navbar-form navbar-left">
-              <a type="submit" href="#popup1" class="btn btn-default open" title="search"><i class="fa fa-search"></i></a>
-            </form>
-          </div>
-          <div class="subscribe-btn-item">
-            <a href="https://livefytv.com/membership_plan" title="subscribe"><img src="https://mhdtvp.com/site_assets/images/ic-subscribe.png" alt="ic-subscribe" title="ic-subscribe"></a>
-          </div>
-                    <div class="signup-btn-item">
-            <a href="https://livefytv.com/login" title="login"><img src="https://mhdtvp.com/site_assets/images/ic-signup-user.png" alt="ic-signup-user" title="signup-user"><span>Login</span></a>
-            
-          </div>
-        </div>        
-      </div>
-          </div>
+    <div id="app-download-modal" class="app-modal">
+        <div class="app-modal-content">
+            <button class="app-modal-close-btn">&times;</button>
+            <img src="YOUR_APP_ICON_URL_HERE" alt="App Icon" class="app-icon" onerror="this.style.display='none'">
+            <h2>আমাদের অ্যাপ ডাউনলোড করুন!</h2>
+            <p>সেরা অভিজ্ঞতার জন্য এবং সব ফিচার আনলক করতে, আমাদের অফিসিয়াল অ্যাপটি ডাউনলোড করুন।</p>
+            <a href="https://github.com/hasannoob/Apps/raw/refs/heads/main/LiveFy%20Tv%20.apk" class="app-download-button" download>
+                <i class="fas fa-download"></i> ডাউনলোড করুন
+            </a>
         </div>
-      </div>
+    </div>
+
+    <header class="main-header">
+        <div id="three-dot-menu" class="three-dot-menu"> <i class="fas fa-bars"></i> </div>
+        <div class="header-content">
+            <a href="#" onclick="showTab('home-section', document.getElementById('nav-home')); return false;" style="text-decoration: none; color: inherit;">
+                <div class="header-title">LIVEFY TV</div>
+            </a>
+            <div class="flag-bd">
+                <div class="red-circle"></div>
+            </div>
+        </div>
+        <div id="notification-bell">
+            <i class="fas fa-bell"></i>
+            <span id="notification-count">0</span>
+            <div id="notification-panel">
+                <div class="notification-header">Live Matches</div>
+                <ul id="notification-list" class="notification-list"></ul>
+            </div>
+        </div>
+    </header>
+    
+    <div class="update-bar">
+        <span class="update-label">UPDATE</span>
+        <div class="update-marquee">
+            <span id="update-text-content">Loading...</span>
+        </div>
+    </div>
+
+    <div id="popup-overlay" class="popup-overlay"></div>
+    <div id="side-popup" class="side-popup">
+        <div class="popup-header"> <h2>Menu</h2> <button id="close-popup-btn" class="close-popup-btn">&times;</button> </div>
+        <ul class="popup-nav">
+            <li id="popup-nav-home" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg> <span>Home</span> </li>
+            <li id="popup-nav-channels" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg> <span>Live TV</span> </li>
+            <li id="popup-nav-highlights" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 13c-2.34 0-4.59.88-6.23 2.52-1.64 1.64-2.52 3.88-2.52 6.23H5V3h14v10.5h-1.5zm-5.5 3.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5 2.5z"></path></svg> <span>Highlights</span> </li>
+            <li id="popup-nav-playlist" class="popup-nav-item hidden"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></svg> <span>My Playlist</span> </li>
+            <li id="popup-nav-contact" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg> <span>Contact Us</span> </li>
+            <li id="popup-nav-copyright" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zM9.5 13c-1.1 0-2-.9-2-2s.9-2 2-2c.57 0 1.08.24 1.44.62l.66-1.32C11.16 8.1 10.37 7.5 9.5 7.5c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5c.87 0 1.66-.4 2.22-1.02l-.66-1.32c-.36.38-.87.64-1.44.64zm5 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></svg> <span>Copyright</span> </li>
+            <li id="popup-nav-about" class="popup-nav-item"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg> <span>About Us</span> </li>
+        </ul>
+    </div>
+    
+    <div id="alert-modal" class="alert-modal">
+        <div class="alert-modal-content"> <button class="alert-close-btn" onclick="closeAlert()">&times;</button>
+            <div class="alert-content"> <h3 id="alert-title-container">Loading...</h3> <p id="alert-message-container">Loading...</p> </div>
+        </div>
+    </div>
+    <div class="content">
+        <div id="home-section"> <div class="section-header"> <h2><button class="alert-btn" onclick="showAlert()"><i class="fas fa-bell"></i> Alert</button></h2> <a href="#" id="telegram-link" class="join-now-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Join Now</a> <div id="time-display-home" class="datetime-box"></div> </div> <div class="banner" id="home-banner-top"> <a href="#" target="_blank" rel="noopener noreferrer"><img src="https://placehold.co/600x100/111/fff?text=Loading Ad..." alt="Banner" class="banner-image"></a> </div> <div class="filter-tabs" id="match-tabs-container"> <button class="tab-btn active-tab" onclick="filterMatches('all', this)">ALL <span id="count-all" class="tab-count">0</span></button> <button class="tab-btn" onclick="filterMatches('live', this)">LIVE <span id="count-live" class="tab-count">0</span></button> <button class="tab-btn" onclick="filterMatches('upcoming', this)">UPCOMING <span id="count-upcoming" class="tab-count">0</span></button> <button class="tab-btn" onclick="filterMatches('recent', this)">RECENT <span id="count-recent" class="tab-count">0</span></button> </div> <div id="match-list-container" style="display: flex; flex-direction: column;"></div> <div class="banner" id="home-banner-bottom"> <a href="#" target="_blank" rel="noopener noreferrer"><img src="https://placehold.co/600x100/111/fff?text=Loading Ad..." alt="Banner" class="banner-image"></a> </div> </div>
+        <div id="sports-channels-section" class="hidden"> <div class="section-header"> <h2>Live TV</h2> <a href="#" id="telegram-link-channels" class="join-now-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Join Now</a> <div id="time-display-channels" class="datetime-box"></div> </div> <div class="filter-tabs" id="channel-category-tabs"></div> <div class="channel-grid" id="channel-grid-container"></div> <div class="banner" id="channels-banner"> <a href="#" target="_blank" rel="noopener noreferrer"><img src="https://placehold.co/600x100/111/fff?text=Loading Ad..." alt="Banner" class="banner-image"></a> </div> </div>
+        <div id="highlights-section" class="hidden"> <div class="section-header"> <h2>Highlights</h2> <a href="#" id="telegram-link-highlights" class="join-now-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Join Now</a> <div id="time-display-highlights" class="datetime-box"></div> </div> <div class="filter-tabs" id="highlight-category-tabs"></div> <div id="highlights-container"></div> <div class="banner" id="highlights-banner"> <a href="#" target="_blank" rel="noopener noreferrer"><img src="https://placehold.co/600x100/111/fff?text=Loading Ad..." alt="Banner" class="banner-image"></a> </div> </div>
+        <div id="playlist-section" class="hidden">
+            <div class="section-header"> <h2>My Playlist</h2> <a href="#" id="telegram-link-playlist" class="join-now-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> Join Now</a> <div id="time-display-playlist" class="datetime-box"></div> </div>
+            <div class="filter-tabs" id="main-playlist-tabs"></div>
+            <div class="filter-tabs" id="playlist-category-tabs"></div>
+            <div class="channel-grid" id="playlist-grid-container"></div> 
+        </div>
+        <div id="about-us-section" class="hidden">
+            <div class="section-header"> 
+                <h2>About Us</h2>
+                <div id="time-display-about" class="datetime-box"></div> 
+            </div>
+            <div class="about-content">
+                <h2>Welcome to Livefy TV</h2>
+                <p>
+                    <strong>Livefy TV</strong> is your ultimate destination for streaming live sports matches, thrilling highlights, and a vast collection of live TV channels, all in one place. Our mission is to provide a seamless and high-quality streaming experience for all sports enthusiasts.
+                </p>
+                <p>
+                    This platform was developed and is passionately maintained by <strong>HASAN</strong>. We are constantly working to improve the service and add new features to enhance your viewing experience.
+                </p>
+                <p>
+                    <strong>Disclaimer:</strong> We do not host any content on our own servers. All streams and videos found on our platform are sourced from third-party services that are freely available on the internet. We are not responsible for the legality or copyright of the content.
+                </p>
+                <p>
+                    For any queries, feedback, or issues, please feel free to join our Telegram channel.
+                </p>
+            </div>
+        </div>
+        <div id="contact-section" class="hidden">
+            <div class="section-header"> 
+                <h2>Contact Us</h2>
+                <div id="time-display-contact" class="datetime-box"></div> 
+            </div>
+            <div class="about-content">
+                <h2>Get in Touch</h2>
+                <p>
+                    We value your feedback and are here to assist you. If you have any questions, suggestions, or issues, please don't hesitate to reach out to us through the following channels.
+                </p>
+                <p>
+                    <strong>Telegram:</strong> For the quickest support and to join our community, please join our official Telegram channel. You can find the "Join Now" link on our homepage.
+                </p>
+                <p>
+                    <strong>Email:</strong> For formal inquiries or copyright-related matters, you can email us at: <a href="mailto:li">livefy.info@gmail.com</a>.
+                </p>
+                <p>
+                    We typically respond within 24-48 hours. Thank you for using Livefy TV!
+                </p>
+            </div>
+        </div>
+        <div id="copyright-section" class="hidden">
+            <div class="section-header"> 
+                <h2>Copyright Policy</h2>
+                <div id="time-display-copyright" class="datetime-box"></div> 
+            </div>
+            <div class="about-content">
+                <h2>Copyright & Disclaimer</h2>
+                <p>
+                    <strong>Livefy TV</strong> respects the intellectual property rights of others and expects its users to do the same. All content, including live streams, TV channels, and highlights, are sourced from third-party websites that are publicly accessible on the internet.
+                </p>
+                <p>
+                    We do <strong>not</strong> host, upload, or control any of the video content displayed on this platform. The streams are embedded from external sources. We are not responsible for the accuracy, copyright, legality, decency, or any other aspect of the content of other linked sites.
+                </p>
+                <p>
+                    If you believe that any content on our platform infringes on your copyright, please contact the respective third-party content providers to have the content removed. Once the content is removed from the source, it will automatically be removed from <strong>Livefy TV</strong>.
+                </p>
+                <p>
+                    This website is for personal and non-commercial use only. All rights reserved © 2024 Livefy TV.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- পরিবর্তিত Video Player অংশ -->
+    <div id="video-player"> 
+        <div id="video-container-wrapper" data-shaka-player-container> 
+             <button id="close-btn" onclick="closeVideo()">❌</button> 
+             <video data-shaka-player id="video" autoplay playsinline style="width:100%; height:100%;"></video>
+             <span id="livefy-text-animator">LIVEFY TV</span>
+        </div> 
+        <div id="error-message-box"> <button class="close-error-btn" onclick="hideMessage()">✖</button> <h3 id="error-title">Error</h3> <p id="error-text">The video cannot be loaded.</p> </div> 
+        <div id="controls-area">
+             <!-- Shaka Player-এর নিজস্ব কোয়ালিটি সিলেকশন আছে, তাই এটি আপাতত গোপন রাখা হলো -->
+             <div id="quality-selector-container" class="hidden">
+                  <label for="quality-select">Video Quality:</label> <select id="quality-select"></select>
+             </div>
+             <div id="server-buttons"></div> 
+        </div> 
+    </div>
+
+    <nav class="bottom-nav">
+        <div id="nav-home" class="nav-item active" onclick="showTab('home-section', this)"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg> <span>Home</span> </div>
+        <div id="nav-channels" class="nav-item" onclick="showTab('sports-channels-section', this)"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg> <span>Live TV</span> </div>
+        <div id="nav-highlights" class="nav-item" onclick="showTab('highlights-section', this)"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.5 13c-2.34 0-4.59.88-6.23 2.52-1.64 1.64-2.52 3.88-2.52 6.23H5V3h14v10.5h-1.5zm-5.5 3.5c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5 2.5z"></path></svg> <span>Highlights</span> </div>
+        <div id="nav-playlist" class="nav-item hidden" onclick="showTab('playlist-section', this)"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></svg> <span>My Playlist</span> </div>
     </nav>
-  </div>
-  <!-- End Navigation Area --> 
-</header>
-<!-- End Header -->  
-
-
     
-   
-  <link href="https://mhdtvp.com/site_assets/videojs_player/css/videojs_style2.min.css" rel="stylesheet" type="text/css" />    
-   
-<!-- Start Page Content Area -->
-<div class="page-content-area vfx-item-ptb pt-0">
+<!-- Plyr.js সরানো হয়েছে -->
 
-  <div class="container-fluid bg-dark video-player-base"> 
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="video-posts-video">         
-          
-              <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
-	 <iframe src="https://crictv.bokulsport.com/tolive/play.php?id=698858115aedb" width="100%" height="100%" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" allowfullscreen allow="encrypted-media"></iframe>
-</div>
+<script>
+    const firebaseConfig = { apiKey: "AIzaSyCJeCM2sWUY8izlm6Z_T7u4goeRCOxZnaY", authDomain: "livefy-9623e.firebaseapp.com", databaseURL: "https://livefy-9623e-default-rtdb.firebaseio.com", projectId: "livefy-9623e", storageBucket: "livefy-9623e.appspot.com", messagingSenderId: "211410916294", appId: "1:211410916294:web:660f3dfc6ede9a862718c7", measurementId: "G-87CYDP39Q2" };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    
+    // Shaka Player এর জন্য ভ্যারিয়েবল
+    let player = null; 
+    let ui = null;
 
-                 
-        </div>
-      </div>
-    </div>  
-  </div>
+    let dynamicMatchesData = [], currentFilter = 'all', lastLiveCount = 0;
+    const serverButtonsContainer = document.getElementById('server-buttons'), errorMessageBox = document.getElementById('error-message-box'), livefyTextAnimator = document.getElementById('livefy-text-animator'), alertModal = document.getElementById('alert-modal');
+    const notificationBell = document.getElementById('notification-bell'), notificationPanel = document.getElementById('notification-panel'), notificationCount = document.getElementById('notification-count'), notificationList = document.getElementById('notification-list');
+    
+    // পরিবর্তিত: Shaka Player ইনিশিয়ালাইজেশন
+    async function initShakaPlayer() {
+        const video = document.getElementById('video');
+        const container = document.getElementById('video-container-wrapper');
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-        <!-- Start Video Post -->
-        <div class="video-post-wrapper">
-        <div class="row mt-30">
-            
-            <div class="col-lg-12 col-md-12 col-sm-12">   
-            <div class="video-posts-data mt-0 mb-0">
-            <div class="video-post-info">
-            <h2>Watch live West Indies 2</h2>
-            <div class="video-post-date">
-                <span class="video-posts-author"><i class="fa fa-eye"></i>1K Views</span>
-                
-            </div>
-        <ul class="actor-video-link">           
-          <li><a href="https://livefytv.com/livetv?cat_id=6" title="Cricket">Cricket</a></li>           
-        </ul>
-        
-                <div class="video-watch-share-item">
-                       <span class="btn-watchlist"><a href="https://livefytv.com/watchlist/add?post_id=43&post_type=LiveTV" title="watchlist"><i class="fa fa-plus"></i>Add to Watchlist</a></span>
+        ui = video['ui'];
+        player = ui.getControls().getPlayer();
+
+        player.configure({
+            streaming: { bufferingGoal: 15, lowLatencyMode: true },
+            manifest: { dash: { ignoreMinBufferTime: true } }
+        });
+
+        player.addEventListener('loading', () => { showLoading(); showWatermark(); });
+        player.addEventListener('loaded', () => showWatermark());
+        player.addEventListener('error', (event) => {
+             console.error("Shaka Player Error:", event.detail);
+             showMessage("Playback Error", "Stream is offline or unavailable.");
+        });
+    }
+
+    // অপরিবর্তিত ফাংশন
+    function fetchSettings() { database.ref('settings').on('value', (snapshot) => { const data = snapshot.val(); if (data) { const updateTextContent = document.getElementById('update-text-content'); if (updateTextContent) { updateTextContent.innerText = data.welcomeMessage || 'Welcome to Livefy TV!'; } document.getElementById('alert-title-container').innerText = data.alertTitle || 'Alert'; document.getElementById('alert-message-container').innerText = data.alertMessage || 'Please be careful.'; const telegramLink = data.telegramLink || '#'; ['telegram-link', 'telegram-link-channels', 'telegram-link-highlights', 'telegram-link-playlist'].forEach(id => document.getElementById(id).href = telegramLink); } }); }
+    function fetchBanners() { database.ref('banners').on('value', (snapshot) => { const data = snapshot.val(); if (data) { updateBanner('home-banner-top', data.homeTop); updateBanner('home-banner-bottom', data.homeBottom); updateBanner('channels-banner', data.channels); updateBanner('highlights-banner', data.highlights); } }); }
+    function updateBanner(elementId, bannerData) { const bannerElement = document.getElementById(elementId); if (bannerElement && bannerData) { const link = bannerElement.querySelector('a'); const img = bannerElement.querySelector('img'); link.href = bannerData.targetUrl || '#'; img.src = bannerData.imageUrl || 'https://placehold.co/600x100/111/fff?text=Ad+Space'; img.onerror = () => { img.src = 'https://placehold.co/600x100/111/fff?text=Ad+Error'; }; } }
+    
+    function fetchMatches() {
+        database.ref('matches').on('value', (snapshot) => {
+            const container = document.getElementById('match-list-container');
+            container.innerHTML = '';
+            dynamicMatchesData = [];
+            const matches = snapshot.val();
+            if (matches) {
+                const matchesArray = Object.keys(matches).map(id => ({ id, ...matches[id] }));
+                matchesArray.sort((a, b) => (a.order || 0) - (b.order || 0));
+                matchesArray.forEach(match => {
+                    dynamicMatchesData.push({ id: match.id, start: moment(match.startTime), end: moment(match.endTime) });
+                    const matchCard = document.createElement('div');
+                    matchCard.className = 'match-card';
+                    matchCard.id = `match-card-${match.id}`;
+                    matchCard.dataset.servers = JSON.stringify(match.servers || []);
+                    matchCard.addEventListener('click', () => openMatchChannels(JSON.parse(matchCard.dataset.servers)));
                     
-          <span class="btn-share"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#social-media"><i class="fas fa-share-alt mr-5"></i>Share</a></span>
-          
-          <!-- Start Social Media Icon Popup -->
-          <div id="social-media" class="modal fade centered-modal in" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-            <div class="modal-content bg-dark-2 text-light">
-              <div class="modal-header">
-              <h4 class="modal-title text-white">Share</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body p-4">
-              <div class="social-media-modal">
-                <ul>
-                  <li><a title="Sharing" href="https://www.facebook.com/sharer/sharer.php?u=https://livefytv.com/livetv/details/watch-live-west-indies-2/43" class="facebook-icon" target="_blank"><i class="ion-social-facebook"></i></a></li>
-                  <li><a title="Sharing" href="https://twitter.com/intent/tweet?text=Watch live West Indies 2&amp;url=https://livefytv.com/livetv/details/watch-live-west-indies-2/43" class="twitter-icon" target="_blank"><i class="ion-social-twitter"></i></a></li>
-                  <li><a title="Sharing" href="https://www.instagram.com/?url=https://livefytv.com/livetv/details/watch-live-west-indies-2/43" class="instagram-icon" target="_blank"><i class="ion-social-instagram"></i></a></li>
-                   <li><a title="Sharing" href="https://wa.me?text=https://livefytv.com/livetv/details/watch-live-west-indies-2/43" class="whatsapp-icon" target="_blank"><i class="ion-social-whatsapp"></i></a></li>
-                </ul>
-              </div>        
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- End Social Media Icon Popup -->
+                    const isHot = match.isImportant === true;
+                    const hotBadgeHTML = isHot ? '<div class="hot-badge"><span>HOT</span><i class="fas fa-fire"></i></div>' : '';
 
-        
-        </div>
-      </div>           
-            </div>
-        </div>  
-          
-          </div>
-          <div class="vfx-tabs-item mt-30">
-        <input checked="checked" id="tab1" type="radio" name="pct" />
-        <input id="tab2" type="radio" name="pct" />
-        <input id="tab3" type="radio" name="pct" />
-        <nav>
-        <ul>
-          <li class="tab1">
-          <label for="tab1">Description</label>
-          </li>           
-        </ul>
-        </nav>
-        <section class="tabs_item_block">
-        <div class="tab1">
-          <div class="description-detail-item">
-           
-            <p><p>LiveFy TV, LiveFy TV sports, LiveFy TV live, mdhtv, mhd tv, LiveFy TV live cricket, mhd tv world, LiveFy TV live, mhdtv world, madstream live,</p></p>
-          
-          </div>
-        </div>
-          
-        </section>
-      </div>
-        </div>    
-      </div>
-      <!-- Start Popular Videos --> 
-    
-    <!-- Start You May Also Like Video Carousel -->
-    <div class="video-carousel-area vfx-item-ptb related-video-item">
-      <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 p-0">
-        <div class="vfx-item-section">
-          <h3>You May Also Like</h3>           
-        </div>
-        <div class="tv-season-video-carousel owl-carousel">
-           
-            
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/t-sports/52" title="T Sports">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">T Sports</span> 
-              <img src="https://mhdtvp.com/upload/1000071155-Photoroom.png" alt="T Sports" title="T Sports">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/nagorik-tv/51" title="Nagorik TV">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Nagorik TV</span> 
-              <img src="https://mhdtvp.com/upload/1000071151-Photoroom.png" alt="Nagorik TV" title="Nagorik TV">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/t-sports/50" title="T Sports">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">T Sports</span> 
-              <img src="https://mhdtvp.com/upload/1000071155-Photoroom.png" alt="T Sports" title="T Sports">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/watch-live-arsenal/47" title="Watch Live Arsenal">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Watch Live Arsenal</span> 
-              <img src="https://mhdtvp.com/upload/1000074036-Photoroom.png" alt="Watch Live Arsenal" title="Watch Live Arsenal">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/watch-live-psg/46" title="Watch live PSG">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Watch live PSG</span> 
-              <img src="https://mhdtvp.com/upload/1000073171-Photoroom.png" alt="Watch live PSG" title="Watch live PSG">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/watch-live-west-indies/44" title="Watch live West Indies">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Watch live West Indies</span> 
-              <img src="https://mhdtvp.com/upload/1000074154-Photoroom.png" alt="Watch live West Indies" title="Watch live West Indies">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/watch-live-dortmund/42" title="Watch Live Dortmund">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Watch Live Dortmund</span> 
-              <img src="https://mhdtvp.com/upload/1000073170-Photoroom.png" alt="Watch Live Dortmund" title="Watch Live Dortmund">         
-             </div>       
-          </a>
-          </div>
-           
-          <div class="single-video">
-          <a href="https://livefytv.com/livetv/details/watch-live-india-3/41" title="Watch live India 3">
-             <div class="video-img">          
-               
-                
-
-              <span class="video-item-content">Watch live India 3</span> 
-              <img src="https://mhdtvp.com/upload/1000074040-Photoroom.png" alt="Watch live India 3" title="Watch live India 3">         
-             </div>       
-          </a>
-          </div>
-                           
-        </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <!-- End You May Also Like Video Carousel -->   
-    </div>
-  </div>
-</div>
-<!-- End Page Content Area --> 
-
-
-
-<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-
-<script src="https://mhdtvp.com/site_assets/videojs_player/js/videojs.min.js"></script>
-
-<script src="https://mhdtvp.com/site_assets/videojs_player/plugins/videojs.pip.js"></script> 
-
- <!--<script src="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.1/dist/silvermine-videojs-chromecast.min.js"></script> -->
-
- <script src="https://mhdtvp.com/site_assets/videojs_player/plugins/videojs-chromecast.min.js"></script>
-  
- <script>
-        var player = videojs('v_player',{techOrder:['chromecast','html5']});
-    
-        player.viavi({
-            shareMenu: false,
-                        logo: "https://livefytv.com/upload/images/logo.png",
-            logoposition: 'RT',
-            logourl: '#',
-            
-            video_id: 'livetv43',
-            resume: true,
-            contextMenu: false,
-                        buttonRewind: true,
-            buttonForward: true,            
-                      
-            mousedisplay:true,
-            textTrackSettings: false             
+                    matchCard.innerHTML = `
+                        ${hotBadgeHTML}
+                        <div class="match-title">${match.title || ''}</div>
+                        <div class="team">
+                            <div>
+                                <img src="${match.team1Logo || ''}" alt="${match.team1Name}" onerror="this.onerror=null; this.src='https://placehold.co/55x55/222/fff?text=T1';">
+                                <div class="team-name">${match.team1Name || 'Team 1'}</div>
+                            </div>
+                            <div class="match-info">
+                                <div class="match-status-wrapper">
+                                    <div class="time" id="time${match.id}">${moment(match.startTime).format('hh:mm A')}</div>
+                                    <div class="date" id="date${match.id}">${moment(match.startTime).format('DD/MM/YYYY')}</div>
+                                    <div id="live${match.id}" class="live-animation hidden">LIVE</div>
+                                    <div id="countdown${match.id}" class="countdown-text hidden"></div>
+                                    <div id="fulltime${match.id}" class="full-time-text hidden">FULL TIME</div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="${match.team2Logo || ''}" alt="${match.team2Name}" onerror="this.onerror=null; this.src='https://placehold.co/55x55/222/fff?text=T2';">
+                                <div class="team-name">${match.team2Name || 'Team 2'}</div>
+                            </div>
+                        </div>
+                        <div class="match-category">${match.categoryName || ''}</div>`;
+                    container.appendChild(matchCard);
+                });
+            }
+            checkMatchStatus();
+            filterMatches(currentFilter);
         });
+    }
 
-        player.pip();
-
-        
-        player.chromecast({ metatitle: '', metasubtitle: 'Release : ' });         
-      
-      
-
-         player.on('vroll', function(event, data) {
-            var ad_id = data.id;
-            var action = data.action;
-
-            //alert(ad_id);
-            //alert(action);
-
-           });
-
-          
-      
-     player.ready(function(){
-     var player_ = this;
-     var show_on_start =true;
-     var close_delay=5;
-     var parent = this.el().parentNode;
-     console.log(parent.id);
-     var closeBtn = parent.querySelector('.over-close');
-     var overlay = parent.querySelector('.div-over');
-     var timer;
-     function delay() {
-      clearTimeout(timer);
-      if(parseInt(close_delay)>0) {
-        closeBtn.innerHTML=close_delay;
-        var timer =window.setTimeout(delay, 1000);
-        close_delay--;
-      } else {
-        closeBtn.innerHTML='';
-        closeBtn.className='over-close';
-      }
-     }
-     function showOverlay() {
-      console.log('delay:'+close_delay);
-      if(parseInt(close_delay)>0) {
-        delay();
-      } else {
-        closeBtn.className = 'over-close';
-      }
-      overlay.style.display='block';
-     }
-
-     closeBtn.addEventListener('click',function(e) {
-      overlay.style.display='none';
-      player_.play();
-     }, false);
-
-     this.on("pause", function(){
-      if (!this.seeking() && this.paused()) {
-        // Show overlay
-        showOverlay();
-      }
-     });
-
-     this.on('play', function(e) {
-      // Hide overlay
-      overlay.style.display='none';
-     });
-     if(show_on_start) {
-      this.pause(); showOverlay();
-     } else {
-      overlay.style.display='none';
-     }
-  });
-         
-    </script>
-
-        
-    <!-- hotkeys -->
-    <script src="https://mhdtvp.com/site_assets/videojs_player/plugins/hotkeys/videojs.hotkeys.min.js"></script>
-    <script>    
-      player.ready(function() {
-        this.hotkeys({
-            volumeStep: 0.1,
-      seekStep: 5,
-      alwaysCaptureHotkeys: true
+    function checkMatchStatus() {
+        const now = moment();
+        let liveCount = 0, upcomingCount = 0, recentCount = 0;
+        const liveMatchesForPanel = [];
+        dynamicMatchesData.forEach(match => {
+            const cardEl = document.getElementById(`match-card-${match.id}`);
+            if (!cardEl) return;
+            const [timeEl, dateEl, liveEl, countdownEl, fulltimeEl] = ['time', 'date', 'live', 'countdown', 'fulltime'].map(id => cardEl.querySelector(`#${id}${match.id}`));
+            [timeEl, dateEl, liveEl, countdownEl, fulltimeEl].forEach(el => el?.classList.add('hidden'));
+            cardEl.classList.remove('live', 'upcoming', 'recent'); 
+            if (now.isBetween(match.start, match.end)) {
+                liveEl?.classList.remove('hidden'); cardEl.classList.add('live'); cardEl.style.order = -1; liveCount++;
+                liveMatchesForPanel.push({ id: match.id, servers: JSON.parse(cardEl.dataset.servers), team1Name: cardEl.querySelectorAll('.team-name')[0].textContent, team2Name: cardEl.querySelectorAll('.team-name')[1].textContent, team1Logo: cardEl.querySelector('img').src, title: cardEl.querySelector('.match-title').textContent });
+            } else if (now.isBefore(match.start)) {
+                const diff = moment.duration(match.start.diff(now));
+                let countdownText = '';
+                if (diff.asDays() >= 1) { countdownText = `${Math.floor(diff.asDays())}d ${diff.hours()}h`; } else if (diff.asHours() >= 1) { countdownText = `${Math.floor(diff.asHours())}h ${diff.minutes()}m`; } else { countdownText = `${diff.minutes()}m ${diff.seconds()}s`; }
+                if (countdownEl) { countdownEl.textContent = countdownText; countdownEl.classList.remove('hidden'); }
+                timeEl?.classList.remove('hidden'); dateEl?.classList.remove('hidden');
+                cardEl.classList.add('upcoming'); cardEl.style.order = 0; upcomingCount++;
+            } else { fulltimeEl?.classList.remove('hidden'); cardEl.classList.add('recent'); cardEl.style.order = 1; recentCount++; }
+            applyMatchFilter(cardEl);
         });
-      });
-    </script>
-    <!-- End hotkeys --> 
- 
+        updateTabCounters({ all: dynamicMatchesData.length, live: liveCount, upcoming: upcomingCount, recent: recentCount });
+        updateNotificationPanel(liveCount, liveMatchesForPanel);
+    }
 
- 
-   
+    function fetchLiveChannels() { database.ref('liveChannels').on('value', (snapshot) => { const container = document.getElementById('channel-grid-container'); container.innerHTML = ''; const channels = snapshot.val() || {}; Object.values(channels).forEach(channel => { const channelItem = document.createElement('div'); channelItem.className = 'channel-item'; channelItem.dataset.category = (channel.categoryName || 'All').trim().toLowerCase(); channelItem.dataset.channel = JSON.stringify([{ name: channel.name, url: channel.streamUrl }]); channelItem.addEventListener('click', () => openMatchChannels(JSON.parse(channelItem.dataset.channel))); channelItem.innerHTML = `<img src="${channel.logoUrl}" alt="${channel.name}" class="channel-logo" onerror="this.onerror=null; this.src='https://placehold.co/60x45/222/fff?text=...';"><span class="channel-name">${channel.name}</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div>`; container.appendChild(channelItem); }); }); }
+    function fetchHighlights() { database.ref('highlights').on('value', (snapshot) => { const container = document.getElementById('highlights-container'); container.innerHTML = ''; const highlights = snapshot.val() || {}; Object.values(highlights).forEach(highlight => { const highlightCard = document.createElement('div'); highlightCard.className = 'highlight-card'; highlightCard.dataset.category = (highlight.categoryName || 'All').trim().toLowerCase(); highlightCard.dataset.highlight = JSON.stringify([{ name: highlight.title, url: highlight.videoUrl }]); highlightCard.addEventListener('click', () => openMatchChannels(JSON.parse(highlightCard.dataset.highlight))); highlightCard.innerHTML = `<img src="${highlight.thumbnailUrl}" alt="Highlight"><div class="info"><strong>${highlight.title}</strong><p style="color:#aaa; font-size: 12px;">${highlight.description}</p></div>`; container.appendChild(highlightCard); }); }); }
+    function populateCategoryTabs(categoryPath, containerId, filterFunction) { const tabsContainer = document.getElementById(containerId); database.ref(categoryPath).on('value', (snapshot) => { tabsContainer.innerHTML = ''; const allBtn = document.createElement('button'); allBtn.className = 'tab-btn active-tab'; allBtn.innerText = 'ALL'; allBtn.onclick = () => filterFunction('All', allBtn); tabsContainer.appendChild(allBtn); const categories = snapshot.val() || {}; Object.values(categories).forEach(cat => { const catBtn = document.createElement('button'); catBtn.className = 'tab-btn'; catBtn.innerText = cat.name; catBtn.onclick = () => filterFunction(cat.name, catBtn); tabsContainer.appendChild(catBtn); }); filterFunction('All', allBtn); }); }
+    function filterChannelsByCategory(category, clickedButton) { const processedCategory = category.trim().toLowerCase(); document.querySelectorAll('#channel-category-tabs .tab-btn').forEach(btn => btn.classList.remove('active-tab')); clickedButton.classList.add('active-tab'); document.querySelectorAll('#sports-channels-section .channel-item').forEach(item => { item.style.display = (processedCategory === 'all' || item.dataset.category === processedCategory) ? 'flex' : 'none'; }); }
+    function filterHighlightsByCategory(category, clickedButton) { const processedCategory = category.trim().toLowerCase(); document.querySelectorAll('#highlight-category-tabs .tab-btn').forEach(btn => btn.classList.remove('active-tab')); clickedButton.classList.add('active-tab'); document.querySelectorAll('.highlight-card').forEach(item => { item.style.display = (processedCategory === 'all' || item.dataset.category === processedCategory) ? 'flex' : 'none'; }); }
+    function showAlert() { alertModal.style.display = 'flex'; }
+    function closeAlert() { alertModal.style.display = 'none'; }
+    window.onclick = function(event) { if (event.target == alertModal) closeAlert(); if (!notificationBell.contains(event.target)) notificationPanel.classList.remove('show'); }
+    
+    function showMessage(title, message) { document.getElementById('video-container-wrapper').style.display = 'none'; document.getElementById('controls-area').style.display = 'none'; document.getElementById('error-title').textContent = title; document.getElementById('error-text').textContent = message; errorMessageBox.style.display = 'block'; livefyTextAnimator.style.display = 'none'; }
+    function hideMessage() { errorMessageBox.style.display = 'none'; document.getElementById('video-container-wrapper').style.display = 'block'; document.getElementById('controls-area').style.display = 'block'; }
+    
+    // পরিবর্তিত: Shaka Player দিয়ে ভিডিও লোড করা
+    async function loadVideoSource(videoSrc) {
+        hideMessage();
+        showLoading();
 
-
-    <!-- Start Footer Area -->
-<footer>
-  <div class="footer-area vfx-item-ptb">
-    <div class="footer-wrapper">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-            <div class="footer-bottom">
-        <div class="footer-links">
-          <ul>
-                          <li><a href="https://livefytv.com/page/about-us" title="About Us">About Us</a></li>
-                          <li><a href="https://livefytv.com/page/terms-of-use" title="Terms Of Use">Terms Of Use</a></li>
-                          <li><a href="https://livefytv.com/page/privacy-policy" title="Privacy Policy">Privacy Policy</a></li>
-                          <li><a href="https://livefytv.com/page/faq" title="FAQ">FAQ</a></li>
-                          <li><a href="https://livefytv.com/page/contact-us" title="Contact Us">Contact Us</a></li>
-                           
-           
-          </ul>
-        </div>
-        <div class="copyright-text">
-          <p>Copyright © 2026 livefytv.com All Rights Reserved.</p>
-        </div>
-      </div>
-          </div>
-      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <div class="single-footer">
-              <div class="footer-heading-wrap">
-                <h3 class="footer-heading">Connect with us</h3>
-              </div>
-              <div class="social-links">
-                <ul>
-                  <li><a href="#" title="facebook"><i class="ion-social-facebook"></i></a></li>
-                  <li><a href="#" title="twitter"><i class="ion-social-twitter"></i></a></li>
-                  <li><a href="#" title="instagram"><i class="ion-social-instagram"></i></a></li>
- 
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="single-footer">
-              <div class="footer-heading-wrap">
-                <h3 class="footer-heading">Apps</h3>
-              </div>
-              <div class="download-app-link-item"> 
-                  
-                <a class="google-play-download" href="#" target="_blank" title="Google Play"><img src="https://mhdtvp.com/site_assets/images/google-play.png" alt="Google Play Download" title="Google Play Download"></a> 
-                
-                  
-                <a class="apple-store-download" href="#" target="_blank" title="Apple Store"><img src="https://mhdtvp.com/site_assets/images/app-store.png" alt="Apple Store Download" title="Apple Store Download"></a>
-                 
-              </div>
-            </div>
-          </div>         
-        </div>
-      </div>
-    </div>
-  </div>  
-  
-  <!-- Start Scroll Top Area -->
-  <div class="scroll-top">
-    <div class="scroll-icon"> <i class="fa fa-angle-up"></i> </div>
-  </div>
-  <!-- End Scroll Top Area -->  
-  
-</footer>
-<!-- End Footer Area --> 
-
-<div id="popup1" class="popup-view popup-overlay">
-  <div class="search">
-    <div class="search-container has-results"><span class="title">Search</span>
-      <div class="search-input">
-        <input type="text" name="s" id="search_box" class="search-container-input" placeholder="Title" onkeyup="showSuggestions(this.value)" style="background: #000000;">
-      </div>
-    </div>
-    <div class="search-results mt-4" id="search_output">
-        
- 
-    </div>
-  </div>
-  <a class="close" href="#" title="close"><i class="ion-close-round"></i></a>
-</div>     
- 
-<div class="eupopup eupopup-bottom"></div>
-
-  
-  <!-- Load Local JS --> 
-<script src="https://mhdtvp.com/site_assets/js/jquery-3.3.1.min.js"></script> 
-<script src="https://mhdtvp.com/site_assets/js/jquery.easing.min.js"></script> 
-<script src="https://mhdtvp.com/site_assets/js/bootstrap.min.js"></script> 
-<script src="https://mhdtvp.com/site_assets/js/owl.carousel.min.js"></script>
-<script src="https://mhdtvp.com/site_assets/js/jquery.nice-select.min.js"></script>  
-<script src="https://mhdtvp.com/site_assets/js/megamenu.js"></script> 
-
- 
-<!-- Splide Slider JS -->
-<script src="https://mhdtvp.com/site_assets/js/splide.min.js"></script>
-
-<!-- Custom Main JS -->
-<script src="https://mhdtvp.com/site_assets/js/custom-main.js"></script>
-
-<script src="https://mhdtvp.com/site_assets/js/jquery-eu-cookie-law-popup.js"></script> 
-
-<script type="text/javascript">
-  
-  $(document).ready( function() {
-  if ($(".eupopup").length > 0) {
-    $(document).euCookieLawPopup().init({
-       'cookiePolicyUrl' : '#',
-       'buttonContinueTitle' : 'Continue',
-       'buttonLearnmoreTitle' : 'Learn more',
-       'popupPosition' : 'bottom',
-       'colorStyle' : 'default',
-       'compactStyle' : false,
-       'popupTitle' : '#',
-       'popupText' : '#'
-    });
-  }
-});
-
-function showSuggestions(inputString) {
-  if(inputString.length <= 1){
-    //document.getElementById('search_output').innerHTML = 'Search field empty!';
-    document.getElementById('search_output').innerHTML = '';
-  }else{
-    $.ajax({
-      url: "https://livefytv.com/search_elastic",
-      method:"GET",
-      data: { 's' : inputString},
-      dataType:'text',
-      beforeSend: function(){
-      $("#search_box").css("background","#000000 url(https://mhdtvp.com/site_assets/images/LoaderIcon.gif) no-repeat 100%");
-      },
-      success: function(result){
-        //alert(result);
-          //$("#search_output").html = result;
-          $("#search_output").html(result);
-          $("#search_box").css("background","#000000");
+        if (!videoSrc) {
+            showMessage("Error", "No stream link found.");
+            return;
         }
+
+        try {
+            await player.load(videoSrc);
+            console.log('The video has been loaded!');
+        } catch (error) {
+            console.error('Error loading video:', error);
+            showMessage("Playback Error", "This stream is currently offline or unavailable.");
+        }
+    }
+
+    function openMatchChannels(channelsData) { document.getElementById('video-player').style.display = 'flex'; serverButtonsContainer.innerHTML = ''; hideMessage(); if (!channelsData || channelsData.length === 0) { showMessage("Error", "No channels found."); return; } channelsData.forEach(channel => { const button = document.createElement('button'); button.className = 'server-button'; button.textContent = channel.name; button.onclick = () => selectServer(channel.url, button); serverButtonsContainer.appendChild(button); }); selectServer(channelsData[0].url, serverButtonsContainer.querySelector('.server-button')); }
+    function selectServer(serverSrc, clickedButton) { document.querySelectorAll('.server-button').forEach(btn => btn.classList.remove('active-server')); if (clickedButton) clickedButton.classList.add('active-server'); loadVideoSource(serverSrc); }
+    
+    // পরিবর্তিত: ভিডিও বন্ধ করার ফাংশন
+    async function closeVideo() {
+        document.getElementById('video-player').style.display = 'none';
+        if (player) {
+            await player.unload();
+        }
+        document.getElementById('video').src = '';
+    }
+    
+    function showTab(sectionIdToShow, clickedElement) { document.querySelectorAll('.content > div[id$="-section"]').forEach(section => section.classList.add('hidden')); document.getElementById(sectionIdToShow)?.classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active')); clickedElement.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function updateClock() { const now = new Date(); const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }); const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }); const html = `<span style="font-size: 14px; display: block;">${timeString}</span> <span class="date-text">${dateString}</span>`; document.querySelectorAll('.datetime-box').forEach(el => el.innerHTML = html); }
+    function showLoading() { livefyTextAnimator.textContent = 'LIVEFY TV - LOADING...'; livefyTextAnimator.classList.add('is-loading'); livefyTextAnimator.style.display = 'block'; }
+    function showWatermark() { livefyTextAnimator.textContent = 'LIVEFY TV'; livefyTextAnimator.classList.remove('is-loading'); livefyTextAnimator.style.display = 'block'; }
+    function hideWatermark() { livefyTextAnimator.style.display = 'none'; }
+    function updateTabCounters(counts) { ['all', 'live', 'upcoming', 'recent'].forEach(type => document.getElementById(`count-${type}`).textContent = counts[type]); }
+    function applyMatchFilter(cardEl) { cardEl.style.display = (currentFilter === 'all' || cardEl.classList.contains(currentFilter)) ? 'block' : 'none'; }
+    function filterMatches(filter, clickedButton) { currentFilter = filter; document.querySelectorAll('#match-tabs-container .tab-btn').forEach(btn => btn.classList.remove('active-tab')); if (clickedButton) clickedButton.classList.add('active-tab'); else document.querySelector('#match-tabs-container .tab-btn').classList.add('active-tab'); document.querySelectorAll('.match-card').forEach(applyMatchFilter); }
+    function updateNotificationPanel(liveCount, liveMatches) { notificationCount.textContent = liveCount; notificationCount.classList.toggle('visible', liveCount > 0); if (liveCount > lastLiveCount) { const bellIcon = notificationBell.querySelector('.fa-bell'); bellIcon.classList.add('shake'); setTimeout(() => bellIcon.classList.remove('shake'), 500); } lastLiveCount = liveCount; notificationList.innerHTML = liveMatches.length > 0 ? liveMatches.map(match => `<li class="notification-item" onclick='openMatchChannels(${JSON.stringify(match.servers)}); notificationPanel.classList.remove("show");'><img src="${match.team1Logo}" alt=""><div class="info"><div class="teams">${match.team1Name} vs ${match.team2Name}</div><div class="title">${match.title}</div></div><div class="live-dot"></div></li>`).join('') : `<div class="no-notifications">No matches are live right now.</div>`; }
+    function getAttribute(line, attributeName) { const regex = new RegExp(`${attributeName}="([^"]*)"`, 'i'); const match = line.match(regex); return match ? match[1] : ''; }
+    function parseM3U(m3uText) { const lines = m3uText.split('\n'); const groupedChannels = {}; for (let i = 0; i < lines.length; i++) { if (lines[i].startsWith('#EXTINF')) { const infoLine = lines[i]; const streamUrl = lines[i + 1]?.trim(); if (infoLine && streamUrl) { const logo = getAttribute(infoLine, 'tvg-logo'); let group = getAttribute(infoLine, 'group-title') || 'All Channels'; const name = infoLine.split(',').pop().trim(); const channelInfo = { logo, group, name, url: streamUrl }; if (!groupedChannels[channelInfo.group]) { groupedChannels[channelInfo.group] = []; } groupedChannels[channelInfo.group].push(channelInfo); } } } return groupedChannels; }
+    function filterPlaylistByCategory(category, clickedButton) { const processedCategory = category.trim().toLowerCase(); document.querySelectorAll('#playlist-category-tabs .tab-btn').forEach(btn => btn.classList.remove('active-tab')); clickedButton.classList.add('active-tab'); document.querySelectorAll('#playlist-grid-container .channel-item').forEach(item => { item.style.display = (processedCategory === 'all' || item.dataset.category === processedCategory) ? 'flex' : 'none'; }); }
+    function displayPlaylistChannels(groupedChannels) { const gridContainer = document.getElementById('playlist-grid-container'); const tabsContainer = document.getElementById('playlist-category-tabs'); gridContainer.innerHTML = ''; tabsContainer.innerHTML = ''; if(Object.keys(groupedChannels).length === 0){ gridContainer.innerHTML = '<p style="text-align:center; color: var(--text-dark);">Playlist is empty or not set by the admin.</p>'; return; } const allBtn = document.createElement('button'); allBtn.className = 'tab-btn active-tab'; allBtn.innerText = 'ALL'; allBtn.onclick = () => filterPlaylistByCategory('all', allBtn); tabsContainer.appendChild(allBtn); for (const groupTitle in groupedChannels) { const catBtn = document.createElement('button'); catBtn.className = 'tab-btn'; catBtn.innerText = groupTitle; catBtn.onclick = (e) => filterPlaylistByCategory(groupTitle, e.currentTarget); tabsContainer.appendChild(catBtn); groupedChannels[groupTitle].forEach(channel => { const channelItem = document.createElement('div'); channelItem.className = 'channel-item'; channelItem.dataset.category = groupTitle.trim().toLowerCase(); channelItem.dataset.channel = JSON.stringify([{ name: channel.name, url: channel.url }]); channelItem.addEventListener('click', () => openMatchChannels(JSON.parse(channelItem.dataset.channel))); channelItem.innerHTML = `<img src="${channel.logo}" alt="${channel.name}" class="channel-logo" onerror="this.onerror=null; this.src='https://placehold.co/60x45/222/fff?text=...';"><span class="channel-name">${channel.name}</span><div class="play-overlay"><i class="fas fa-play play-icon"></i></div>`; gridContainer.appendChild(channelItem); }); } filterPlaylistByCategory('all', allBtn); }
+    async function loadPlaylist(url) { const container = document.getElementById('playlist-grid-container'); const categoryTabs = document.getElementById('playlist-category-tabs'); container.innerHTML = '<p style="text-align:center; color: var(--primary-color);">Loading playlist...</p>'; categoryTabs.innerHTML = ''; try { const response = await fetch(url); if (!response.ok) throw new Error(`Network response was not ok, status: ${response.status}`); const m3uText = await response.text(); const groupedChannels = parseM3U(m3uText); displayPlaylistChannels(groupedChannels); } catch (error) { console.error('Failed to load playlist:', error); container.innerHTML = `<p style="text-align:center; color: var(--live-red);">Failed to load playlist. Please check the URL and network connection.</p>`; } }
+    function selectPlaylist(url, clickedButton) { document.querySelectorAll('#main-playlist-tabs .tab-btn').forEach(btn => btn.classList.remove('active-tab')); clickedButton.classList.add('active-tab'); loadPlaylist(url); }
+    function fetchAndSetupPlaylist() { const playlistsRef = database.ref('settings/playlists'); playlistsRef.on('value', (snapshot) => { const playlists = snapshot.val(); const playlistNavBottom = document.getElementById('nav-playlist'); const playlistNavPopup = document.getElementById('popup-nav-playlist'); const mainPlaylistTabsContainer = document.getElementById('main-playlist-tabs'); mainPlaylistTabsContainer.innerHTML = ''; if (playlists && Array.isArray(playlists) && playlists.length > 0) { playlistNavBottom.classList.remove('hidden'); playlistNavPopup.classList.remove('hidden'); playlists.forEach(playlist => { const tabBtn = document.createElement('button'); tabBtn.className = 'tab-btn'; tabBtn.innerText = playlist.name; tabBtn.onclick = () => selectPlaylist(playlist.url, tabBtn); mainPlaylistTabsContainer.appendChild(tabBtn); }); if (mainPlaylistTabsContainer.firstChild) { selectPlaylist(playlists[0].url, mainPlaylistTabsContainer.firstChild); } } else { playlistNavBottom.classList.add('hidden'); playlistNavPopup.classList.add('hidden'); displayPlaylistChannels({}); } }); }
+    function setupAppDownloadModal() { const modal = document.getElementById('app-download-modal'); const closeBtn = document.querySelector('.app-modal-close-btn'); const closeModal = () => { modal.style.display = 'none'; sessionStorage.setItem('appModalClosed', 'true'); }; if (sessionStorage.getItem('appModalClosed') !== 'true') { setTimeout(() => { modal.style.display = 'flex'; }, 1500); } closeBtn.addEventListener('click', closeModal); document.querySelector('.app-download-button').addEventListener('click', () => { setTimeout(closeModal, 500); }); window.addEventListener('click', (event) => { if (event.target == modal) { closeModal(); } }); }
+    
+    document.addEventListener('DOMContentLoaded', () => { 
+        shaka.polyfill.installAll();
+        if (shaka.Player.isBrowserSupported()) {
+            // initShakaPlayer এখন shaka-ui-loaded ইভেন্টে কল হবে
+        } else {
+            console.error('Browser not supported!');
+        }
+        
+        fetchSettings(); fetchBanners(); fetchMatches(); fetchLiveChannels(); fetchHighlights(); fetchAndSetupPlaylist(); 
+        populateCategoryTabs('liveChannelCategories', 'channel-category-tabs', filterChannelsByCategory); 
+        populateCategoryTabs('highlightCategories', 'highlight-category-tabs', filterHighlightsByCategory); 
+        
+        updateClock(); setInterval(updateClock, 1000); setInterval(checkMatchStatus, 1000); 
+        showTab('home-section', document.getElementById('nav-home')); 
+        filterMatches('all'); 
+        notificationBell.addEventListener('click', e => { e.stopPropagation(); notificationPanel.classList.toggle('show'); }); 
+        const threeDotMenu = document.getElementById('three-dot-menu'), sidePopup = document.getElementById('side-popup'), popupOverlay = document.getElementById('popup-overlay'), closePopupBtn = document.getElementById('close-popup-btn'); 
+        function openPopup() { sidePopup.classList.add('show'); popupOverlay.classList.add('show'); } 
+        function closePopup() { sidePopup.classList.remove('show'); popupOverlay.classList.remove('show'); } 
+        threeDotMenu.addEventListener('click', openPopup); closePopupBtn.addEventListener('click', closePopup); popupOverlay.addEventListener('click', closePopup); 
+        document.getElementById('popup-nav-home').addEventListener('click', () => { showTab('home-section', document.getElementById('nav-home')); closePopup(); }); 
+        document.getElementById('popup-nav-channels').addEventListener('click', () => { showTab('sports-channels-section', document.getElementById('nav-channels')); closePopup(); }); 
+        document.getElementById('popup-nav-highlights').addEventListener('click', () => { showTab('highlights-section', document.getElementById('nav-highlights')); closePopup(); }); 
+        document.getElementById('popup-nav-playlist').addEventListener('click', () => { showTab('playlist-section', document.getElementById('nav-playlist')); closePopup(); }); 
+        
+        document.getElementById('popup-nav-contact').addEventListener('click', () => {
+            document.querySelectorAll('.content > div[id$="-section"]').forEach(section => section.classList.add('hidden'));
+            document.getElementById('contact-section').classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closePopup(); 
+        });
+
+        document.getElementById('popup-nav-copyright').addEventListener('click', () => {
+            document.querySelectorAll('.content > div[id$="-section"]').forEach(section => section.classList.add('hidden'));
+            document.getElementById('copyright-section').classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closePopup(); 
+        });
+
+        document.getElementById('popup-nav-about').addEventListener('click', () => {
+            document.querySelectorAll('.content > div[id$="-section"]').forEach(section => section.classList.add('hidden'));
+            document.getElementById('about-us-section').classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closePopup(); 
+        });
+        
+        setupAppDownloadModal(); 
     });
-  }
-}  
 
-
-
- $('#trailer_model_button').on('click', function(e) {
-    
-    player.pause();
-
-});
-
-  $('#close_trailer_pop').on('click', function(e) {
-    
-     player_trailer.pause();
-     
-});
-
+    document.addEventListener('shaka-ui-loaded', initShakaPlayer);
 </script>
-
-<script type="text/javascript">
-  
-  $("li[data-path]").click(function() {
- 
-    $("head link#theme").attr("href", $(this).data("path"));
-});
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1808828254595456"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-6t+ed+2i-1n-4w"
+     data-ad-client="ca-pub-1808828254595456"
+     data-ad-slot="4943714491"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-   
-
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"1facf3a3dc3643cba3a285aa6921b670","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1808828254595456"
+     crossorigin="anonymous"></script>
+    <script src="https://pl28709843.effectivegatecpm.com/f7/cf/cb/f7cfcb2029794ee51b653634b32c28ad.js"></script>
+<script src="https://pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js"></script>
 </body>
 </html>
