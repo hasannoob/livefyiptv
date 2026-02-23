@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livefy TV (Create By HASAN)</title>
     
-    <!-- Plyr.css সরানো হয়েছে এবং Shaka Player UI CSS যোগ করা হয়েছে -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.13/shaka-player.ui.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.13/controls.min.css">
-
-    <!-- Hls.js এর প্রয়োজন নেই কারণ Shaka Player এটি নিজে হ্যান্ডেল করে -->
+    <!-- Shaka Player সরিয়ে Video.js এর লাইব্রেরি যোগ করা হয়েছে -->
+    <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
@@ -29,9 +27,9 @@
     --text-dark: #A0A0A0; 
     --live-red: #FF3B3B; 
     --font-main: 'Poppins', sans-serif;
-    /* Shaka Player স্টাইল কাস্টমাইজেশন */
-    --plyr-color-main: var(--primary-color); 
-    --shaka-player-accent: var(--primary-color);
+
+    /* Video.js প্লেয়ারের কালার কাস্টমাইজেশন */
+    --vjs-theme-color: var(--primary-color);
 } 
 
 body { font-family: var(--font-main); background: radial-gradient(circle at top left, rgba(230, 0, 35, 0.15), transparent 40%), radial-gradient(circle at bottom right, rgba(0, 200, 83, 0.15), transparent 40%), var(--bg-main); color: var(--text-light); margin: 0; padding: 0; padding-bottom: 90px; overflow-x: hidden; }
@@ -178,20 +176,17 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
 
 #video-player { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(13, 13, 16, 0.8); backdrop-filter: blur(20px); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; padding: 10px; box-sizing: border-box; overflow-y: auto; } 
 
-/* Shaka Player কন্টেইনার স্টাইল */
 #video-container-wrapper { 
     position: relative; 
     width: 100%; 
     max-width: 900px; 
     background-color: black; 
     border-radius: 15px; 
-    box-shadow: 0 0 25px var(--primary-color); 
-    aspect-ratio: 16/9; /* aspect-ratio এখানে দেওয়া ভালো */
+    box-shadow: 0 0 25px var(--primary-color);
+    overflow: hidden; /* ensures the player corners are rounded */
 } 
-/* video-wrapper এর আর প্রয়োজন নেই */
-#video { width: 100%; height: 100%; }
+.video-js { width: 100%; height: 100%; }
 
-/* Livefy টেক্সট এখন Shaka Player এর উপর বসবে */
 #livefy-text-animator { position: absolute; top: 15px; left: 15px; color: var(--secondary-color); font-size: 14px; font-weight: 900; opacity: 0.8; z-index: 50; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 5px; border: 1px solid var(--secondary-color); box-shadow: 0 0 5px var(--secondary-color); animation: watermark-blink 5s infinite; display: none; pointer-events: none; } 
 .is-loading { color: #FF003C !important; font-size: 16px; padding: 5px 10px; border-color: #FF003C !important; box-shadow: 0 0 15px rgba(255, 0, 60, 0.8) !important; animation: pulse 1s infinite !important; } @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } } @keyframes watermark-blink { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.5; } } #error-message-box { background-color: #1a1a1a; border: 3px solid #FF003C; padding: 10px; border-radius: 12px; text-align: center; max-width: 95%; width: 350px; margin-top: 20px; box-shadow: 0 0 15px rgba(255, 0, 60, 0.6); display: none; position: relative; } #error-title { color: #FF003C; font-size: 20px; margin-bottom: 5px; font-weight: bold; } #error-text { color: #ddd; font-size: 14px; } #error-message-box .close-error-btn { position: absolute; top: -10px; right: -10px; font-size: 18px; color: white; background-color: var(--live-red); border: 2px solid #fff; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; } 
 #controls-area { width: 100%; max-width: 900px; margin-top: 20px; padding: 10px; background-color: rgba(0,0,0,0.3); backdrop-filter: blur(10px); border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); } 
@@ -362,16 +357,16 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
         </div>
     </div>
 
-    <!-- পরিবর্তিত Video Player অংশ -->
     <div id="video-player"> 
-        <div id="video-container-wrapper" data-shaka-player-container> 
+        <div id="video-container-wrapper"> 
              <button id="close-btn" onclick="closeVideo()">❌</button> 
-             <video data-shaka-player id="video" autoplay playsinline style="width:100%; height:100%;"></video>
+             <!-- পরিবর্তিত Video ট্যাগ -->
+             <video id="video" class="video-js vjs-default-skin vjs-big-play-centered" controls playsinline></video>
              <span id="livefy-text-animator">LIVEFY TV</span>
         </div> 
         <div id="error-message-box"> <button class="close-error-btn" onclick="hideMessage()">✖</button> <h3 id="error-title">Error</h3> <p id="error-text">The video cannot be loaded.</p> </div> 
         <div id="controls-area">
-             <!-- Shaka Player-এর নিজস্ব কোয়ালিটি সিলেকশন আছে, তাই এটি আপাতত গোপন রাখা হলো -->
+             <!-- Video.js এর নিজস্ব কোয়ালিটি সিলেকশন আছে, তাই এটি এখন প্রয়োজন নেই -->
              <div id="quality-selector-container" class="hidden">
                   <label for="quality-select">Video Quality:</label> <select id="quality-select"></select>
              </div>
@@ -386,43 +381,42 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
         <div id="nav-playlist" class="nav-item hidden" onclick="showTab('playlist-section', this)"> <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></svg> <span>My Playlist</span> </div>
     </nav>
     
-<!-- Plyr.js সরানো হয়েছে -->
-
 <script>
     const firebaseConfig = { apiKey: "AIzaSyCJeCM2sWUY8izlm6Z_T7u4goeRCOxZnaY", authDomain: "livefy-9623e.firebaseapp.com", databaseURL: "https://livefy-9623e-default-rtdb.firebaseio.com", projectId: "livefy-9623e", storageBucket: "livefy-9623e.appspot.com", messagingSenderId: "211410916294", appId: "1:211410916294:web:660f3dfc6ede9a862718c7", measurementId: "G-87CYDP39Q2" };
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
     
-    // Shaka Player এর জন্য ভ্যারিয়েবল
+    // Video.js প্লেয়ারের জন্য ভ্যারিয়েবল
     let player = null; 
-    let ui = null;
 
     let dynamicMatchesData = [], currentFilter = 'all', lastLiveCount = 0;
     const serverButtonsContainer = document.getElementById('server-buttons'), errorMessageBox = document.getElementById('error-message-box'), livefyTextAnimator = document.getElementById('livefy-text-animator'), alertModal = document.getElementById('alert-modal');
     const notificationBell = document.getElementById('notification-bell'), notificationPanel = document.getElementById('notification-panel'), notificationCount = document.getElementById('notification-count'), notificationList = document.getElementById('notification-list');
     
-    // পরিবর্তিত: Shaka Player ইনিশিয়ালাইজেশন
-    async function initShakaPlayer() {
-        const video = document.getElementById('video');
-        const container = document.getElementById('video-container-wrapper');
-
-        ui = video['ui'];
-        player = ui.getControls().getPlayer();
-
-        player.configure({
-            streaming: { bufferingGoal: 15, lowLatencyMode: true },
-            manifest: { dash: { ignoreMinBufferTime: true } }
-        });
-
-        player.addEventListener('loading', () => { showLoading(); showWatermark(); });
-        player.addEventListener('loaded', () => showWatermark());
-        player.addEventListener('error', (event) => {
-             console.error("Shaka Player Error:", event.detail);
+    // পরিবর্তিত: Video.js প্লেয়ার ইনিশিয়ালাইজেশন
+    function initializePlayer() {
+        if (player) {
+            player.dispose(); // আগের ইন্সট্যান্স থাকলে রিমুভ করে দেয়
+        }
+        const videoElement = document.getElementById('video');
+        const options = {
+            controls: true,
+            autoplay: true,
+            preload: 'auto',
+            fluid: true, // এটি কন্টেইনারের সাথে প্লেয়ারকে রেসপন্সিভ করে
+        };
+        
+        player = videojs(videoElement, options);
+        
+        player.on('waiting', showLoading);
+        player.on('playing', showWatermark);
+        player.on('error', (e) => {
+             console.error("Video.js Error:", e);
              showMessage("Playback Error", "Stream is offline or unavailable.");
         });
     }
 
-    // অপরিবর্তিত ফাংশন
+    // অপরিবর্তিত ফাংশন... (fetchSettings, fetchBanners, ইত্যাদি)
     function fetchSettings() { database.ref('settings').on('value', (snapshot) => { const data = snapshot.val(); if (data) { const updateTextContent = document.getElementById('update-text-content'); if (updateTextContent) { updateTextContent.innerText = data.welcomeMessage || 'Welcome to Livefy TV!'; } document.getElementById('alert-title-container').innerText = data.alertTitle || 'Alert'; document.getElementById('alert-message-container').innerText = data.alertMessage || 'Please be careful.'; const telegramLink = data.telegramLink || '#'; ['telegram-link', 'telegram-link-channels', 'telegram-link-highlights', 'telegram-link-playlist'].forEach(id => document.getElementById(id).href = telegramLink); } }); }
     function fetchBanners() { database.ref('banners').on('value', (snapshot) => { const data = snapshot.val(); if (data) { updateBanner('home-banner-top', data.homeTop); updateBanner('home-banner-bottom', data.homeBottom); updateBanner('channels-banner', data.channels); updateBanner('highlights-banner', data.highlights); } }); }
     function updateBanner(elementId, bannerData) { const bannerElement = document.getElementById(elementId); if (bannerElement && bannerData) { const link = bannerElement.querySelector('a'); const img = bannerElement.querySelector('img'); link.href = bannerData.targetUrl || '#'; img.src = bannerData.imageUrl || 'https://placehold.co/600x100/111/fff?text=Ad+Space'; img.onerror = () => { img.src = 'https://placehold.co/600x100/111/fff?text=Ad+Error'; }; } }
@@ -517,8 +511,8 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
     function showMessage(title, message) { document.getElementById('video-container-wrapper').style.display = 'none'; document.getElementById('controls-area').style.display = 'none'; document.getElementById('error-title').textContent = title; document.getElementById('error-text').textContent = message; errorMessageBox.style.display = 'block'; livefyTextAnimator.style.display = 'none'; }
     function hideMessage() { errorMessageBox.style.display = 'none'; document.getElementById('video-container-wrapper').style.display = 'block'; document.getElementById('controls-area').style.display = 'block'; }
     
-    // পরিবর্তিত: Shaka Player দিয়ে ভিডিও লোড করা
-    async function loadVideoSource(videoSrc) {
+    // পরিবর্তিত: Video.js দিয়ে ভিডিও লোড করা
+    function loadVideoSource(videoSrc) {
         hideMessage();
         showLoading();
 
@@ -527,12 +521,12 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
             return;
         }
 
-        try {
-            await player.load(videoSrc);
-            console.log('The video has been loaded!');
-        } catch (error) {
-            console.error('Error loading video:', error);
-            showMessage("Playback Error", "This stream is currently offline or unavailable.");
+        if (player) {
+            const isM3U8 = videoSrc.toLowerCase().includes('.m3u8');
+            const type = isM3U8 ? 'application/x-mpegURL' : 'video/mp4';
+
+            player.src({ src: videoSrc, type: type });
+            player.play().catch(e => console.warn("Autoplay was blocked by browser."));
         }
     }
 
@@ -540,12 +534,12 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
     function selectServer(serverSrc, clickedButton) { document.querySelectorAll('.server-button').forEach(btn => btn.classList.remove('active-server')); if (clickedButton) clickedButton.classList.add('active-server'); loadVideoSource(serverSrc); }
     
     // পরিবর্তিত: ভিডিও বন্ধ করার ফাংশন
-    async function closeVideo() {
+    function closeVideo() {
         document.getElementById('video-player').style.display = 'none';
         if (player) {
-            await player.unload();
+            player.pause();
+            player.reset(); // প্লেয়ারকে রিসেট করে, যা ভিডিও সোর্স ক্লিয়ার করে দেয়
         }
-        document.getElementById('video').src = '';
     }
     
     function showTab(sectionIdToShow, clickedElement) { document.querySelectorAll('.content > div[id$="-section"]').forEach(section => section.classList.add('hidden')); document.getElementById(sectionIdToShow)?.classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active')); clickedElement.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -567,17 +561,13 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
     function setupAppDownloadModal() { const modal = document.getElementById('app-download-modal'); const closeBtn = document.querySelector('.app-modal-close-btn'); const closeModal = () => { modal.style.display = 'none'; sessionStorage.setItem('appModalClosed', 'true'); }; if (sessionStorage.getItem('appModalClosed') !== 'true') { setTimeout(() => { modal.style.display = 'flex'; }, 1500); } closeBtn.addEventListener('click', closeModal); document.querySelector('.app-download-button').addEventListener('click', () => { setTimeout(closeModal, 500); }); window.addEventListener('click', (event) => { if (event.target == modal) { closeModal(); } }); }
     
     document.addEventListener('DOMContentLoaded', () => { 
-        shaka.polyfill.installAll();
-        if (shaka.Player.isBrowserSupported()) {
-            // initShakaPlayer এখন shaka-ui-loaded ইভেন্টে কল হবে
-        } else {
-            console.error('Browser not supported!');
-        }
-        
         fetchSettings(); fetchBanners(); fetchMatches(); fetchLiveChannels(); fetchHighlights(); fetchAndSetupPlaylist(); 
         populateCategoryTabs('liveChannelCategories', 'channel-category-tabs', filterChannelsByCategory); 
         populateCategoryTabs('highlightCategories', 'highlight-category-tabs', filterHighlightsByCategory); 
         
+        // প্লেয়ার ইনিশিয়ালাইজ করা
+        initializePlayer();
+
         updateClock(); setInterval(updateClock, 1000); setInterval(checkMatchStatus, 1000); 
         showTab('home-section', document.getElementById('nav-home')); 
         filterMatches('all'); 
@@ -617,8 +607,6 @@ body { font-family: var(--font-main); background: radial-gradient(circle at top 
         
         setupAppDownloadModal(); 
     });
-
-    document.addEventListener('shaka-ui-loaded', initShakaPlayer);
 </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1808828254595456"
      crossorigin="anonymous"></script>
