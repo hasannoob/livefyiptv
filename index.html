@@ -33,6 +33,9 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
 .actions div { flex: 1; text-align: center; padding: 12px 5px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .actions div.active-tab { color: var(--accent); font-weight: bold; border-bottom-color: var(--accent); }
 .actions div .fa-telegram { margin-right: 6px; color: #2AABEE; }
+/* নতুন রিফ্রেশ বাটনের আইকনের জন্য স্টাইল */
+.actions div .fa-sync-alt { margin-right: 6px; color: #FFC107; }
+
 
 .search-container { padding: 10px 15px; background: #0a0a0a; }
 #searchInput { width: 100%; padding: 12px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: var(--text); font-size: 0.95rem; }
@@ -65,6 +68,8 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
     <div class="actions">
         <div id="allBtnTab" class="active-tab" onclick="switchTab('all', this)"><i class="fas fa-list"></i> All Channels</div>
         <div id="favBtnTab" onclick="switchTab('fav', this)"><i class="fas fa-star"></i> Favorites</div>
+        <!-- নতুন পুশ রিফ্রেশ বাটন -->
+        <div onclick="refreshCurrentStream()"><i class="fas fa-sync-alt"></i> Refresh</div>
         <div onclick="window.open('https://t.me/livefytv', '_blank')"><i class="fab fa-telegram"></i> Join Telegram</div>
     </div>
     <div class="search-container">
@@ -173,7 +178,7 @@ function render() {
                 const isActive = currentChannel && currentChannel.name === ch.name;
                 const row = document.createElement('div');
                 row.className = `row ${isActive ? 'active' : ''}`;
-                row.innerHTML = `<img src="${ch.logo}" class="list-logo" onerror="this.src='https.i.imgur.com/8Qf6Y0L.png'"><div class="name">${ch.name}</div><i class="fas fa-star star-btn ${isFav ? 'is-fav' : ''}"></i>`;
+                row.innerHTML = `<img src="${ch.logo}" class="list-logo" onerror="this.src='https://i.imgur.com/8Qf6Y0L.png'"><div class="name">${ch.name}</div><i class="fas fa-star star-btn ${isFav ? 'is-fav' : ''}"></i>`;
                 row.querySelector('.star-btn').onclick = (e) => { e.stopPropagation(); toggleFav(ch); };
                 row.onclick = () => handleChannelClick(ch, false);
                 listArea.appendChild(row);
@@ -194,21 +199,30 @@ function playStream(url, isFirstLoad = false) {
         if (Hls.isSupported()) {
             hls.destroy(); hls = new Hls(); hls.loadSource(url); hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                // *** এই লাইনটি পরিবর্তন করা হয়েছে ***
-                player.muted = isFirstLoad; // শুধুমাত্র প্রথমবার লোড হলে মিউট থাকবে
+                player.muted = isFirstLoad; 
                 player.play().catch(e => console.warn("Autoplay was prevented.", e));
                 loader.style.display = 'none';
             });
             hls.on(Hls.Events.ERROR, (e, data) => { if (data.fatal) throw new Error(`HLS Error: ${data.details}`); });
         } else { 
             video.src = url;
-            // *** এই লাইনটিও পরিবর্তন করা হয়েছে ***
             player.muted = isFirstLoad;
             player.play().catch(e => console.warn("Autoplay was prevented.", e));
             loader.style.display = 'none';
         }
     } catch (error) { console.error("Stream Error:", error); loaderText.innerText = 'Error loading stream.'; }
     render();
+}
+
+// নতুন পুশ রিফ্রেশ ফাংশন
+function refreshCurrentStream() {
+    if (currentChannel) {
+        console.log(`Refreshing stream for: ${currentChannel.name}`);
+        // 'false' প্যারামিটারটি নিশ্চিত করে যে রিফ্রেশের পর ভিডিও মিউট হবে না
+        playStream(currentChannel.urls[0], false);
+    } else {
+        console.log("No active channel to refresh.");
+    }
 }
 
 function switchTab(type, el) {
