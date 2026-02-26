@@ -59,7 +59,6 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
 
 <div class="content-area">
     <div class="controls-panel">
-        <!-- প্লেলিস্ট সিলেক্টর এখানে নেই -->
         <select id="categorySelect"></select>
     </div>
     <div class="actions">
@@ -89,15 +88,15 @@ let isFavView = false;
 // !!! এখানে আপনার সমস্ত প্লেলিস্টের URL যোগ করুন !!!
 const playlists = [
     { url: "https://raw.githubusercontent.com/sm-monirulislam/RoarZone-Auto-Update-playlist/refs/heads/main/RoarZone.m3u" },
-    { url: "......" },
-    // { url: "YOUR_THIRD_PLAYLIST_URL_HERE" }, // প্রয়োজনে আরও যোগ করুন
+    { url: "https://iptv-org.github.io/iptv/countries/bd.m3u" }, // উদাহরণ প্লেলিস্ট
+    // { url: "আপনার অন্য প্লেলিস্ট লিঙ্ক এখানে দিন" }, // প্রয়োজনে আরও যোগ করুন
 ];
 // =========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     player = new Plyr(video, { controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'], settings: ['quality', 'speed'] });
     categorySelect.addEventListener('change', render);
-    loadAllPlaylists(); // অ্যাপ চালু হলেই সব প্লেলিস্ট লোড হবে
+    loadAllPlaylists();
 });
 
 async function loadAllPlaylists() {
@@ -106,18 +105,15 @@ async function loadAllPlaylists() {
     categorizedChannels = {};
 
     try {
-        // সবগুলো fetch অনুরোধ একসাথে পাঠানো হচ্ছে
         const fetchPromises = playlists.map(p => fetch(p.url).then(res => res.text()));
         const allPlaylistData = await Promise.all(fetchPromises);
 
-        // প্রতিটি প্লেলিস্টের ডেটা পার্স করা হচ্ছে
         allPlaylistData.forEach(playlistText => parseM3U(playlistText));
 
         populateCategoryDropdown();
         render();
         loader.style.display = 'none';
 
-        // প্রথম চ্যানেলটি অটো-প্লে করা হচ্ছে
         const firstCategory = Object.keys(categorizedChannels).sort()[0];
         if (firstCategory && categorizedChannels[firstCategory][0]) {
             handleChannelClick(categorizedChannels[firstCategory][0], true);
@@ -202,7 +198,7 @@ function playStream(url, isFirstLoad = false) {
         if (Hls.isSupported()) {
             hls.destroy(); hls = new Hls(); hls.loadSource(url); hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                player.muted = isFirstLoad; // শুধুমাত্র প্রথমবার লোড হলে মিউট থাকবে
+                player.muted = isFirstLoad;
                 player.play().catch(e => console.warn("Autoplay was prevented.", e));
                 loader.style.display = 'none';
             });
@@ -216,7 +212,7 @@ function switchTab(type, el) {
     document.querySelectorAll('.actions div').forEach(d => d.classList.remove('active-tab'));
     el.classList.add('active-tab');
     isFavView = (type === 'fav');
-    populateCategoryDropdown(); // ফেভারিট লিস্টের ক্যাটাগরি দিয়ে ড্রপডাউন পপুলেট করবে
+    populateCategoryDropdown();
     render();
 }
 
