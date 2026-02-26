@@ -26,14 +26,12 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
 
 .content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-/* উপরের কন্ট্রোল প্যানেল */
 .controls-panel { padding: 12px 15px; background: #0a0a0a; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;}
 .controls-panel select { width: 100%; padding: 10px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: var(--text); font-size: 0.95rem; }
 
 .actions { display: flex; background: #000; border-bottom: 1px solid var(--border-color); }
 .actions div { flex: 1; text-align: center; padding: 12px 5px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .actions div.active-tab { color: var(--accent); font-weight: bold; border-bottom-color: var(--accent); }
-/* নতুন যোগ করা টেলিগ্রাম বাটনের জন্য স্টাইল */
 .actions div .fa-telegram { margin-right: 6px; color: #2AABEE; }
 
 .search-container { padding: 10px 15px; background: #0a0a0a; }
@@ -67,7 +65,6 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
     <div class="actions">
         <div id="allBtnTab" class="active-tab" onclick="switchTab('all', this)"><i class="fas fa-list"></i> All Channels</div>
         <div id="favBtnTab" onclick="switchTab('fav', this)"><i class="fas fa-star"></i> Favorites</div>
-        <!-- টেলিগ্রাম বাটন এখানে যোগ করা হয়েছে -->
         <div onclick="window.open('https://t.me/livefytv', '_blank')"><i class="fab fa-telegram"></i> Join Telegram</div>
     </div>
     <div class="search-container">
@@ -90,10 +87,8 @@ let currentChannel = null;
 let isFavView = false;
 
 // =========================================================================
-// !!! এখানে আপনার সমস্ত প্লেলিস্টের URL যোগ করুন !!!
 const playlists = [
     { url: "https://raw.githubusercontent.com/sm-monirulislam/RoarZone-Auto-Update-playlist/refs/heads/main/RoarZone.m3u" },
-    // { url: "......" }, // প্রয়োজনে আরও যোগ করুন
 ];
 // =========================================================================
 
@@ -101,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     player = new Plyr(video, { controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'], settings: ['quality', 'speed'] });
     categorySelect.addEventListener('change', render);
     loadAllPlaylists();
+    loadAdAfterInteraction(); 
 });
 
 async function loadAllPlaylists() {
@@ -198,12 +194,19 @@ function playStream(url, isFirstLoad = false) {
         if (Hls.isSupported()) {
             hls.destroy(); hls = new Hls(); hls.loadSource(url); hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                player.muted = isFirstLoad;
+                // *** এই লাইনটি পরিবর্তন করা হয়েছে ***
+                player.muted = isFirstLoad; // শুধুমাত্র প্রথমবার লোড হলে মিউট থাকবে
                 player.play().catch(e => console.warn("Autoplay was prevented.", e));
                 loader.style.display = 'none';
             });
             hls.on(Hls.Events.ERROR, (e, data) => { if (data.fatal) throw new Error(`HLS Error: ${data.details}`); });
-        } else { video.src = url; }
+        } else { 
+            video.src = url;
+            // *** এই লাইনটিও পরিবর্তন করা হয়েছে ***
+            player.muted = isFirstLoad;
+            player.play().catch(e => console.warn("Autoplay was prevented.", e));
+            loader.style.display = 'none';
+        }
     } catch (error) { console.error("Stream Error:", error); loaderText.innerText = 'Error loading stream.'; }
     render();
 }
@@ -235,14 +238,23 @@ function getFavoritesByCategory() {
     return favsByCategory;
 }
 
-// Adstra অ্যাডের কোড (৫ সেকেন্ড পর লোড হবে)
-setTimeout(function() {
-    const adScript = document.createElement('script');
-    adScript.type = 'text/javascript';
-    adScript.src = 'https://pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js';
-    document.head.appendChild(adScript);
-}, 5000); // 5000 মিলিসেকেন্ড = 5 সেকেন্ড
-
+function loadAdAfterInteraction() {
+    let adLoaded = false;
+    const adLoader = () => {
+        if (adLoaded) return;
+        adLoaded = true;
+        setTimeout(() => {
+            const adScript = document.createElement('script');
+            adScript.type = 'text/javascript';
+            adScript.src = 'https://pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js';
+            document.body.appendChild(adScript);
+        }, 5000); 
+        document.removeEventListener('click', adLoader);
+        document.removeEventListener('scroll', adLoader);
+    };
+    document.addEventListener('click', adLoader);
+    document.addEventListener('scroll', adLoader);
+}
 </script>
 
 </body>
