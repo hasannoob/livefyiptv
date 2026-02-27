@@ -17,15 +17,59 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
+/* অ্যাপ হেডার (উপরে থাকবে) */
+.app-header {
+    background: linear-gradient(180deg, #121212 0%, #000 100%);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.app-header h1 {
+    font-size: 1.4rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px rgba(0, 229, 255, 0.4); }
+    to { text-shadow: 0 0 20px rgba(0, 229, 255, 0.8); }
+}
+
 .player-wrap { position: relative; width: 100%; background: #000; aspect-ratio: 16/9; flex-shrink: 0; }
 .plyr { height: 100%; width: 100%; }
+
+/* প্লেয়ারের নিচে চ্যানেলের নাম দেখানোর জায়গা */
+.now-playing {
+    background: #0a0a0a;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.now-playing i { color: var(--accent); font-size: 0.8rem; }
+#current-ch-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.animate-name { animation: slideIn 0.5s ease-out; }
+@keyframes slideIn {
+    0% { opacity: 0; transform: translateX(-10px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
 
 #loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); z-index: 200; text-align: center; }
 .spinner { width: 40px; height: 40px; border: 4px solid #333; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 .content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
 .controls-panel { padding: 12px 15px; background: #0a0a0a; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px;}
 .controls-panel select { width: 100%; padding: 10px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: var(--text); font-size: 0.95rem; }
 
@@ -33,9 +77,7 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
 .actions div { flex: 1; text-align: center; padding: 12px 5px; font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .actions div.active-tab { color: var(--accent); font-weight: bold; border-bottom-color: var(--accent); }
 .actions div .fa-telegram { margin-right: 6px; color: #2AABEE; }
-/* নতুন রিফ্রেশ বাটনের আইকনের জন্য স্টাইল */
 .actions div .fa-sync-alt { margin-right: 6px; color: #FFC107; }
-
 
 .search-container { padding: 10px 15px; background: #0a0a0a; }
 #searchInput { width: 100%; padding: 12px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: var(--text); font-size: 0.95rem; }
@@ -54,11 +96,22 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
 </head>
 <body>
 
+<!-- অ্যাপের নাম উপরে -->
+<div class="app-header">
+    <h1>LIVEFY TV</h1>
+</div>
+
 <div class="player-wrap">
     <div id="loader">
         <div><div class="spinner"></div><div id="loader-text">Loading...</div></div>
     </div>
     <video id="video" playsinline crossorigin="anonymous"></video>
+</div>
+
+<!-- প্লেয়ারের নিচে চ্যানেলের নাম -->
+<div class="now-playing">
+    <i class="fas fa-circle-notch fa-spin"></i>
+    <span id="current-ch-name">চ্যানেল নির্বাচন করুন</span>
 </div>
 
 <div class="content-area">
@@ -68,7 +121,6 @@ body { background: var(--bg); color: var(--text); height: 100vh; display: flex; 
     <div class="actions">
         <div id="allBtnTab" class="active-tab" onclick="switchTab('all', this)"><i class="fas fa-list"></i> All Channels</div>
         <div id="favBtnTab" onclick="switchTab('fav', this)"><i class="fas fa-star"></i> Favorites</div>
-        <!-- নতুন পুশ রিফ্রেশ বাটন -->
         <div onclick="refreshCurrentStream()"><i class="fas fa-sync-alt"></i> Refresh</div>
         <div onclick="window.open('https://t.me/livefytv', '_blank')"><i class="fab fa-telegram"></i> Join Telegram</div>
     </div>
@@ -84,6 +136,7 @@ const video = document.getElementById('video');
 const loader = document.getElementById('loader'), loaderText = document.getElementById('loader-text');
 const listArea = document.getElementById('list'), searchInput = document.getElementById('searchInput');
 const categorySelect = document.getElementById('categorySelect');
+const chNameDisplay = document.getElementById('current-ch-name');
 
 let hls = new Hls();
 let player;
@@ -91,19 +144,21 @@ let categorizedChannels = {};
 let currentChannel = null;
 let isFavView = false;
 
-// =========================================================================
 const playlists = [
     { url: "https://raw.githubusercontent.com/sm-monirulislam/RoarZone-Auto-Update-playlist/refs/heads/main/RoarZone.m3u" },
     { url: "https://raw.githubusercontent.com/sm-monirulislam/SM-Live-TV/refs/heads/main/Bangla%20Channel.m3u" },
     { url: "https://raw.githubusercontent.com/sm-monirulislam/SM-Live-TV/refs/heads/main/SM%20All%20TV.m3u" },
     { url: "https://raw.githubusercontent.com/sm-monirulislam/SM-Live-TV/refs/heads/main/Fancode.m3u" },
     { url: "https://raw.githubusercontent.com/sm-monirulislam/SM-Live-TV/refs/heads/main/SMJagobd.m3u" },
-     { url: "https://raw.githubusercontent.com/hasannoob/Bongo/refs/heads/main/Playlist.m3u" },
+    { url: "https://raw.githubusercontent.com/hasannoob/Bongo/refs/heads/main/Playlist.m3u" },
 ];
-// =========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    player = new Plyr(video, { controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'], settings: ['quality', 'speed'] });
+    // Quality Settings Enabled
+    player = new Plyr(video, { 
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'], 
+        settings: ['quality', 'speed'] 
+    });
     categorySelect.addEventListener('change', render);
     loadAllPlaylists();
     loadAdAfterInteraction(); 
@@ -126,7 +181,7 @@ async function loadAllPlaylists() {
             handleChannelClick(categorizedChannels[firstCategory][0], true);
         }
     } catch (error) {
-        console.error("Error loading one or more playlists:", error);
+        console.error("Error loading playlists:", error);
         loaderText.innerText = `Failed to load channels.`;
     }
 }
@@ -139,7 +194,7 @@ function parseM3U(data) {
             if (currentChannelInfo) addChannelToCategory(currentChannelInfo);
             const name = trimmedLine.split(',')[1]?.trim() || 'Unknown';
             const logo = trimmedLine.match(/tvg-logo="([^"]*)"/)?.[1] || null;
-            const category = trimmedLine.match(/group-title="([^"]*)"/)?.[1].trim() || 'Uncategorized';
+            const category = trimmedLine.match(/group-title="([^"]*)"/)?.[1]?.trim() || 'Uncategorized';
             currentChannelInfo = { name, logo, category, urls: [] };
         } else if (trimmedLine.startsWith('http') && currentChannelInfo) {
             currentChannelInfo.urls.push(trimmedLine);
@@ -194,40 +249,65 @@ function render() {
 
 function handleChannelClick(channel, isFirstLoad) {
     currentChannel = channel;
+    
+    // চ্যানেলের নাম আপডেট এবং অ্যানিমেশন
+    chNameDisplay.innerText = channel.name;
+    chNameDisplay.classList.remove('animate-name');
+    void chNameDisplay.offsetWidth; // Trigger reflow
+    chNameDisplay.classList.add('animate-name');
+
     playStream(channel.urls[0], isFirstLoad);
 }
 
+// Manual Quality Control Logic
 function playStream(url, isFirstLoad = false) {
     loader.style.display = 'flex';
     loaderText.innerText = `Loading ${currentChannel.name}...`;
     try {
         if (Hls.isSupported()) {
-            hls.destroy(); hls = new Hls(); hls.loadSource(url); hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            hls.destroy(); 
+            hls = new Hls(); 
+            hls.loadSource(url); 
+            hls.attachMedia(video);
+            
+            hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+                const availableQualities = hls.levels.map((l) => l.height);
+                availableQualities.unshift(0); // Add 'Auto'
+
+                player.quality = {
+                    default: 0,
+                    options: availableQualities,
+                    forced: true,
+                    onChange: (newQual) => {
+                        if (newQual === 0) hls.currentLevel = -1;
+                        else {
+                            hls.levels.forEach((level, index) => {
+                                if (level.height === newQual) hls.currentLevel = index;
+                            });
+                        }
+                    },
+                };
+
                 player.muted = isFirstLoad; 
-                player.play().catch(e => console.warn("Autoplay was prevented.", e));
+                player.play().catch(e => console.warn("Autoplay prevented.", e));
                 loader.style.display = 'none';
             });
             hls.on(Hls.Events.ERROR, (e, data) => { if (data.fatal) throw new Error(`HLS Error: ${data.details}`); });
         } else { 
             video.src = url;
             player.muted = isFirstLoad;
-            player.play().catch(e => console.warn("Autoplay was prevented.", e));
+            player.play().catch(e => console.warn("Autoplay prevented.", e));
             loader.style.display = 'none';
         }
-    } catch (error) { console.error("Stream Error:", error); loaderText.innerText = 'Error loading stream.'; }
+    } catch (error) { 
+        console.error("Stream Error:", error); 
+        loaderText.innerText = 'Error loading stream.'; 
+    }
     render();
 }
 
-// নতুন পুশ রিফ্রেশ ফাংশন
 function refreshCurrentStream() {
-    if (currentChannel) {
-        console.log(`Refreshing stream for: ${currentChannel.name}`);
-        // 'false' প্যারামিটারটি নিশ্চিত করে যে রিফ্রেশের পর ভিডিও মিউট হবে না
-        playStream(currentChannel.urls[0], false);
-    } else {
-        console.log("No active channel to refresh.");
-    }
+    if (currentChannel) playStream(currentChannel.urls[0], false);
 }
 
 function switchTab(type, el) {
