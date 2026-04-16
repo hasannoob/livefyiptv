@@ -1,341 +1,701 @@
+--- START OF FILE Paste April 16, 2026 - 11:41AM ---
+
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Livefy IP TV- Create By Hasan</title>
-<link rel="icon" href="https://i.ibb.co/3k5p1t4/live-icon.png">
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-   <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dashjs/dist/dash.all.min.js"></script>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Live TV Streaming Service">
+    <link rel="shortcut icon" href="https://placehold.co/16x16/000000/ffffff?text=Premium+Live+TV+Streaming"/>
+    <title>Premium Live TV Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        :root {
+            --primary-dark: #121212;
+            --secondary-dark: #1E1E1E;
+            --accent-dark: #BB86FC;
+            --text-dark: #E1E1E1;
+            
+            --primary-light: #FFFFFF;
+            --secondary-light: #F5F5F5;
+            --accent-light: #6200EE;
+            --text-light: #333333;
+            
+            --current-primary: var(--primary-dark);
+            --current-secondary: var(--secondary-dark);
+            --current-accent: var(--accent-dark);
+            --current-text: var(--text-dark);
+        }
 
-    
-<style>
-:root {
-    --bg: #000; --card: #121212; --accent: #00E5FF; --fav: #FFD700; --text: #fff;
-    --text-secondary: #aaa; --border-color: #2a2a2a;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--current-text);
+            background-color: var(--current-primary);
+            transition: all 0.5s ease;
+            min-height: 100vh;
+        }
 
-.app-header {
-    background: linear-gradient(180deg, #121212 0%, #000 100%);
-    padding: 5px; 
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-.app-header h1 {
-    font-size: 1.1rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
+        /* Animated Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
 
-/* --- নিউজ টিকার স্টাইল --- */
-.news-ticker-container {
-    background: #1a1a1a;
-    height: 35px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    z-index: 100;
-    border-bottom: 2px solid #ed1c24;
-}
-.news-label {
-    background: #ed1c24;
-    color: white;
-    padding: 0 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    z-index: 10;
-    white-space: nowrap;
-}
-.ticker-wrap {
-    flex: 1;
-    overflow: hidden;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-.ticker-content {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: ticker-animation 130s linear infinite; /* পড়ার জন্য স্লো স্পিড */
-    font-size: 0.95rem;
-    color: #fff;
-}
-.ticker-content:hover { animation-play-state: paused; } /* টাচ করলে নিউজ থেমে যাবে */
-.news-item { margin-right: 100px; display: inline-block; }
-.news-icon { color: #ed1c24; margin-right: 8px; }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-@keyframes ticker-animation {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+            padding: 5px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
 
-.player-wrap { position: relative; width: 100%; background: #000; aspect-ratio: 16/9; flex-shrink: 0; }
-.plyr { height: 100%; width: 100%; }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
 
-.now-playing {
-    background: #0a0a0a;
-    padding: 8px 15px; 
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.now-playing i { color: var(--accent); font-size: 0.7rem; }
-#current-ch-name { font-size: 0.9rem; font-weight: 600; }
+        .theme-toggle i {
+            font-size: 1.5rem;
+            padding: 10px;
+            color: var(--current-text);
+        }
 
-#loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); z-index: 200; }
-.spinner { width: 30px; height: 30px; border: 3px solid #333; border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Main Container */
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+            padding-top: 80px;
+        }
 
-.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-.controls-panel { padding: 6px 12px; background: #0a0a0a; border-bottom: 1px solid var(--border-color); }
-.controls-panel select { width: 100%; padding: 8px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: var(--text); outline: none;}
+        /* Player Section */
+        .player-section {
+            background-color: var(--current-secondary);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-.actions { display: flex; background: #000; border-bottom: 1px solid var(--border-color); }
-.actions div { flex: 1; text-align: center; padding: 10px 2px; font-size: 0.75rem; color: var(--text-secondary); cursor: pointer; }
-.actions div.active-tab { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: bold; }
+        .player-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
 
-.search-container { padding: 8px 12px; background: #0a0a0a; }
-#searchInput { width: 100%; padding: 10px; background-color: #1a1a1a; border: 1px solid #333; border-radius: 6px; color: var(--text); outline: none;}
+        /* Responsive Embed */
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
 
-.list { flex: 1; overflow-y: auto; padding: 8px; background: var(--bg); }
-.category-title { font-size: 0.85rem; font-weight: bold; color: var(--accent); padding: 10px 5px; border-bottom: 1px solid var(--border-color); margin-bottom: 8px; text-transform: uppercase; position: sticky; top: -1px; background: var(--bg); z-index: 10; }
-.row { display: flex; align-items: center; gap: 12px; background: var(--card); padding: 10px; border-radius: 8px; margin-bottom: 6px; border-left: 3px solid transparent; cursor: pointer; }
-.row.active { border-left-color: var(--accent); background: rgba(0, 229, 255, 0.08); }
-.list-logo { width: 45px; height: 45px; border-radius: 6px; object-fit: cover; }
-.name { flex: 1; font-size: 0.9rem; color: #fff; }
-</style>
+        .embed-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #000;
+        }
+
+        /* Player Info */
+        .player-info {
+            padding: 15px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .channel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            color: #fff;
+        }
+
+        .program-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            color: #ccc;
+        }
+
+        /* Channel List */
+        .channel-list {
+            background-color: var(--current-secondary);
+            border-radius: 16px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .channel-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .channel-list-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .channel-count {
+            background-color: var(--current-accent);
+            color: var(--current-primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            overflow-y: auto;
+            max-height: 70vh;
+            padding-right: 5px;
+        }
+		    /* Navbar Style Header */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .tv-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+            margin-right: 15px;
+        }
+
+        .tv-link:hover {
+            color: var(--current-accent);
+        }
+        
+        /* Telegram Button Style */
+        .telegram-link {
+            background: #0088cc;
+            color: white !important;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Updated Channel Item & Image Views */
+        .channel-item {
+            background-color: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .channel-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border-color: var(--current-accent);
+            background-color: rgba(255,255,255,0.06);
+        }
+
+        .channel-item.active {
+            border-color: var(--current-accent);
+            box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.3);
+            background-color: rgba(187, 134, 252, 0.1);
+        }
+
+        .channel-thumbnail-wrapper {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            overflow: hidden;
+        }
+
+        .channel-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .channel-item:hover .channel-thumbnail {
+            transform: scale(1.1);
+        }
+
+        .channel-name {
+            padding: 10px 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Light Theme Adjustments */
+        body.light-theme {
+            --current-primary: var(--primary-light);
+            --current-secondary: var(--secondary-light);
+            --current-accent: var(--accent-light);
+            --current-text: var(--text-light);
+        }
+
+        body.light-theme .channel-list {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        body.light-theme .channel-item {
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        body.light-theme .channel-thumbnail-wrapper {
+            background-color: #f8f9fa;
+        }
+
+        body.light-theme .channel-name {
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        body.light-theme .player-info {
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer a {
+            color: var(--current-accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .channel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+                padding-top: 70px;
+            }
+            
+            .channel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 10px;
+            }
+            
+            .channel-name {
+                font-size: 0.75rem;
+                padding: 6px 4px;
+            }
+            
+            .channel-list-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        .channel-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .channel-grid::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .channel-grid::-webkit-scrollbar-thumb {
+            background: var(--current-accent);
+            border-radius: 10px;
+        }
+
+        .channel-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(187, 134, 252, 0.8);
+        }
+    </style>
 </head>
 <body>
+    <div class="background"></div>
 
-<div class="app-header">
-    <h1>LIVEFY IP TV</h1>
-</div>
+    <header class="top-nav">
+        <div class="d-flex align-items-center">
+            <a href="/" class="tv-link"><i class="fas fa-tv me-2"></i>TV Version</a>
+            <a href="https://t.me/livefytv" target="_blank" class="tv-link telegram-link"><i class="fab fa-telegram"></i> Telegram</a>
+        </div>
 
-<div class="news-ticker-container">
-    <div class="news-label">ব্রেকিং নিউজ</div>
-    <div class="ticker-wrap">
-        <div class="ticker-content" id="news-ticker-text">
-            প্রথম আলো (বাংলা এডিশন) থেকে সর্বশেষ সংবাদ লোড হচ্ছে...
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="row g-4">
+            <div class="col-lg-9 col-md-8">
+                <div class="player-section">
+                    <div class="embed-container">
+                        <video id="video-player" controls autoplay></video>
+                        <div class="player-info">
+                            <div class="channel-title">Loading...</div>
+                            <div class="program-info">Please select a channel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4">
+                <div class="channel-list">
+                    <div class="channel-list-header">
+                        <h2 class="channel-list-title">Channels</h2>
+                        <div class="channel-count" id="channelCount">0</div>
+                    </div>
+                    <div class="channel-grid" id="channelGrid"></div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="player-wrap">
-    <div id="loader">
-        <div class="spinner"></div>
+    <div class="footer">
+        <div>
+            <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2Fsohag1192%2FLive-Tv-Server&label=&icon=github&color=%23198754&message=&style=flat&tz=UTC" alt="GitHub hits">
+        </div>
+        <div class="mt-2">
+            © Copyright 2013 Md Hasan, Developed By: <a href="https://t.me/hasan908991" target="_blank">Md Hasan</a>
+        </div>
     </div>
-    <video id="video" playsinline crossorigin="anonymous"></video>
-</div>
 
-<div class="now-playing">
-    <i class="fas fa-circle-notch fa-spin"></i>
-    <span id="current-ch-name">চ্যানেল নির্বাচন করুন</span>
-</div>
-
-<div class="content-area">
-    <div class="controls-panel">
-        <select id="categorySelect"></select>
-    </div>
-    <div class="actions">
-        <div id="allBtnTab" class="active-tab" onclick="switchTab('all', this)"><i class="fas fa-list"></i> All</div>
-        <div id="favBtnTab" onclick="switchTab('fav', this)"><i class="fas fa-star"></i> Favorites</div>
-        <div onclick="refreshCurrentStream()"><i class="fas fa-sync-alt"></i> Refresh</div>
-        <div onclick="window.open('https://t.me/livefytv', '_blank')"><i class="fab fa-telegram"></i> Telegram</div>
-    </div>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="চ্যানেল খুঁজুন..." onkeyup="render()">
-    </div>
-    <div class="list" id="list"></div>
-</div>
-
-<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js/dist/hls.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dashjs/dist/dash.all.min.js"></script>
-    
-<script>
-const video = document.getElementById('video');
-const loader = document.getElementById('loader');
-const listArea = document.getElementById('list'), searchInput = document.getElementById('searchInput');
-const categorySelect = document.getElementById('categorySelect');
-const chNameDisplay = document.getElementById('current-ch-name');
-
-let hls = new Hls();
-let player;
-let categorizedChannels = {};
-let currentChannel = null;
-let isFavView = false;
-
-const playlists = [
-    { url: "https://raw.githubusercontent.com/sm-monirulislam/SM-Live-TV/refs/heads/main/Bangla%20Channel.m3u" },  
-   {url: "https://raw.githubusercontent.com/sm-monirulislam/Toffee-Auto-Update-Playlist/refs/heads/main/Ns_player.m3u" },
-];
-
-document.addEventListener('DOMContentLoaded', () => {
-    player = new Plyr(video, { 
-        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen']
-    });
-    loadAllPlaylists();
-    fetchBanglaNews(); 
-    loadAdAfterInteraction(); // এইখানে আপনার অ্যাড কল করা হয়েছে
-});
-
-// --- আপনার Adsterra অ্যাড ফাংশন (যথাযথভাবে আছে) ---
-function loadAdAfterInteraction() {
-    let adLoaded = false;
-    const adLoader = () => {
-        if (adLoaded) return;
-        adLoaded = true;
-        setTimeout(() => {
-            const adScript = document.createElement('script');
-            adScript.type = 'text/javascript';
-            adScript.src = 'https://pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js';
-            document.body.appendChild(adScript);
-        }, 5000); 
-        document.removeEventListener('click', adLoader);
-        document.removeEventListener('scroll', adLoader);
-    };
-    document.addEventListener('click', adLoader);
-    document.addEventListener('scroll', adLoader);
-}
-
-// --- প্রথম আলো বাংলা নিউজ ফাংশন ---
-async function fetchBanglaNews() {
-    const tickerText = document.getElementById('news-ticker-text');
-    const rssUrl = "https://www.prothomalo.com/feed";
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        if (data.items && data.items.length > 0) {
-            const headlines = data.items.map(item => `<i class="fas fa-star news-icon" style="font-size:8px;"></i> ${item.title}`).join(' &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; ');
-            tickerText.innerHTML = `<span class="news-item">${headlines}</span><span class="news-item">${headlines}</span>`;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- ADSTERRA AD FUNCTION (From 2nd File) ---
+        function loadAdAfterInteraction() {
+            let adLoaded = false;
+            const adLoader = () => {
+                if (adLoaded) return;
+                adLoaded = true;
+                setTimeout(() => {
+                    const adScript = document.createElement('script');
+                    adScript.type = 'text/javascript';
+                    adScript.src = 'https://pl28174272.effectivegatecpm.com/27/3c/04/273c0474fe4cdaf52aeda7349b12567a.js';
+                    document.body.appendChild(adScript);
+                }, 5000); 
+                document.removeEventListener('click', adLoader);
+                document.removeEventListener('scroll', adLoader);
+            };
+            document.addEventListener('click', adLoader);
+            document.addEventListener('scroll', adLoader);
         }
-    } catch (error) { tickerText.innerHTML = "সংবাদ লোড করা সম্ভব হচ্ছে না।"; }
-}
+        
+        // Start AD Loading Logic
+        loadAdAfterInteraction();
 
-async function loadAllPlaylists() {
-    loader.style.display = 'flex';
-    categorizedChannels = {};
-    try {
-        const fetchPromises = playlists.map(p => fetch(p.url).then(res => res.text()));
-        const allPlaylistData = await Promise.all(fetchPromises);
-        allPlaylistData.forEach(playlistText => parseM3U(playlistText));
-        populateCategoryDropdown();
-        render();
-        loader.style.display = 'none';
-        const keys = Object.keys(categorizedChannels).sort();
-        if (keys[0] && categorizedChannels[keys[0]][0]) handleChannelClick(categorizedChannels[keys[0]][0], true);
-    } catch (error) { loader.style.display = 'none'; }
-}
+        // --- 1. M3U Data Injection ---
+        const rawM3U = `#EXTM3U
+#EXTINF:-1 tvg-id="2" tvg-name="Somoy TV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735560559088.png" tvg-chno="2" group-title="News",Somoy TV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/index.m3u8
+#EXTINF:-1 tvg-id="3" tvg-name="Jamuna TV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735560213832.png" tvg-chno="3" group-title="News",Jamuna TV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/index.m3u8
+#EXTINF:-1 tvg-id="4" tvg-name="DBC News HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770186306600.png" tvg-chno="4" group-title="News",DBC News HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1728/output/index.m3u8
+#EXTINF:-1 tvg-id="5" tvg-name="Independent TV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1739964387847.png" tvg-chno="5" group-title="News",Independent TV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1704/output/index.m3u8
+#EXTINF:-1 tvg-id="6" tvg-name="Ekattor HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1739963327549.png" tvg-chno="6" group-title="News",Ekattor HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1705/output/index.m3u8
+#EXTINF:-1 tvg-id="7" tvg-name="Channel 24 HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735556516924.png" tvg-chno="7" group-title="News",Channel 24 HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1703/output/index.m3u8
+#EXTINF:-1 tvg-id="8" tvg-name="News 24 HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770186895850.png" tvg-chno="8" group-title="News",News 24 HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1708/output/index.m3u8
+#EXTINF:-1 tvg-id="9" tvg-name="ATN News" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1739962961772.png" tvg-chno="9" group-title="News",ATN News
+https://owrcovcrpy.gpcdn.net/bpk-tv/1706/output/index.m3u8
+#EXTINF:-1 tvg-id="12" tvg-name="Al Jazeera" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735547218986.png" tvg-chno="12" group-title="News",Al Jazeera
+https://owrcovcrpy.gpcdn.net/bpk-tv/1721/output/index.m3u8
+#EXTINF:-1 tvg-id="13" tvg-name="Star News" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770189826301.png" tvg-chno="13" group-title="News",Star News
+https://owrcovcrpy.gpcdn.net/bpk-tv/1710/output/index.m3u8
+#EXTINF:-1 tvg-id="14" tvg-name="BTV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735561595482.png" tvg-chno="14" group-title="News",BTV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8
+#EXTINF:-1 tvg-id="17" tvg-name="Deepto TV HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1742713000749.png" tvg-chno="17" group-title="Entertainment",Deepto TV HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1711/output/index.m3u8
+#EXTINF:-1 tvg-id="18" tvg-name="SATV HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770187361105.png" tvg-chno="18" group-title="Entertainment",SATV HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1720/output/index.m3u8
+#EXTINF:-1 tvg-id="21" tvg-name="Channel 9 HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770188008067.png" tvg-chno="21" group-title="Entertainment",Channel 9 HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1729/output/index.m3u8
+#EXTINF:-1 tvg-id="23" tvg-name="Ekhon TV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770189283848.png" tvg-chno="23" group-title="Entertainment",Ekhon TV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1713/output/index.m3u8
+#EXTINF:-1 tvg-id="24" tvg-name="SRK TV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1746005940155.png" tvg-chno="24" group-title="Entertainment",SRK TV
+https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8
+#EXTINF:-1 tvg-id="26" tvg-name="Channel I HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1740567626692.png" tvg-chno="26" group-title="Entertainment",Channel I HD
+https://owrcovcrpy.gpcdn.net/bpk-tv/1723/output/index.m3u8
+#EXTINF:-1 tvg-id="27" tvg-name="Originals" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770313122372.png" tvg-chno="27" group-title="Movies",Originals
+https://nomawnoijl.gpcdn.net/akash/originals/playlist.m3u8
+#EXTINF:-1 tvg-id="28" tvg-name="Cineedge HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770347851305.png" tvg-chno="28" group-title="Movies",Cineedge HD
+https://nomawnoijl.gpcdn.net/akash/cineedge/playlist.m3u8
+#EXTINF:-1 tvg-id="29" tvg-name="ATN Bangla" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1740553740665.png" tvg-chno="29" group-title="Entertainment",ATN Bangla
+https://owrcovcrpy.gpcdn.net/bpk-tv/1722/output/index.m3u8
+#EXTINF:-1 tvg-id="30" tvg-name="Uniques HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770347327658.png" tvg-chno="30" group-title="Movies",Uniques HD
+https://nomawnoijl.gpcdn.net/akash/uniques/playlist.m3u8
+#EXTINF:-1 tvg-id="31" tvg-name="ARY News" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770531824347.png" tvg-chno="31" group-title="News",ARY News
+https://owrcovcrpy.gpcdn.net/bpk-tv/1724/output/index.m3u8
+#EXTINF:-1 tvg-id="33" tvg-name="Superrix HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770348388925.png" tvg-chno="33" group-title="Movies",Superrix HD
+https://nomawnoijl.gpcdn.net/akash/superrix/playlist.m3u8
+#EXTINF:-1 tvg-id="34" tvg-name="Crazy Ex" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770348753896.png" tvg-chno="34" group-title="Sports",Crazy Ex
+https://nomawnoijl.gpcdn.net/akash/crazy_ex/playlist.m3u8
+#EXTINF:-1 tvg-id="36" tvg-name="Bangla Vision" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735561344354.png" tvg-chno="36" group-title="Entertainment",Bangla Vision
+https://owrcovcrpy.gpcdn.net/bpk-tv/1715/output/index.m3u8
+#EXTINF:-1 tvg-id="37" tvg-name="NTV" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1735560841094.png" tvg-chno="37" group-title="Entertainment",NTV
+https://owrcovcrpy.gpcdn.net/bpk-tv/1716/output/index.m3u8
+#EXTINF:-1 tvg-id="38" tvg-name="Screem" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770312098339.png" tvg-chno="38" group-title="Movies",Screem
+https://nomawnoijl.gpcdn.net/akash/screem/playlist.m3u8
+#EXTINF:-1 tvg-id="39" tvg-name="Sports Legends" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770377900139.png" tvg-chno="39" group-title="Sports",Sports Legends
+https://nomawnoijl.gpcdn.net/akash/sportslegends/playlist.m3u8
+#EXTINF:-1 tvg-id="40" tvg-name="Flash Guys HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378074527.png" tvg-chno="40" group-title="Sports",Flash Guys HD
+https://nomawnoijl.gpcdn.net/akash/flashguys/playlist.m3u8
+#EXTINF:-1 tvg-id="41" tvg-name="Party Universe" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378215384.png" tvg-chno="41" group-title="Music",Party Universe
+https://nomawnoijl.gpcdn.net/akash/partyuniverse/playlist.m3u8
+#EXTINF:-1 tvg-id="42" tvg-name="Delicious" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378370876.png" tvg-chno="42" group-title="Infotainment",Delicious
+https://nomawnoijl.gpcdn.net/akash/delicious/playlist.m3u8
+#EXTINF:-1 tvg-id="43" tvg-name="Luxel HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378560772.png" tvg-chno="43" group-title="Infotainment",Luxel HD
+https://nomawnoijl.gpcdn.net/akash/luxell/playlist.m3u8
+#EXTINF:-1 tvg-id="44" tvg-name="Nikki" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378704923.png" tvg-chno="44" group-title="Kids",Nikki
+https://nomawnoijl.gpcdn.net/akash/nikky/playlist.m3u8
+#EXTINF:-1 tvg-id="45" tvg-name="Joy" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378874717.png" tvg-chno="45" group-title="Kids",Joy
+https://nomawnoijl.gpcdn.net/akash/joy/playlist.m3u8
+#EXTINF:-1 tvg-id="46" tvg-name="BuddyStar HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379038530.png" tvg-chno="46" group-title="Kids",BuddyStar HD
+https://nomawnoijl.gpcdn.net/akash/buddystar/playlist.m3u8
+#EXTINF:-1 tvg-id="47" tvg-name="Funny Junior HD" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379573329.png" tvg-chno="47" group-title="Kids",Funny Junior HD
+https://nomawnoijl.gpcdn.net/akash/funnyjunior/playlist.m3u8
+#EXTINF:-1 tvg-id="48" tvg-name="Crimes" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380126540.png" tvg-chno="48" group-title="Movies",Crimes
+https://nomawnoijl.gpcdn.net/akash/crimes/playlist.m3u8
+#EXTINF:-1 tvg-id="49" tvg-name="True Stories" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380306806.png" tvg-chno="49" group-title="Movies",True Stories
+https://nomawnoijl.gpcdn.net/akash/truestories/playlist.m3u8
+#EXTINF:-1 tvg-id="50" tvg-name="Intelligence" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380460488.png" tvg-chno="50" group-title="Movies",Intelligence
+https://nomawnoijl.gpcdn.net/akash/intelligence/playlist.m3u8
+#EXTINF:-1 tvg-id="51" tvg-name="Sports Range" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380601958.png" tvg-chno="51" group-title="Sports",Sports Range
+https://nomawnoijl.gpcdn.net/akash/sportrange/playlist.m3u8
+#EXTINF:-1 tvg-id="52" tvg-name="Thunder Er" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380791303.png" tvg-chno="52" group-title="Sports",Thunder Er
+https://nomawnoijl.gpcdn.net/akash/thunder/playlist.m3u8
+#EXTINF:-1 tvg-id="53" tvg-name="Fighters" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380942670.png" tvg-chno="53" group-title="Sports",Fighters
+https://nomawnoijl.gpcdn.net/akash/fighter/playlist.m3u8
+#EXTINF:-1 tvg-id="54" tvg-name="Smarty" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381107924.png" tvg-chno="54" group-title="Kids",Smarty
+https://nomawnoijl.gpcdn.net/akash/smarty/playlist.m3u8
+#EXTINF:-1 tvg-id="55" tvg-name="Lucky Family" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381248531.png" tvg-chno="55" group-title="Kids",Lucky Family
+https://nomawnoijl.gpcdn.net/akash/luckyfamily/playlist.m3u8
+#EXTINF:-1 tvg-id="56" tvg-name="Kids Stars" tvg-country="BD" tvg-logo="https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381398090.png" tvg-chno="56" group-title="Kids",Kids Stars
+https://nomawnoijl.gpcdn.net/akash/kidsstars/playlist.m3u8`;
 
-function parseM3U(data) {
-    let lines = data.split('\n'), currentInfo = null;
-    for (const line of lines) {
-        const trm = line.trim();
-        if (trm.startsWith('#EXTINF')) {
-            const name = trm.split(',')[1]?.trim() || 'Unknown';
-            const logo = trm.match(/tvg-logo="([^"]*)"/)?.[1] || "";
-            const category = trm.match(/group-title="([^"]*)"/)?.[1]?.trim() || 'Uncategorized';
-            currentInfo = { name, logo, category, urls: [] };
-        } else if (trm.startsWith('http') && currentInfo) {
-            currentInfo.urls.push(trm);
-            if (!categorizedChannels[currentInfo.category]) categorizedChannels[currentInfo.category] = [];
-            categorizedChannels[currentInfo.category].push(currentInfo);
-            currentInfo = null;
+        // --- 2. Parse M3U ---
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            let currentChannel = {};
+
+            for (let line of lines) {
+                line = line.trim();
+                if (line.startsWith('#EXTINF:')) {
+                    const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    currentChannel.logo = logoMatch ? logoMatch[1] : 'https://placehold.co/420x300/1a1a1a/ffffff?text=LIVE%20TV';
+
+                    const groupMatch = line.match(/group-title="([^"]+)"/);
+                    currentChannel.group = groupMatch ? groupMatch[1] : 'Live TV';
+
+                    const parts = line.split(',');
+                    currentChannel.name = parts[parts.length - 1];
+                } else if (line.startsWith('http')) {
+                    currentChannel.url = line;
+                    channels.push(currentChannel);
+                    currentChannel = {}; 
+                }
+            }
+            return channels;
         }
-    }
-}
 
-function populateCategoryDropdown() {
-    categorySelect.innerHTML = '<option value="_all_">All Categories</option>';
-    Object.keys(categorizedChannels).sort().forEach(cat => {
-        categorySelect.appendChild(new Option(cat, cat));
-    });
-    categorySelect.onchange = render;
-}
+        const channelData = parseM3U(rawM3U);
 
-function render() {
-    listArea.innerHTML = "";
-    const query = searchInput.value.toLowerCase();
-    const selCat = categorySelect.value;
-    const data = isFavView ? getFavoritesByCategory() : categorizedChannels;
-    const cats = (selCat === '_all_') ? Object.keys(data).sort() : [selCat];
+        // --- 3. Render Channels to DOM ---
+        const channelGrid = document.getElementById('channelGrid');
+        document.getElementById('channelCount').textContent = channelData.length + " Channels";
 
-    cats.forEach(cat => {
-        if (!data[cat]) return;
-        const filtered = data[cat].filter(ch => ch.name.toLowerCase().includes(query));
-        if (filtered.length > 0) {
-            if (selCat === '_all_') listArea.insertAdjacentHTML('beforeend', `<div class="category-title">${cat}</div>`);
-            filtered.forEach(ch => {
-                const isFav = JSON.parse(localStorage.getItem('my_iptv_favs') || "[]").some(f => f.name === ch.name);
-                const row = document.createElement('div');
-                row.className = `row ${currentChannel?.name === ch.name ? 'active' : ''}`;
-                row.innerHTML = `<img src="${ch.logo}" class="list-logo" onerror="this.src='https://i.imgur.com/8Qf6Y0L.png'"><div class="name">${ch.name}</div><i class="fas fa-star star-btn ${isFav ? 'is-fav' : ''}" onclick="event.stopPropagation(); toggleFav('${ch.name}')"></i>`;
-                row.onclick = () => handleChannelClick(ch, false);
-                listArea.appendChild(row);
+        channelData.forEach((ch, index) => {
+            const item = document.createElement('div');
+            item.className = 'channel-item';
+            
+            // Thumbnail handling (fallback if image fails to load)
+            const fallbackImg = `https://placehold.co/420x300/1a1a1a/ffffff?text=${encodeURIComponent(ch.name)}`;
+            
+            // Updated HTML structure for the new image view
+            item.innerHTML = `
+                <div class="channel-thumbnail-wrapper">
+                    <img src="${ch.logo}" class="channel-thumbnail" alt="${ch.name}" onerror="this.src='${fallbackImg}'">
+                </div>
+                <div class="channel-name">${ch.name}</div>
+            `;
+            
+            item.addEventListener('click', function(e) {
+                changeChannel(ch.url, ch.name, ch.group, this);
             });
+
+            channelGrid.appendChild(item);
+        });
+
+        // Global variable to hold HLS instance
+        let hlsInstance = null;
+
+        // --- 4. Video Player & Channel Change Logic ---
+        function changeChannel(url, channelName, programInfo, element) {
+            const video = document.getElementById('video-player');
+            
+            if (hlsInstance) {
+                hlsInstance.destroy();
+            }
+
+            if (Hls.isSupported()) {
+                hlsInstance = new Hls();
+                hlsInstance.loadSource(url);
+                hlsInstance.attachMedia(video);
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play().catch(e => console.log("Auto-play prevented", e));
+                });
+            } 
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
+
+            // Update UI
+            document.querySelector('.channel-title').textContent = channelName;
+            document.querySelector('.program-info').textContent = "Group: " + programInfo;
+            
+            const items = document.querySelectorAll('.channel-item');
+            items.forEach(item => item.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+                element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
-    });
-}
 
-function handleChannelClick(ch, isFirst) {
-    currentChannel = ch;
-    chNameDisplay.innerText = ch.name;
-    loader.style.display = 'flex';
-    if (Hls.isSupported()) {
-        hls.destroy(); hls = new Hls(); hls.loadSource(ch.urls[0]); hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => { loader.style.display = 'none'; player.muted = isFirst; player.play().catch(()=>{}); });
-    } else { video.src = ch.urls[0]; loader.style.display = 'none'; }
-    render();
-}
-
-function toggleFav(name) {
-    let favs = JSON.parse(localStorage.getItem('my_iptv_favs') || "[]");
-    const idx = favs.findIndex(f => f.name === name);
-    if (idx > -1) favs.splice(idx, 1);
-    else {
-        for (let cat in categorizedChannels) {
-            const found = categorizedChannels[cat].find(c => c.name === name);
-            if (found) { favs.push(found); break; }
+        // --- 5. Theme & Initialization ---
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
-    }
-    localStorage.setItem('my_iptv_favs', JSON.stringify(favs));
-    render();
-}
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeToggle.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
 
-function getFavoritesByCategory() {
-    const favs = JSON.parse(localStorage.getItem('my_iptv_favs') || "[]");
-    const obj = {};
-    favs.forEach(ch => { 
-        if (!obj[ch.category]) obj[ch.category] = [];
-        obj[ch.category].push(ch);
-    });
-    return obj;
-}
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', function(e) {
+            const items = document.querySelectorAll('.channel-item');
+            if(items.length === 0) return;
 
-function switchTab(type, el) {
-    document.querySelectorAll('.actions div').forEach(d => d.classList.remove('active-tab'));
-    el.classList.add('active-tab');
-    isFavView = (type === 'fav');
-    render();
-}
+            const currentActive = document.querySelector('.channel-item.active');
+            let currentIndex = currentActive ? Array.from(items).indexOf(currentActive) : 0;
+            
+            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                currentIndex = (currentIndex + 1) % items.length;
+            } else if (e.key >= '1' && e.key <= '9') {
+                currentIndex = parseInt(e.key) - 1;
+                if (currentIndex >= items.length) currentIndex = items.length - 1;
+            } else {
+                return;
+            }
+            
+            items[currentIndex].click();
+        });
 
-function refreshCurrentStream() { if (currentChannel) handleChannelClick(currentChannel, false); }
-</script>
-
+        // Initialize with first channel active on load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (channelData.length > 0) {
+                document.querySelector('.channel-item').click();
+            }
+        });
+    </script>
 </body>
 </html>
